@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "770555271595",
+    "firebase_url": "https://veraxe-4b742.firebaseio.com",
+    "project_id": "veraxe-4b742",
+    "storage_bucket": "veraxe-4b742.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770555271595:android:71641b6bf133f69f",
+        "android_client_info": {
+          "package_name": "com.app.veraxe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770555271595-1bn1iaumj786j1puvtp1ad4jm07i004t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlR4oreg16l_p00InQTFr9Rk47vudiuAE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

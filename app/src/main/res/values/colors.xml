@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5a4370</color>
+    <color name="colorPrimaryDark">#3f3969</color>
+    <color name="colorAccent">#53426c</color>
+    <color name="colorHighlight">#836fa1</color>
+    <color name="white">#ffffff</color>
+    <color name="txt_orange">#f17200</color>
+    <color name="black">#000000</color>
+    <color name="text_red">#c61702</color>
+    <color name="event_row_color">#96c0ce</color>
+    <color name="event_row_color1">#d5dbdf</color>
+    <color name="green">#3c713f</color>
+    <color name="green_timetable">#009f93</color>
+    <color name="red_color">#fa0400</color>
+    <color name="green_color">#3c713f</color>
+    <color name="yellow_color">#d28314</color>
+    <color name="blue_color">#2a7db4</color>
+    <color name="period_background_color">#494b54</color>
+    <color name="days_background_color">#b0b2ba</color>
+    <color name="text_color_black">#3b464c</color>
+    <color name="text_color_blue">#513d65</color>
+    <color name="blue_background">#513d65</color>
+    <color name="darkblue_background">#3f3969</color>
+    <color name="text_color_grey">#859eb2</color>
+    <color name="text_hint_color">#cccccc</color>
+    <color name="text_color_darkgrey">#555555</color>
+    <color name="layoutbg_color">#88777777</color>
+    <color name="dashboard_layoutbg_color">#99272727</color>
+    <color name="text_color_lightblue">#836fa1</color>
+    <color name="view_bg_color">#f7f7f7</color>
+    <color name="complaint_color">#ffb600</color>
+    <color name="complement_color">#219ba6</color>
+    <color name="feedback_color">#505a78</color>
+
+
+</resources>

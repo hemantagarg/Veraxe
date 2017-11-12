@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/profie"
+            android:title="@string/profile" />
+
+        <item
+            android:id="@+id/nav_feedabck"
+            android:icon="@drawable/feedback"
+            android:title="@string/feedabck" />
+
+        <item
+            android:id="@+id/nav_monthly_planner"
+            android:icon="@drawable/monthlyplanner"
+            android:title="@string/monthly_planner" />
+
+        <item
+            android:id="@+id/nav_message"
+            android:icon="@drawable/message"
+            android:title="@string/messages"
+            android:visible="false" />
+        <item
+            android:id="@+id/nav_students"
+            android:icon="@drawable/profie"
+            android:title="@string/students"
+            android:visible="true" />
+        <item
+            android:id="@+id/nav_events"
+            android:icon="@drawable/event_icon"
+            android:title="@string/events1"
+            android:visible="false" />
+
+        <item
+            android:id="@+id/nav_changepassword"
+            android:icon="@drawable/changepassword"
+            android:title="@string/change_password" />
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/share" />
+
+            <item
+                android:id="@+id/nav_rate"
+                android:icon="@drawable/rateus"
+                android:title="Rate Us" />
+
+
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/logout" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_student_dashboard">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:visibility="gone">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/view_bg_color"
+        android:orientation="vertical"
+        android:padding="@dimen/dp6"
+        android:visibility="visible"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/dp2"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/dp2"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="2">
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_attendance"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="@dimen/dp2"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/image_bg_attendance"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white">
+
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
+
+                            <ImageView
+                                android:id="@+id/icon_attendance"
+                                android:layout_width="@dimen/dp_80"
+                                android:layout_height="@dimen/dp_80"
+                                android:layout_centerHorizontal="true"
+                                android:padding="@dimen/dp10"
+                                android:src="@drawable/attendance" />
+
+                            <TextView
+                                android:id="@+id/text_attendance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/icon_attendance"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:padding="@dimen/dp5"
+                                android:text="@string/atendance"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_size_18"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/text_attendance_desc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/text_attendance"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:text="Student Attendance"
+                                android:textColor="@color/text_color_darkgrey"
+                                android:textSize="@dimen/text_size_13" />
+
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/dp2"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/image_bg_attendance_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
+
+                            <ImageView
+                                android:id="@+id/icon_profile"
+                                android:layout_width="@dimen/dp_80"
+                                android:layout_height="@dimen/dp_80"
+                                android:layout_centerHorizontal="true"
+                                android:padding="@dimen/dp10"
+                                android:src="@drawable/profile" />
+
+                            <TextView
+                                android:id="@+id/text_profile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/icon_profile"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:padding="@dimen/dp5"
+                                android:text="@string/profile"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_size_18"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/text_profile_desc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/text_profile"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:text="Student Pofile"
+                                android:textColor="@color/text_color_darkgrey"
+                                android:textSize="@dimen/text_size_13" />
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp2"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="2">
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="@dimen/dp2"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/image_bg_attendance_report"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
+
+                            <ImageView
+                                android:id="@+id/icon_attendance_report"
+                                android:layout_width="@dimen/dp_80"
+                                android:layout_height="@dimen/dp_80"
+                                android:layout_centerHorizontal="true"
+                                android:padding="@dimen/dp10"
+                                android:src="@drawable/attendance_report" />
+
+                            <TextView
+                                android:id="@+id/text_attendance_report"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/icon_attendance_report"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:padding="@dimen/dp5"
+                                android:text="Messages"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_size_18"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/text_attendance_report_desc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/text_attendance_report"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:text="Student Message"
+                                android:textColor="@color/text_color_darkgrey"
+                                android:textSize="@dimen/text_size_13" />
+
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/dp2"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/image_bg_self_attendance"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white">
+
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
+
+                            <ImageView
+                                android:id="@+id/icon_self_attendance"
+                                android:layout_width="@dimen/dp_80"
+                                android:layout_height="@dimen/dp_80"
+                                android:layout_centerHorizontal="true"
+                                android:padding="@dimen/dp10"
+                                android:src="@drawable/self_attendance" />
+
+                            <TextView
+                                android:id="@+id/text_self_attendance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/icon_self_attendance"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:padding="@dimen/dp5"
+                                android:text="Events"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_size_18"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/text_self_attendance_desc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/text_self_attendance"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:text="Student Events"
+                                android:textColor="@color/text_color_darkgrey"
+                                android:textSize="@dimen/text_size_13" />
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp2"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RelativeLayout
+                android:id="@+id/rl_homework"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/dp2"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/image_bg_homework"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+
+                        <ImageView
+                            android:id="@+id/icon_homework"
+                            android:layout_width="@dimen/dp_80"
+                            android:layout_height="@dimen/dp_80"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:padding="@dimen/dp10"
+                            android:src="@drawable/homework" />
+
+                        <TextView
+                            android:id="@+id/text_homework"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/icon_homework"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:padding="@dimen/dp5"
+                            android:text="Homework"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_18"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/text_homework_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/text_homework"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="Student Homework"
+                            android:textColor="@color/text_color_darkgrey"
+                            android:textSize="@dimen/text_size_13" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_timetable"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp2"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/image_bg_timetable"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:id="@+id/icon_timetable"
+                            android:layout_width="@dimen/dp_80"
+                            android:layout_height="@dimen/dp_80"
+                            android:layout_centerHorizontal="true"
+                            android:padding="@dimen/dp10"
+                            android:src="@drawable/time_table" />
+
+                        <TextView
+                            android:id="@+id/text_timetable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/icon_timetable"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:padding="@dimen/dp5"
+                            android:text="@string/time_table"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_18"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/text_timetable_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/text_timetable"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="Student Time Table"
+                            android:textColor="@color/text_color_darkgrey"
+                            android:textSize="@dimen/text_size_13" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

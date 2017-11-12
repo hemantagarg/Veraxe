@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/toolbar_bg"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp15"
+                android:padding="@dimen/dp10"
+                android:src="@drawable/smsnew" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/dp5"
+                android:gravity="center"
+                android:padding="@dimen/dp10"
+                android:text="Sit back and Relax! while we verify your mobile number"
+                android:textColor="@color/text_color_blue"
+                android:textSize="@dimen/text_size_16" />
+
+            <TextView
+                android:id="@+id/text_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/dp5"
+                android:gravity="center"
+                android:padding="@dimen/dp10"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/text_size_14" />
+
+
+            <EditText
+                android:id="@+id/edit_otp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp10"
+                android:gravity="center"
+                android:hint="- - - - - -"
+                android:textColor="@color/text_color_darkgrey"
+                android:textColorHint="@color/text_hint_color"
+                android:textSize="@dimen/text_size_19" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="@dimen/dp5"
+                android:text="Enter 6-digit code"
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/text_size_14" />
+
+
+            <TextView
+                android:id="@+id/text_terms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
+                android:padding="@dimen/dp5"
+                android:text="@string/by_clicking_below_you_agree_to_veraxe_terms"
+                android:textColor="@color/text_color_lightblue"
+                android:textSize="@dimen/text_size_13" />
+
+
+            <TextView
+                android:id="@+id/text_verify_otp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="@drawable/button_selector"
+                android:clickable="true"
+                android:paddingBottom="@dimen/dp10"
+                android:paddingLeft="@dimen/dp15"
+                android:paddingRight="@dimen/dp15"
+                android:paddingTop="@dimen/dp10"
+                android:text="Verify OTP"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_14"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/text_resendsms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp5"
+                android:layout_marginTop="@dimen/dp10"
+                android:drawableLeft="@drawable/chat_icons"
+                android:drawablePadding="@dimen/dp10"
+                android:padding="@dimen/dp10"
+                android:text="Resend SMS"
+                android:textColor="@color/text_color_blue" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

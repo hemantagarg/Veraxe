@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp5">
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/dp5"
+            android:text="12-07-2016"
+            android:textColor="@color/text_color_darkgrey"
+            android:textSize="@dimen/text_size_14"
+            android:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_toLeftOf="@+id/text_date"
+            android:padding="@dimen/dp5"
+            android:text="Dr, Arnup"
+            android:textColor="@color/text_color_darkgrey"
+            android:textSize="@dimen/text_size_17" />
+
+        <TextView
+            android:id="@+id/text_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_name"
+            android:layout_marginLeft="@dimen/dp10"
+            android:paddingLeft="@dimen/dp5"
+            android:text=""
+            android:textColor="@color/text_color_darkgrey"
+            android:textSize="@dimen/text_size_15"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

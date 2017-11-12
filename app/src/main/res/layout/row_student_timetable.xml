@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/period_background_color"
+            android:paddingBottom="@dimen/dp10"
+            android:paddingLeft="@dimen/dp4"
+            android:paddingRight="@dimen/dp4"
+            android:paddingTop="@dimen/dp10">
+
+            <TextView
+                android:id="@+id/text_periodname"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/time_tablegreen_circle"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp17"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/dp5">
+
+
+            <TextView
+                android:id="@+id/text_subject_mon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_class_mon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_time_mon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_teacher_mon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp10"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/dp5">
+
+
+            <TextView
+                android:id="@+id/text_subject_tue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_class_tue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_time_tue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_teacher_tue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp10"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/dp5">
+
+
+            <TextView
+                android:id="@+id/text_subject_wed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_class_wed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_time_wed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_teacher_wed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp10"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/dp5">
+
+
+            <TextView
+                android:id="@+id/text_subject_thur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_class_thur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_time_thur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/text_teacher_thur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp10"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/dp5">
+
+
+            <TextView
+                android:id="@+id/text_subject_fri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_class_fri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_time_fri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/text_teacher_fri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp10"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/dp5">
+
+
+            <TextView
+                android:id="@+id/text_subject_sat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_class_sat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_time_sat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_teacher_sat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text=""
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/dp10"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/linear1"
+        android:background="@color/text_hint_color" />
+
+
+</RelativeLayout>
