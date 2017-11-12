@@ -5,6 +5,8 @@
     <color name="colorAccent">#53426c</color>
     <color name="colorHighlight">#836fa1</color>
     <color name="white">#ffffff</color>
+    <color name="view_color">#d4d4d4</color>
+    <color name="text_selected_bg">#e1e1e1</color>
     <color name="txt_orange">#f17200</color>
     <color name="black">#000000</color>
     <color name="text_red">#c61702</color>
@@ -16,8 +18,11 @@
     <color name="green_color">#3c713f</color>
     <color name="yellow_color">#d28314</color>
     <color name="blue_color">#2a7db4</color>
+    <color name="layout_bg_color">#f2f2f2</color>
     <color name="period_background_color">#494b54</color>
     <color name="days_background_color">#b0b2ba</color>
+    <color name="textcolordark">#444444</color>
+    <color name="red">#e82558</color>
     <color name="text_color_black">#3b464c</color>
     <color name="text_color_blue">#513d65</color>
     <color name="blue_background">#513d65</color>

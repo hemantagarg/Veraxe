@@ -9,9 +9,9 @@ public class ModelStudent {
 
     private String student_id;
     private String name;
-    private String school_id;
-    private String gender;
-    private String avtar,orgiginalImage="";
+    private String school_id,leave_type_name,student_remark,teacher_remark,leave_type_id;
+    private String gender, day, month, year, time;
+    private String avtar, orgiginalImage = "";
     private int rowType;
 
     public int getIsVideo() {
@@ -24,13 +24,13 @@ public class ModelStudent {
 
     private int isVideo;
     private String id;
-    private String subject_id,icon,image;
+    private String subject_id, icon, image;
     private String text;
     private String date_start;
     private String date_end;
     private String title;
     private String attn_status;
-    private String add_status,from,student_name;
+    private String add_status, from, student_name;
 
 
     public String getDepartment_id() {
@@ -124,7 +124,7 @@ public class ModelStudent {
     }
 
     private String classname;
-    private String section,logo;
+    private String section, logo;
 
 
     public String getStudent_class_id() {
@@ -425,5 +425,69 @@ public class ModelStudent {
 
     public void setOrgiginalImage(String orgiginalImage) {
         this.orgiginalImage = orgiginalImage;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getLeave_type_name() {
+        return leave_type_name;
+    }
+
+    public void setLeave_type_name(String leave_type_name) {
+        this.leave_type_name = leave_type_name;
+    }
+
+    public String getStudent_remark() {
+        return student_remark;
+    }
+
+    public void setStudent_remark(String student_remark) {
+        this.student_remark = student_remark;
+    }
+
+    public String getTeacher_remark() {
+        return teacher_remark;
+    }
+
+    public void setTeacher_remark(String teacher_remark) {
+        this.teacher_remark = teacher_remark;
+    }
+
+    public String getLeave_type_id() {
+        return leave_type_id;
+    }
+
+    public void setLeave_type_id(String leave_type_id) {
+        this.leave_type_id = leave_type_id;
     }
 }

@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class StudentEventList extends AppCompatActivity implements OnCustomItemC
     private BroadcastReceiver broadcastReceiver;
     SwipeRefreshLayout swipe_refresh;
     private AdView mAdView;
+    private ImageView image_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +72,6 @@ public class StudentEventList extends AppCompatActivity implements OnCustomItemC
             mAdView.setVisibility(View.GONE);
         }
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setTitle("Students");
-        cd = new ConnectionDetector(context);
-        arrayList = new ArrayList<>();
         setListener();
         eventList();
 
@@ -83,7 +79,8 @@ public class StudentEventList extends AppCompatActivity implements OnCustomItemC
     }
 
     private void init() {
-
+        cd = new ConnectionDetector(context);
+        arrayList = new ArrayList<>();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.package.ACTION_LOGOUT");
 
@@ -96,8 +93,11 @@ public class StudentEventList extends AppCompatActivity implements OnCustomItemC
             }
         };
         registerReceiver(broadcastReceiver, intentFilter);
-
+        image_back = (ImageView) findViewById(R.id.image_back);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         rl_main_layout = (RelativeLayout) findViewById(R.id.rl_main_layout);
         rl_network = (RelativeLayout) findViewById(R.id.rl_network);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -105,8 +105,6 @@ public class StudentEventList extends AppCompatActivity implements OnCustomItemC
         mRecyclerView.setLayoutManager(layoutManager);
         swipe_refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipe_refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimaryDark));
-
-
     }
 
     public void onPause() {
@@ -141,21 +139,23 @@ public class StudentEventList extends AppCompatActivity implements OnCustomItemC
 
     public void setListener() {
 
+        image_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 finish();
-
             }
         });
 
         swipe_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 eventListRefresh();
-
             }
         });
     }
@@ -228,9 +228,13 @@ public class StudentEventList extends AppCompatActivity implements OnCustomItemC
                         itemList.setDatetime(jo.getString("datetime"));
                         itemList.setRowType(1);
                         itemList.setDescription(jo.getString("description"));
+                        JSONObject date = jo.getJSONObject("date");
+                        itemList.setDay(date.getString("day"));
+                        itemList.setMonth(date.getString("month"));
+                        itemList.setYear(date.getString("year"));
+                        itemList.setTime(date.getString("time"));
 
                         arrayList.add(itemList);
-
                     }
                     adapterEventtList = new AdapterStudentEventtList(context, this, arrayList);
                     mRecyclerView.setAdapter(adapterEventtList);

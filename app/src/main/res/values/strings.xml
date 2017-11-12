@@ -31,6 +31,8 @@
     <string name="markattendance">markattendance</string>
     <string name="homework">homework</string>
     <string name="events">events</string>
+    <string name="send_apply_leave">send-apply-leave</string>
+    <string name="list_leave_types">list-leave-types</string>
     <string name="dashboard_student">dashboard-student</string>
     <string name="dashboard_school">dashboard-school</string>
     <string name="auth_changepassword">auth/changepassword</string>
@@ -38,6 +40,7 @@
     <string name="editevent">editevent</string>
     <string name="delete_homework">delete/homework</string>
     <string name="delete_event">delete/event</string>
+    <string name="delete_leave">delete-apply-leave</string>
     <string name="addhomework">addhomework</string>
     <string name="teacher_timetable">teacher-timetable</string>
     <string name="event_detail">event-detail</string>
@@ -128,5 +131,11 @@
     <string name="submit">Submit</string>
     <string name="title_activity_monthly_planner">MonthlyPlanner</string>
     <string name="monthly_planner">Monthly Planner</string>
+    <string name="leaves">Leaves</string>
+    <string name="need_a_leave">Need a Leave?</string>
+    <string name="cancel">Cancel</string>
+    <string name="type_of_leave">Type of Leave</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
 
 </resources>

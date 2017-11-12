@@ -80,6 +80,9 @@ public class AdapterEventtList extends RecyclerView.Adapter<RecyclerView.ViewHol
             ((CustomViewHolder) holder).text_name.setText(m1.getTitle());
             ((CustomViewHolder) holder).text_date.setText(m1.getDatetime());
             ((CustomViewHolder) holder).text_desc.setText(m1.getDescription());
+           /* ((CustomViewHolder) holder).text_day.setText(m1.getDay());
+            ((CustomViewHolder) holder).text_month.setText(m1.getMonth());
+            ((CustomViewHolder) holder).text_year.setText(m1.getYear());*/
 
             try {
                 if (detail.get(position).getTitle().length() > 0) {
@@ -127,7 +130,7 @@ public class AdapterEventtList extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        TextView text_name, text_desc, text_date, text_name_title;
+        TextView text_name, text_desc, text_date, text_name_title, text_day, text_month, text_year;
         ImageView image_delete, image_edit;
         CardView card_view;
         ImageView circle_image;
@@ -138,15 +141,15 @@ public class AdapterEventtList extends RecyclerView.Adapter<RecyclerView.ViewHol
             this.text_name = (TextView) view.findViewById(R.id.text_name);
             this.text_date = (TextView) view.findViewById(R.id.text_date);
             this.text_desc = (TextView) view.findViewById(R.id.text_desc);
+            this.text_day = (TextView) view.findViewById(R.id.text_day);
+            this.text_month = (TextView) view.findViewById(R.id.text_month);
+            this.text_year = (TextView) view.findViewById(R.id.text_year);
             this.text_name_title = (TextView) view.findViewById(R.id.text_name_title);
             this.card_view = (CardView) view.findViewById(R.id.card_view);
             this.circle_image = (ImageView) view.findViewById(R.id.circle_image);
             this.image_delete = (ImageView) view.findViewById(R.id.image_delete);
             this.image_edit = (ImageView) view.findViewById(R.id.image_edit);
-
         }
-
-
     }
 
     public void setFilter(ArrayList<ModelStudent> detailnew) {

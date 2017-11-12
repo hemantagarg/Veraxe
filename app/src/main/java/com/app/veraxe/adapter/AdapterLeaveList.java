@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.veraxe.R;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by admin on 26-11-2015.
  */
-public class AdapterStudentEventtList extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterLeaveList extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<ModelStudent> detail;
     Context mContext;
     OnCustomItemClicListener listener;
@@ -30,7 +29,7 @@ public class AdapterStudentEventtList extends RecyclerView.Adapter<RecyclerView.
     private final int VIEW_PROG = 0;
     int[] color = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e, R.drawable.f, R.drawable.g, R.drawable.h, R.drawable.i, R.drawable.j, R.drawable.k, R.drawable.l, R.drawable.m, R.drawable.n, R.drawable.o, R.drawable.p, R.drawable.q, R.drawable.r, R.drawable.s, R.drawable.t, R.drawable.u, R.drawable.v, R.drawable.w, R.drawable.x, R.drawable.y, R.drawable.z};
 
-    public AdapterStudentEventtList(Context context, OnCustomItemClicListener lis, ArrayList<ModelStudent> list) {
+    public AdapterLeaveList(Context context, OnCustomItemClicListener lis, ArrayList<ModelStudent> list) {
 
         this.detail = list;
         this.mContext = context;
@@ -45,7 +44,7 @@ public class AdapterStudentEventtList extends RecyclerView.Adapter<RecyclerView.
         RecyclerView.ViewHolder vh;
         if (viewType == VIEW_ITEM) {
             View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.row_student_eventlist, parent, false);
+                    R.layout.row_leave_list, parent, false);
 
             vh = new CustomViewHolder(v);
 
@@ -78,38 +77,22 @@ public class AdapterStudentEventtList extends RecyclerView.Adapter<RecyclerView.
 
             ModelStudent m1 = (ModelStudent) detail.get(position);
 
-            ((CustomViewHolder) holder).text_name.setText(m1.getTitle());
-            ((CustomViewHolder) holder).text_date.setText(m1.getTime());
-            ((CustomViewHolder) holder).text_desc.setText(m1.getDescription());
-            ((CustomViewHolder) holder).text_day.setText(m1.getDay());
-            ((CustomViewHolder) holder).text_month.setText(m1.getMonth());
-            ((CustomViewHolder) holder).text_year.setText(m1.getYear());
-
-            try {
-                if (detail.get(position).getTitle().length() > 0) {
-                    char c = detail.get(position).getTitle().toUpperCase().charAt(0);
-                    int pos = (int) c;
-                    pos = pos % 65;
-                    ((CustomViewHolder) holder).circle_image.setImageResource(color[pos]);
-                    ((CustomViewHolder) holder).text_name_title.setText(detail.get(position).getTitle().toUpperCase().charAt(0) + "");
-
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            ((CustomViewHolder) holder).text_dapartment_label.setText(m1.getDate_start() + " - " + m1.getDate_end());
+            ((CustomViewHolder) holder).text_feedbak_type.setText(m1.getLeave_type_name());
+            ((CustomViewHolder) holder).text_date.setText(m1.getDatetime());
+            if (m1.getStudent_remark().equalsIgnoreCase("")) {
+                ((CustomViewHolder) holder).text_message.setText("Teacher Remark : " + m1.getTeacher_remark());
+            } else {
+                ((CustomViewHolder) holder).text_message.setText("Self Remark : " + m1.getStudent_remark());
             }
 
-            ((CustomViewHolder) holder).card_view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClickListener(position, 1);
-                }
-            });
             ((CustomViewHolder) holder).image_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    listener.onItemClickListener(position, 2);
+                public void onClick(View view) {
+                    listener.onItemClickListener(position,2);
                 }
             });
+            ((CustomViewHolder) holder).text_status.setText(m1.getStatus_name());
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
@@ -125,29 +108,21 @@ public class AdapterStudentEventtList extends RecyclerView.Adapter<RecyclerView.
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        TextView text_name, text_desc, text_date, text_name_title, text_day, text_month, text_year;
-        ImageView circle_image;
-        ImageView image_delete;
+        TextView text_dapartment_label, text_feedbak_type, text_status, text_date, text_message;
         CardView card_view;
-        RelativeLayout rl_bg;
+        ImageView image_delete;
 
         public CustomViewHolder(View view) {
             super(view);
 
-            this.text_name = (TextView) view.findViewById(R.id.text_name);
+            this.text_dapartment_label = (TextView) view.findViewById(R.id.text_dapartment_label);
             this.text_date = (TextView) view.findViewById(R.id.text_date);
-            this.text_desc = (TextView) view.findViewById(R.id.text_desc);
-            this.card_view = (CardView) view.findViewById(R.id.card_view);
-            this.text_name_title = (TextView) view.findViewById(R.id.text_name_title);
-            this.text_day = (TextView) view.findViewById(R.id.text_day);
-            this.text_month = (TextView) view.findViewById(R.id.text_month);
-            this.text_year = (TextView) view.findViewById(R.id.text_year);
+            this.text_status = (TextView) view.findViewById(R.id.text_status);
+            this.text_message = (TextView) view.findViewById(R.id.text_message);
+            this.text_feedbak_type = (TextView) view.findViewById(R.id.text_feedbak_type);
             this.image_delete = (ImageView) view.findViewById(R.id.image_delete);
-            this.rl_bg = (RelativeLayout) view.findViewById(R.id.rl_bg);
-            this.circle_image = (ImageView) view.findViewById(R.id.circle_image);
+            this.card_view = (CardView) view.findViewById(R.id.card_view);
         }
-
-
     }
 
     public void setFilter(ArrayList<ModelStudent> detailnew) {

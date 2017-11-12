@@ -56,6 +56,7 @@ public class AppUtils {
         }
         return 0;
     }
+
     public static String getLauncherClassName(Context context) {
 
         PackageManager pm = context.getPackageManager();
@@ -85,6 +86,7 @@ public class AppUtils {
         intent.putExtra("badge_count_class_name", launcherClassName);
         context.sendBroadcast(intent);
     }
+
     public static void setBadgeCount(Context context, int count) {
 
         try {
@@ -99,6 +101,7 @@ public class AppUtils {
         }
 
     }
+
     public static void onKeyBoardDown(Context con) {
         try {
             InputMethodManager inputManager = (InputMethodManager) con
@@ -567,8 +570,8 @@ public class AppUtils {
     public static String getTimeFromDateString(String dateString) {
         String formattedString = "";
         try {
-            // String source = "2013-02-19T11:20:16.393Z";
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            // String source = "20 Apr 2017 02:02 PM";
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
             Date date = null;
             date = formatter.parse(dateString);
             SimpleDateFormat formatterNew = new SimpleDateFormat("hh:mm a");

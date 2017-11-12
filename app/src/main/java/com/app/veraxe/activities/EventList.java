@@ -40,7 +40,6 @@ import java.util.HashMap;
  */
 public class EventList extends AppCompatActivity implements OnCustomItemClicListener, ApiResponse {
 
-
     Context context;
     RecyclerView mRecyclerView;
     ModelStudent itemList;
@@ -55,6 +54,7 @@ public class EventList extends AppCompatActivity implements OnCustomItemClicList
     private BroadcastReceiver broadcastReceiver;
     SwipeRefreshLayout swipe_refresh;
     private int deletePosition;
+    private ImageView image_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +64,6 @@ public class EventList extends AppCompatActivity implements OnCustomItemClicList
         context = this;
         init();
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setTitle("Students");
-        cd = new ConnectionDetector(context);
-        arrayList = new ArrayList<>();
         setListener();
         eventList();
 
@@ -89,8 +83,15 @@ public class EventList extends AppCompatActivity implements OnCustomItemClicList
             }
         };
         registerReceiver(broadcastReceiver, intentFilter);
-
+        image_back = (ImageView) findViewById(R.id.image_back);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle("Students");
+        cd = new ConnectionDetector(context);
+        arrayList = new ArrayList<>();
         rl_main_layout = (RelativeLayout) findViewById(R.id.rl_main_layout);
         rl_network = (RelativeLayout) findViewById(R.id.rl_network);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -110,7 +111,12 @@ public class EventList extends AppCompatActivity implements OnCustomItemClicList
     }
 
     public void setListener() {
-
+        image_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         swipe_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -275,9 +281,13 @@ public class EventList extends AppCompatActivity implements OnCustomItemClicList
                         itemList.setDatetime(jo.getString("datetime"));
                         itemList.setRowType(1);
                         itemList.setDescription(jo.getString("description"));
-
+                     /*   JSONObject date = jo.getJSONObject("date");
+                        itemList.setDay(date.getString("day"));
+                        itemList.setMonth(date.getString("month"));
+                        itemList.setYear(date.getString("year"));
+                        itemList.setTime(date.getString("time"));
+*/
                         arrayList.add(itemList);
-
                     }
                     adapterEventtList = new AdapterEventtList(context, this, arrayList);
                     mRecyclerView.setAdapter(adapterEventtList);
