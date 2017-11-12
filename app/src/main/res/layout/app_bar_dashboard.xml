@@ -1,35 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.app.veraxe.activities.DashboardActivity">
+    android:orientation="vertical"
+    tools:context="com.app.veraxe.activities.DashboardActivity"
+    tools:showIn="@layout/activity_dashboard">
 
-    <android.support.design.widget.AppBarLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
+        android:layout_height="200dp">
+
+
+        <RelativeLayout
+            android:id="@+id/rl_banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp2">
+
+            <ImageView
+                android:id="@+id/imge_banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/event_bg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#773a84c3" />
+
+
+            <ImageView
+                android:id="@+id/image_user_top"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/user"
+                android:layout_marginRight="@dimen/dp20" />
+
+            <TextView
+                android:id="@+id/text_username_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/image_user_top"
+                android:layout_alignParentRight="true"
+                android:layout_alignRight="@+id/image_user_top"
+                android:layout_below="@+id/image_user_top"
+                android:layout_marginRight="@dimen/dp20"
+                android:gravity="center"
+                android:padding="@dimen/dp5"
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/text_size_13" />
+        </RelativeLayout>
+
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/toolbar_bg"
+            android:background="@android:color/transparent"
+            android:theme="@style/AppTheme.NoActionBar.AppBarOverlay"
             app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="Home"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_title" />
+                android:textSize="@dimen/text_size_title"
+                android:textStyle="bold" />
         </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+    </RelativeLayout>
 
     <include layout="@layout/content_dashboard" />
 
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

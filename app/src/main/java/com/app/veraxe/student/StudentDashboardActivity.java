@@ -58,7 +58,9 @@ public class StudentDashboardActivity extends AppCompatActivity
     ArrayList<ModelStudent> arrayList;
     ImageView icon_attendance, icon_attendance_report, icon_self_attendance, icon_homework, icon_timetable, icon_profile;
     ImageView image_bg_attendance, image_bg_attendance_report, image_bg_attendance_profile, image_bg_self_attendance, image_bg_homework, image_bg_timetable;
-    TextView text_attendance, text_attendance_report, text_self_attendance, text_homework, text_timetable, text_profile;
+    TextView text_attendance, text_attendance_report, text_self_attendance, text_homework, text_timetable, text_profile, text_username_top;
+    ImageView user_image, image_user_top;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +89,13 @@ public class StudentDashboardActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
         TextView text_username = (TextView) header.findViewById(R.id.username);
-        ImageView user_image = (ImageView) header.findViewById(R.id.user_image);
+        user_image = (ImageView) header.findViewById(R.id.user_image);
         text_username.setText(AppUtils.getUserName(context));
+        text_username_top.setText(AppUtils.getUserName(context));
 
         if (!AppUtils.getUserImage(context).equalsIgnoreCase("")) {
             Picasso.with(context).load(AppUtils.getUserImage(context)).placeholder(R.drawable.user).transform(new CircleTransform()).into(user_image);
+            Picasso.with(context).load(AppUtils.getUserImage(context)).placeholder(R.drawable.user).transform(new CircleTransform()).into(image_user_top);
         }
         navigationView.setNavigationItemSelectedListener(this);
         setListener();
@@ -104,6 +108,10 @@ public class StudentDashboardActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
+        if (!AppUtils.getUserImage(context).equalsIgnoreCase("")) {
+            Picasso.with(context).load(AppUtils.getUserImage(context)).placeholder(R.drawable.user).transform(new CircleTransform()).into(user_image);
+            Picasso.with(context).load(AppUtils.getUserImage(context)).placeholder(R.drawable.user).transform(new CircleTransform()).into(image_user_top);
+        }
 
     }
 
@@ -157,6 +165,7 @@ public class StudentDashboardActivity extends AppCompatActivity
         rl_profile = (RelativeLayout) findViewById(R.id.rl_profile);
 
         icon_attendance = (ImageView) findViewById(R.id.icon_attendance);
+        image_user_top = (ImageView) findViewById(R.id.image_user_top);
         icon_attendance_report = (ImageView) findViewById(R.id.icon_attendance_report);
         icon_self_attendance = (ImageView) findViewById(R.id.icon_self_attendance);
         icon_homework = (ImageView) findViewById(R.id.icon_homework);
@@ -169,6 +178,7 @@ public class StudentDashboardActivity extends AppCompatActivity
         text_homework = (TextView) findViewById(R.id.text_homework);
         text_homework = (TextView) findViewById(R.id.text_homework);
         text_timetable = (TextView) findViewById(R.id.text_timetable);
+        text_username_top = (TextView) findViewById(R.id.text_username_top);
 
         image_bg_attendance = (ImageView) findViewById(R.id.image_bg_attendance);
         image_bg_attendance_report = (ImageView) findViewById(R.id.image_bg_attendance_report);
