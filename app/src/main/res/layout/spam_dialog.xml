@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginRight="@dimen/dp20"
+        android:background="@drawable/white_corners"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp20">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:padding="@dimen/dp10"
+            android:text="Report Spam"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_15" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/mTvtype_of_leave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@drawable/edit_bg"
+                android:drawablePadding="@dimen/dp10"
+                android:drawableRight="@drawable/down"
+                android:hint="Reason"
+                android:padding="@dimen/dp10"
+                android:textColor="@color/textcolordark"
+                android:textColorHint="@color/text_hint_color"
+                android:textSize="@dimen/text_size_15" />
+
+            <Spinner
+                android:id="@+id/spinner_spam_reason"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp10" />
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/mEdtComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp15"
+            android:background="@drawable/edit_bg"
+            android:hint="Other Reason"
+            android:padding="@dimen/dp10"
+            android:textColor="@color/textcolordark"
+            android:textColorHint="@color/text_hint_color"
+            android:textSize="@dimen/text_size_15"
+            android:visibility="gone" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp30"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp40"
+                android:layout_weight="1"
+                android:background="@drawable/red_button_bg"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_15" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp40"
+                android:layout_weight="1"
+                android:background="@drawable/grey_button_bg"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/textcolordark"
+                android:textSize="@dimen/text_size_15" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

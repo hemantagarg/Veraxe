@@ -110,6 +110,12 @@ public class AdapterStudentEventtList extends RecyclerView.Adapter<RecyclerView.
                     listener.onItemClickListener(position, 2);
                 }
             });
+            ((CustomViewHolder) holder).text_report_spam.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClickListener(position, 3);
+                }
+            });
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
@@ -125,7 +131,7 @@ public class AdapterStudentEventtList extends RecyclerView.Adapter<RecyclerView.
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        TextView text_name, text_desc, text_date, text_name_title, text_day, text_month, text_year;
+        TextView text_name, text_desc, text_date, text_name_title, text_day, text_month, text_year, text_report_spam;
         ImageView circle_image;
         ImageView image_delete;
         CardView card_view;
@@ -135,6 +141,7 @@ public class AdapterStudentEventtList extends RecyclerView.Adapter<RecyclerView.
             super(view);
 
             this.text_name = (TextView) view.findViewById(R.id.text_name);
+            this.text_report_spam = (TextView) view.findViewById(R.id.text_report_spam);
             this.text_date = (TextView) view.findViewById(R.id.text_date);
             this.text_desc = (TextView) view.findViewById(R.id.text_desc);
             this.card_view = (CardView) view.findViewById(R.id.card_view);

@@ -52,6 +52,16 @@
                 android:textColor="@color/text_color_darkgrey"
                 android:textSize="@dimen/text_size_12" />
 
+            <TextView
+                android:id="@+id/text_report_spam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dp5"
+                android:layout_alignBottom="@+id/rl_date"
+                android:text="Report Spam"
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_size_12" />
 
             <TextView
                 android:id="@+id/text_name"
@@ -92,7 +102,7 @@
                 android:visibility="gone" />
 
 
-            <LinearLayout
+            <LinearLayout android:id="@+id/rl_date"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_desc"
