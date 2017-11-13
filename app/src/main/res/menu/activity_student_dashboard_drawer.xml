@@ -33,6 +33,16 @@
             android:icon="@drawable/profie"
             android:title="@string/leaves"
             android:visible="true" />
+        <item
+            android:id="@+id/nav_Library"
+            android:icon="@drawable/profie"
+            android:title="@string/library"
+            android:visible="true" />
+        <item
+            android:id="@+id/nav_Transport"
+            android:icon="@drawable/profie"
+            android:title="@string/transport"
+            android:visible="true" />
 
         <item
             android:id="@+id/nav_events"

@@ -32,6 +32,64 @@ public class ModelStudent {
     private String attn_status;
     private String add_status, from, student_name;
 
+    public String getBook_media_title() {
+        return book_media_title;
+    }
+
+    public void setBook_media_title(String book_media_title) {
+        this.book_media_title = book_media_title;
+    }
+
+    public String getRef_no() {
+        return ref_no;
+    }
+
+    public void setRef_no(String ref_no) {
+        this.ref_no = ref_no;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getIssue_date() {
+        return issue_date;
+    }
+
+    public void setIssue_date(String issue_date) {
+        this.issue_date = issue_date;
+    }
+
+    private String book_media_title, ref_no, subject,category,author,publisher,issue_date;
+
 
     public String getDepartment_id() {
         return department_id;

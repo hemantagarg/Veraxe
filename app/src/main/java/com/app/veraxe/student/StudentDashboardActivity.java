@@ -32,7 +32,9 @@ import android.widget.Toast;
 import com.app.veraxe.R;
 import com.app.veraxe.activities.ChangePassword;
 import com.app.veraxe.activities.LeaveList;
+import com.app.veraxe.activities.LibraryManagement;
 import com.app.veraxe.activities.Login;
+import com.app.veraxe.activities.TransportVehicle;
 import com.app.veraxe.adapter.AdapterStudentDashBoard;
 import com.app.veraxe.asyncTask.CommonAsyncTask;
 import com.app.veraxe.interfaces.ApiResponse;
@@ -298,6 +300,12 @@ public class StudentDashboardActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_Leaves) {
             Intent intent = new Intent(context, LeaveList.class);
+            startActivity(intent);
+        }else if (id == R.id.nav_Library) {
+            Intent intent = new Intent(context, LibraryManagement.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_Transport) {
+            Intent intent = new Intent(context, TransportVehicle.class);
             startActivity(intent);
         } else if (id == R.id.nav_rate) {
             Uri uri = Uri.parse("market://details?id=" + context.getPackageName());

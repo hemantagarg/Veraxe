@@ -311,7 +311,7 @@ public class LeaveList extends AppCompatActivity implements OnCustomItemClicList
             hm.put("student_id", AppUtils.getStudentId(context));
             hm.put("authkey", Constant.AUTHKEY);
 
-            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.send_apply_leave);
+            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.leave_list);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
 
         } else {
@@ -328,7 +328,7 @@ public class LeaveList extends AppCompatActivity implements OnCustomItemClicList
             hm.put("student_id", AppUtils.getStudentId(context));
             hm.put("authkey", Constant.AUTHKEY);
 
-            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.send_apply_leave);
+            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.leave_list);
             new CommonAsyncTaskHashmap(1, context, this).getqueryNoProgress(url, hm);
 
         } else {
