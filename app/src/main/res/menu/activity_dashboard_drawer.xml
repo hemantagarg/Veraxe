@@ -16,6 +16,10 @@
             android:id="@+id/nav_events"
             android:icon="@drawable/event_icon"
             android:title="Events" />
+        <item
+            android:id="@+id/nav_teacherleaves"
+            android:icon="@drawable/event_icon"
+            android:title="Leaves" />
 
         <item
             android:id="@+id/nav_changepassword"

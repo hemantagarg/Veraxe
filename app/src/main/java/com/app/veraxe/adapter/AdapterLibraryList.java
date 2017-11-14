@@ -77,22 +77,13 @@ public class AdapterLibraryList extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             ModelStudent m1 = (ModelStudent) detail.get(position);
 
-            ((CustomViewHolder) holder).text_dapartment_label.setText(m1.getDate_start() + " - " + m1.getDate_end());
-            ((CustomViewHolder) holder).text_feedbak_type.setText(m1.getLeave_type_name());
-            ((CustomViewHolder) holder).text_date.setText(m1.getDatetime());
-            if (m1.getStudent_remark().equalsIgnoreCase("")) {
-                ((CustomViewHolder) holder).text_message.setText("Teacher Remark : " + m1.getTeacher_remark());
-            } else {
-                ((CustomViewHolder) holder).text_message.setText("Self Remark : " + m1.getStudent_remark());
-            }
+            ((CustomViewHolder) holder).text_dapartment_label.setText(m1.getCategory());
+            ((CustomViewHolder) holder).text_status.setText(m1.getRef_no());
+            ((CustomViewHolder) holder).text_feedbak_type.setText(m1.getBook_media_title()+"("+m1.getSubject()+")");
+            ((CustomViewHolder) holder).text_date.setText(m1.getIssue_date());
+            ((CustomViewHolder) holder).text_message.setText(m1.getAuthor()+"/"+m1.getPublisher());
 
-            ((CustomViewHolder) holder).image_delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onItemClickListener(position,2);
-                }
-            });
-            ((CustomViewHolder) holder).text_status.setText(m1.getStatus_name());
+
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
@@ -110,7 +101,6 @@ public class AdapterLibraryList extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         TextView text_dapartment_label, text_feedbak_type, text_status, text_date, text_message;
         CardView card_view;
-        ImageView image_delete;
 
         public CustomViewHolder(View view) {
             super(view);
@@ -120,7 +110,6 @@ public class AdapterLibraryList extends RecyclerView.Adapter<RecyclerView.ViewHo
             this.text_status = (TextView) view.findViewById(R.id.text_status);
             this.text_message = (TextView) view.findViewById(R.id.text_message);
             this.text_feedbak_type = (TextView) view.findViewById(R.id.text_feedbak_type);
-            this.image_delete = (ImageView) view.findViewById(R.id.image_delete);
             this.card_view = (CardView) view.findViewById(R.id.card_view);
         }
     }

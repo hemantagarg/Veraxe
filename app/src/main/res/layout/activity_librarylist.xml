@@ -17,18 +17,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Transport"
+            android:text="Library"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_title" />
 
     </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/ll_stats"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginBottom="@dimen/dp10"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginRight="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp10"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
+        <Button
+            android:id="@+id/btn_teama"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/logocolor"
+            android:text="Issued"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_teamb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_bg_unselected"
+            android:text="returned"
+            android:textColor="@color/logocolor" />
+
+
+    </LinearLayout>
     <RelativeLayout
         android:id="@+id/rl_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_need_leave"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/ll_stats">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
@@ -46,17 +76,7 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
 
-
+    </RelativeLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_network"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/appbar"
-        android:visibility="gone" />
 
-
-
-
-</RelativeLayout>

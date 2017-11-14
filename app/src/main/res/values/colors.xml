@@ -37,6 +37,6 @@
     <color name="complaint_color">#ffb600</color>
     <color name="complement_color">#219ba6</color>
     <color name="feedback_color">#505a78</color>
-
+    <color name="logocolor">#F34A12</color>
 
 </resources>

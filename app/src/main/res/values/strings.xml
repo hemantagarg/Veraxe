@@ -33,6 +33,7 @@
     <string name="events">events</string>
     <string name="send_apply_leave">send-apply-leave</string>
     <string name="leave_list">student-apply-leave</string>
+    <string name="teacherleave_list">student-pending-leaves</string>
     <string name="library_list">student-book-media</string>
     <string name="transport_list">student-transport</string>
     <string name="list_leave_types">list-leave-types</string>
@@ -45,6 +46,7 @@
     <string name="delete_homework">delete/homework</string>
     <string name="delete_event">delete/event</string>
     <string name="delete_leave">delete-apply-leave</string>
+    <string name="approve_leave">update-apply-leave</string>
     <string name="addhomework">addhomework</string>
     <string name="teacher_timetable">teacher-timetable</string>
     <string name="event_detail">event-detail</string>

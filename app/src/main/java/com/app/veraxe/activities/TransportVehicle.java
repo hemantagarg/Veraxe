@@ -201,26 +201,27 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
             if (method == 1) {
                 if (response.getString("response").equalsIgnoreCase("1")) {
 
-                    JSONArray array = response.getJSONArray("data");
+                    JSONObject jobj = response.getJSONObject("result");
                     arrayList.clear();
-                    for (int i = 0; i < array.length(); i++) {
 
-                        JSONObject jo = array.getJSONObject(i);
+
                         itemList = new ModelStudent();
 
-                        itemList.setId(jo.getString("id"));
-                        itemList.setLeave_type_id(jo.getString("book_media_title"));
-                        itemList.setStudent_id(jo.getString("ref_no"));
+                        itemList.setId(jobj.getString("id"));
+                        itemList.setVehicle_no(jobj.getString("vehicle_no"));
+                        itemList.setColor(jobj.getString("color"));
                         itemList.setRowType(1);
-                        itemList.setLeave_type_name(jo.getString("subject"));
-                        itemList.setDate_start(jo.getString("category"));
-                        itemList.setDate_end(jo.getString("author"));
-                        itemList.setStudent_remark(jo.getString("publisher"));
-                        itemList.setTeacher_remark(jo.getString("issue_date"));
+                        itemList.setType(jobj.getString("type"));
+                        itemList.setGps(jobj.getString("gps"));
+                        itemList.setImei(jobj.getString("imei"));
+                        itemList.setImsi(jobj.getString("imsi"));
+
+                    AppUtils.setimei(context, jobj.getString("imei"));
+                    AppUtils.setimsi(context, jobj.getString("imsi"));
 
 
                         arrayList.add(itemList);
-                    }
+
                     adapterTransportVehicleList = new AdapterTransportVehicleList(context, this, arrayList);
                     mRecyclerView.setAdapter(adapterTransportVehicleList);
                     if (swipe_refresh != null) {

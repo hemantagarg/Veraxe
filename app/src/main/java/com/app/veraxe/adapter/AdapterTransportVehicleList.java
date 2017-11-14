@@ -77,22 +77,16 @@ public class AdapterTransportVehicleList extends RecyclerView.Adapter<RecyclerVi
 
             ModelStudent m1 = (ModelStudent) detail.get(position);
 
-            ((CustomViewHolder) holder).text_dapartment_label.setText(m1.getDate_start() + " - " + m1.getDate_end());
-            ((CustomViewHolder) holder).text_feedbak_type.setText(m1.getLeave_type_name());
-            ((CustomViewHolder) holder).text_date.setText(m1.getDatetime());
-            if (m1.getStudent_remark().equalsIgnoreCase("")) {
-                ((CustomViewHolder) holder).text_message.setText("Teacher Remark : " + m1.getTeacher_remark());
-            } else {
-                ((CustomViewHolder) holder).text_message.setText("Self Remark : " + m1.getStudent_remark());
-            }
+           // ((CustomViewHolder) holder).text_vehicleno.setText(m1.getVehicle_no());
+            ((CustomViewHolder) holder).text_bus.setText(m1.getColor()+" "+m1.getType());
 
-            ((CustomViewHolder) holder).image_delete.setOnClickListener(new View.OnClickListener() {
+         /*   ((CustomViewHolder) holder).text_status.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onItemClickListener(position,2);
                 }
-            });
-            ((CustomViewHolder) holder).text_status.setText(m1.getStatus_name());
+            });*/
+            ((CustomViewHolder) holder).text_status.setText(m1.getVehicle_no());
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
@@ -108,19 +102,17 @@ public class AdapterTransportVehicleList extends RecyclerView.Adapter<RecyclerVi
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        TextView text_dapartment_label, text_feedbak_type, text_status, text_date, text_message;
+        TextView text_vehicleno, text_bus, text_status, text_date, text_message;
         CardView card_view;
-        ImageView image_delete;
 
         public CustomViewHolder(View view) {
             super(view);
 
-            this.text_dapartment_label = (TextView) view.findViewById(R.id.text_dapartment_label);
+            this.text_vehicleno = (TextView) view.findViewById(R.id.text_track);
             this.text_date = (TextView) view.findViewById(R.id.text_date);
             this.text_status = (TextView) view.findViewById(R.id.text_status);
             this.text_message = (TextView) view.findViewById(R.id.text_message);
-            this.text_feedbak_type = (TextView) view.findViewById(R.id.text_feedbak_type);
-            this.image_delete = (ImageView) view.findViewById(R.id.image_delete);
+            this.text_bus = (TextView) view.findViewById(R.id.text_bus);
             this.card_view = (CardView) view.findViewById(R.id.card_view);
         }
     }

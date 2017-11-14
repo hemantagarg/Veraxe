@@ -9,8 +9,60 @@ public class ModelStudent {
 
     private String student_id;
     private String name;
-    private String school_id,leave_type_name,student_remark,teacher_remark,leave_type_id;
+    private String school_id;
+    private String leave_type_name;
+    private String student_remark;
+    private String teacher_remark;
+    private String leave_type_id;
+
+    public String getSection_name() {
+        return section_name;
+    }
+
+    public void setSection_name(String section_name) {
+        this.section_name = section_name;
+    }
+
+    private String section_name;
     private String gender, day, month, year, time;
+    private String start_date;
+    private String end_date;
+
+    public String getClass_name() {
+        return class_name;
+    }
+
+    public void setClass_name(String class_name) {
+        this.class_name = class_name;
+    }
+
+    private String class_name;
+
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(String start_date) {
+        this.start_date = start_date;
+    }
+
+    public String getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(String end_date) {
+        this.end_date = end_date;
+    }
+
+    public String getCraeted_on() {
+        return craeted_on;
+    }
+
+    public void setCraeted_on(String craeted_on) {
+        this.craeted_on = craeted_on;
+    }
+
+    private String craeted_on;
     private String avtar, orgiginalImage = "";
     private int rowType;
 
@@ -24,12 +76,72 @@ public class ModelStudent {
 
     private int isVideo;
     private String id;
+
+    public String getIs_approved() {
+        return is_approved;
+    }
+
+    public void setIs_approved(String is_approved) {
+        this.is_approved = is_approved;
+    }
+
+    private String is_approved;
     private String subject_id, icon, image;
     private String text;
     private String date_start;
     private String date_end;
     private String title;
     private String attn_status;
+
+    public String getVehicle_no() {
+        return vehicle_no;
+    }
+
+    public void setVehicle_no(String vehicle_no) {
+        this.vehicle_no = vehicle_no;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getGps() {
+        return gps;
+    }
+
+    public void setGps(String gps) {
+        this.gps = gps;
+    }
+
+    public String getImei() {
+        return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
+    }
+
+    public String getImsi() {
+        return imsi;
+    }
+
+    public void setImsi(String imsi) {
+        this.imsi = imsi;
+    }
+
+    private String vehicle_no,color,type,gps,imei,imsi;
     private String add_status, from, student_name;
 
     public String getBook_media_title() {

@@ -28,15 +28,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:paddingLeft="@dimen/dp5"
-                android:text="sasas"
-                android:visibility="gone"
+                android:text=""
                 android:textColor="@color/text_color_darkgrey"
                 android:textSize="@dimen/text_size_12" />
 
 
 
             <TextView
-                android:id="@+id/text_bus"
+                android:id="@+id/text_feedbak_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -45,52 +44,84 @@
                 android:layout_toLeftOf="@+id/text_date"
                 android:paddingBottom="@dimen/dp4"
                 android:paddingLeft="@dimen/dp5"
+                android:layout_marginLeft="@dimen/dp5"
                 android:paddingRight="@dimen/dp5"
                 android:paddingTop="@dimen/dp4"
-                android:text="dsadas"
+                android:text="sd"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_14"
-                />
+               />
 
-
+            <TextView
+                android:id="@+id/text_dapartment_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_feedbak_type"
+                android:layout_marginLeft="@dimen/dp5"
+                android:layout_toLeftOf="@+id/text_date"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingTop="@dimen/dp5"
+                android:text="sd"
+                android:textColor="@color/text_color_darkgrey"
+                android:textSize="@dimen/text_size_16" />
 
             <TextView
                 android:id="@+id/text_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/image_delete"
+                android:layout_below="@+id/text_date"
                 android:layout_marginRight="@dimen/dp5"
                 android:layout_marginTop="@dimen/dp5"
-                android:background="@color/red_color"
+
                 android:paddingBottom="@dimen/dp4"
                 android:paddingLeft="@dimen/dp10"
                 android:paddingRight="@dimen/dp10"
                 android:paddingTop="@dimen/dp4"
-                android:text="ddadasd"
-                android:textColor="@color/white"
+                android:text="dad"
+                android:textColor="@color/green"
                 android:textSize="@dimen/text_size_12"
                 android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/text_track"
+                android:id="@+id/text_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_dapartment_label"
+                android:layout_marginLeft="@dimen/dp5"
+                android:layout_marginTop="@dimen/dp5"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingRight="@dimen/dp5"
+                android:text="asss"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_15" />
+            <TextView
+                android:id="@+id/text_messageteacher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_message"
+                android:layout_marginLeft="@dimen/dp5"
+                android:layout_marginTop="@dimen/dp5"
+                android:paddingLeft="@dimen/dp5"
+                android:paddingRight="@dimen/dp5"
+                android:text="asss"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_15" />
+            <TextView
+                android:id="@+id/image_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/text_status"
-                android:layout_marginRight="@dimen/dp5"
-                android:layout_marginTop="@dimen/dp5"
-                android:background="@color/green_timetable"
-                android:paddingBottom="@dimen/dp4"
-                android:paddingLeft="@dimen/dp10"
-                android:paddingRight="@dimen/dp10"
-                android:paddingTop="@dimen/dp4"
-                android:text="Track Vehicle"
+                android:layout_below="@+id/text_message"
+                android:padding="@dimen/dp10"
+                android:text="Take Action"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_12"
-                android:textStyle="bold" />
-
-
-
+                android:textStyle="bold"
+                android:background="@color/red_color"
+                android:visibility="visible" />
         </RelativeLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

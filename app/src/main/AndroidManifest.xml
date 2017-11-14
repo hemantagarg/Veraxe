@@ -229,6 +229,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".activities.TeacherLeaveListApproval"
+            android:label="@string/title_activity_add_event"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".activities.SchoolFeedbackList"
             android:label="@string/title_activity_add_event"
             android:screenOrientation="portrait"

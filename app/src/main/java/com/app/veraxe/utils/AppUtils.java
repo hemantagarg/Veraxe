@@ -367,6 +367,62 @@ public class AppUtils {
             e.printStackTrace();
         }
         return "";
+    } public static void setimei(Context context, String image) {
+
+        try {
+            SharedPreferences preferences = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            SharedPreferences.Editor editor = preferences.edit();
+
+            editor.putString("imei", image);
+
+            editor.commit();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String getimei(Context context) {
+
+        try {
+            SharedPreferences preferences = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            return preferences.getString("imei", "");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "";
+    }public static void setimsi(Context context, String image) {
+
+        try {
+            SharedPreferences preferences = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            SharedPreferences.Editor editor = preferences.edit();
+
+            editor.putString("imsi", image);
+
+            editor.commit();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String getimsi(Context context) {
+
+        try {
+            SharedPreferences preferences = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            return preferences.getString("imsi", "");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "";
     }
 
 

@@ -90,10 +90,20 @@
                 android:maxHeight="70dp"
                 android:paddingLeft="@dimen/dp5"
                 android:ellipsize="end"
-                android:text=""
+                android:text="asa"
                 android:textColor="@color/text_color_darkgrey"
                 android:textSize="@dimen/text_size_15" />
-
+            <TextView
+                android:id="@+id/text_report_spam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dp5"
+                android:layout_alignBottom="@+id/rl_date"
+                android:text="Report Spam"
+                android:layout_below="@+id/text_desc"
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_size_12" />
         </RelativeLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

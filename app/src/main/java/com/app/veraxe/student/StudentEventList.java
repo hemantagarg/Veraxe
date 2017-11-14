@@ -330,6 +330,7 @@ public class StudentEventList extends AppCompatActivity implements OnCustomItemC
             hm.put("id", arrayList.get(lastSelectedPosition).getId());
             hm.put("other_reason", remark);
             hm.put("authkey", Constant.AUTHKEY);
+            hm.put("student_id", AppUtils.getStudentId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.report_spam_event);
             new CommonAsyncTaskHashmap(4, context, this).getquery(url, hm);

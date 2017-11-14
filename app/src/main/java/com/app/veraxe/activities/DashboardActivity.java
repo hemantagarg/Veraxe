@@ -268,6 +268,10 @@ public class DashboardActivity extends AppCompatActivity
             Intent intent = new Intent(context, EventList.class);
             startActivity(intent);
 
+        } else if (id == R.id.nav_teacherleaves) {
+            Intent intent = new Intent(context, TeacherLeaveListApproval.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_feedabck) {
             Intent intent = new Intent(context, SchoolFeedbackList.class);
             startActivity(intent);

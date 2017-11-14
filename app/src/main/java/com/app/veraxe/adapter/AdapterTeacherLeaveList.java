@@ -17,12 +17,11 @@ import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by admin on 26-11-2015.
  */
-public class AdapterMessageList extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterTeacherLeaveList extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<ModelStudent> detail;
     Context mContext;
     OnCustomItemClicListener listener;
@@ -30,7 +29,7 @@ public class AdapterMessageList extends RecyclerView.Adapter<RecyclerView.ViewHo
     private final int VIEW_PROG = 0;
     int[] color = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e, R.drawable.f, R.drawable.g, R.drawable.h, R.drawable.i, R.drawable.j, R.drawable.k, R.drawable.l, R.drawable.m, R.drawable.n, R.drawable.o, R.drawable.p, R.drawable.q, R.drawable.r, R.drawable.s, R.drawable.t, R.drawable.u, R.drawable.v, R.drawable.w, R.drawable.x, R.drawable.y, R.drawable.z};
 
-    public AdapterMessageList(Context context, OnCustomItemClicListener lis, ArrayList<ModelStudent> list) {
+    public AdapterTeacherLeaveList(Context context, OnCustomItemClicListener lis, ArrayList<ModelStudent> list) {
 
         this.detail = list;
         this.mContext = context;
@@ -45,7 +44,7 @@ public class AdapterMessageList extends RecyclerView.Adapter<RecyclerView.ViewHo
         RecyclerView.ViewHolder vh;
         if (viewType == VIEW_ITEM) {
             View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.row_messagelist, parent, false);
+                    R.layout.row_teacherleave_list, parent, false);
 
             vh = new CustomViewHolder(v);
 
@@ -78,42 +77,34 @@ public class AdapterMessageList extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             ModelStudent m1 = (ModelStudent) detail.get(position);
 
-            ((CustomViewHolder) holder).text_name.setText(m1.getName());
-            ((CustomViewHolder) holder).text_role.setText(m1.getStudent_role());
-            ((CustomViewHolder) holder).text_date.setText(m1.getDatetime());
-            ((CustomViewHolder) holder).text_desc.setText(m1.getDescription());
+            ((CustomViewHolder) holder).text_dapartment_label.setText(m1.getStart_date() + " - " + m1.getEnd_date());
+            ((CustomViewHolder) holder).text_feedbak_type.setText(m1.getLeave_type_name());
+            ((CustomViewHolder) holder).text_date.setText(m1.getCraeted_on());
+            ((CustomViewHolder) holder).text_message.setText("Self Remark : " + m1.getStudent_remark());
 
+            if (m1.getTeacher_remark().equalsIgnoreCase("")) {
+                ((CustomViewHolder) holder).text_messageteacher.setVisibility(View.GONE);
+            } else {
+                ((CustomViewHolder) holder).text_messageteacher.setVisibility(View.VISIBLE);
 
-          /*  Random rnd = new Random();
-            int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-            ((CustomViewHolder) holder).circle_image.setBackgroundColor(color);
-
-*/
-            try {
-                if (detail.get(position).getName().length() > 0) {
-                    char c = detail.get(position).getName().toUpperCase().charAt(0);
-                    int pos = (int) c;
-                    pos = pos % 65;
-                    ((CustomViewHolder) holder).circle_image.setImageResource(color[pos]);
-                    ((CustomViewHolder) holder).text_name_title.setText(detail.get(position).getName().toUpperCase().charAt(0) + "");
-
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+                ((CustomViewHolder) holder).text_messageteacher.setText("Teacher Remark : " + m1.getTeacher_remark());
             }
 
-            ((CustomViewHolder) holder).card_view.setOnClickListener(new View.OnClickListener() {
+            ((CustomViewHolder) holder).image_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    listener.onItemClickListener(position, 1);
+                public void onClick(View view) {
+                    listener.onItemClickListener(position,1);
                 }
             });
-            ((AdapterMessageList.CustomViewHolder) holder).text_report_spam.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClickListener(position, 3);
-                }
-            });
+
+            if (m1.getIs_approved().equalsIgnoreCase("1")){
+                ((CustomViewHolder) holder).image_delete.setVisibility(View.GONE);
+                ((CustomViewHolder) holder).text_status.setTextColor(Color.parseColor("#32CD32"));
+            }else {
+                ((CustomViewHolder) holder).image_delete.setVisibility(View.VISIBLE);
+                ((CustomViewHolder) holder).text_status.setTextColor(Color.parseColor("#e82558"));
+            }
+            ((CustomViewHolder) holder).text_status.setText(m1.getStatus_name());
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
@@ -129,22 +120,21 @@ public class AdapterMessageList extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        TextView text_name,text_report_spam, text_desc, text_role, text_date, text_name_title;
-        ImageView circle_image;
+        TextView text_dapartment_label, text_feedbak_type, text_status, text_date, text_message,text_messageteacher;
         CardView card_view;
+        TextView image_delete;
 
         public CustomViewHolder(View view) {
             super(view);
 
-            this.text_name = (TextView) view.findViewById(R.id.text_name);
-            this.text_report_spam = (TextView) view.findViewById(R.id.text_report_spam);
-            this.text_name_title = (TextView) view.findViewById(R.id.text_name_title);
+            this.text_dapartment_label = (TextView) view.findViewById(R.id.text_dapartment_label);
             this.text_date = (TextView) view.findViewById(R.id.text_date);
-            this.text_role = (TextView) view.findViewById(R.id.text_role);
-            this.text_desc = (TextView) view.findViewById(R.id.text_desc);
+            this.text_status = (TextView) view.findViewById(R.id.text_status);
+            this.text_message = (TextView) view.findViewById(R.id.text_message);
+            this.text_messageteacher = (TextView) view.findViewById(R.id.text_messageteacher);
+            this.text_feedbak_type = (TextView) view.findViewById(R.id.text_feedbak_type);
+            this.image_delete = (TextView) view.findViewById(R.id.image_delete);
             this.card_view = (CardView) view.findViewById(R.id.card_view);
-            this.circle_image = (ImageView) view.findViewById(R.id.circle_image);
-
         }
     }
 

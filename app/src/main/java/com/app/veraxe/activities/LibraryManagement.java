@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -61,9 +62,7 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
     RelativeLayout rl_main_layout, rl_network;
     LinearLayoutManager layoutManager;
     Toolbar toolbar;
-    private Button btn_need_leave;
     private Spinner spinner_leave;
-    FloatingActionButton btn_addevent;
     private BroadcastReceiver broadcastReceiver;
     SwipeRefreshLayout swipe_refresh;
     private int deletePosition;
@@ -71,11 +70,12 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
     ArrayAdapter<String> adapterLeaveTypes;
     ArrayList<String> leaveList = new ArrayList<>();
     ArrayList<String> leaveListId = new ArrayList<>();
+    private Button btn_teama, btn_teamb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leavelist);
+        setContentView(R.layout.activity_librarylist);
 
         context = this;
         init();
@@ -108,11 +108,10 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
         rl_main_layout = (RelativeLayout) findViewById(R.id.rl_main_layout);
         rl_network = (RelativeLayout) findViewById(R.id.rl_network);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        btn_teamb = (Button)findViewById(R.id.btn_teamb);
+        btn_teama = (Button)findViewById(R.id.btn_teama);
         layoutManager = new LinearLayoutManager(context);
-        btn_need_leave = (Button) findViewById(R.id.btn_need_leave);
         mRecyclerView.setLayoutManager(layoutManager);
-        btn_addevent = (FloatingActionButton) findViewById(R.id.btn_addevent);
-        btn_addevent.setVisibility(View.GONE);
         swipe_refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipe_refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimaryDark));
     }
@@ -138,11 +137,42 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
             }
         });
 
-        btn_addevent.setOnClickListener(new View.OnClickListener() {
+        btn_teama.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, AddEvent.class);
-                startActivityForResult(intent, 21);
+
+                btn_teama.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_selected));
+                btn_teamb.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_unselected));
+                btn_teama.setTextColor(ContextCompat.getColor(context, R.color.white));
+                btn_teamb.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                // list_teama.setVisibility(View.GONE);
+              /*  if (arrayteama.size() > 0) {
+                    text_nodata.setVisibility(View.GONE);
+                } else {
+                    text_nodata.setVisibility(View.VISIBLE);
+                    text_nodata.setText("No Data found");
+                }
+
+                list_teama.setVisibility(View.VISIBLE);
+            }*/
+            } });
+        btn_teamb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                btn_teamb.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_selected));
+                btn_teama.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_unselected));
+                btn_teamb.setTextColor(ContextCompat.getColor(context, R.color.white));
+                btn_teama.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+               /* list_teamb.setVisibility(View.VISIBLE);
+                list_teama.setVisibility(View.GONE);
+                if (arrayListBowling.size() > 0) {
+                    text_nodata.setVisibility(View.GONE);
+                } else {
+                    text_nodata.setVisibility(View.VISIBLE);
+                    text_nodata.setText("No Data found");
+                }*/
+
             }
         });
 
@@ -220,7 +250,7 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
             if (method == 1) {
                 if (response.getString("response").equalsIgnoreCase("1")) {
 
-                    JSONArray array = response.getJSONArray("data");
+                    JSONArray array = response.getJSONArray("issued");
                     arrayList.clear();
                     for (int i = 0; i < array.length(); i++) {
 
@@ -228,14 +258,14 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
                         itemList = new ModelStudent();
 
                         itemList.setId(jo.getString("id"));
-                        itemList.setLeave_type_id(jo.getString("book_media_title"));
-                        itemList.setStudent_id(jo.getString("ref_no"));
+                        itemList.setBook_media_title(jo.getString("book_media_title"));
+                        itemList.setRef_no(jo.getString("ref_no"));
                         itemList.setRowType(1);
-                        itemList.setLeave_type_name(jo.getString("subject"));
-                        itemList.setDate_start(jo.getString("category"));
-                        itemList.setDate_end(jo.getString("author"));
-                        itemList.setStudent_remark(jo.getString("publisher"));
-                        itemList.setTeacher_remark(jo.getString("issue_date"));
+                        itemList.setSubject(jo.getString("subject"));
+                        itemList.setCategory(jo.getString("category"));
+                        itemList.setAuthor(jo.getString("author"));
+                        itemList.setPublisher(jo.getString("publisher"));
+                        itemList.setIssue_date(jo.getString("issue_date"));
 
 
                         arrayList.add(itemList);
