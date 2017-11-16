@@ -39,7 +39,7 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
     private Context context;
     private GoogleMap map;
     private ArrayList<LatLng> markerLocation;
-    private ArrayList<ModelStudent> listVendor;
+    private ArrayList<ModelStudent> arrayListLocation;
     private HashMap<Marker, Integer> mHashMap = new HashMap<Marker, Integer>();
     private int clickedPos;
     private double mLat, mLong;
@@ -132,34 +132,25 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
         }
 
 
-        listVendor = new ArrayList<>();
+        arrayListLocation = new ArrayList<>();
         markerLocation = new ArrayList<>();
 
-        String vendorarray = getIntent().getStringExtra("vendorarray");
+        String vendorarray = getIntent().getStringExtra("location");
         try {
             JSONArray array = new JSONArray(vendorarray);
 
             for (int i = 0; i < array.length(); i++) {
 
-                JSONObject jo = array.getJSONObject(i);
+                JSONObject jsonObject = array.getJSONObject(i);
+                ModelStudent itemList = new ModelStudent();
+                JSONObject packet = jsonObject.getJSONObject("packet");
+                itemList.setLat(packet.getString("lat"));
+                itemList.setAddress(packet.getString("address"));
+                itemList.setLng(packet.getString("lng"));
+                arrayListLocation.add(itemList);
 
-                ModelStudent modelRequest = new ModelStudent();
-               /* modelRequest.setQuoteId(jo.getString("QuoteId"));
-                modelRequest.setQuoteValue(jo.getString("QuoteValue"));
-                modelRequest.setQuoteDate(jo.getString("QuoteDate"));
-                modelRequest.setVendorId(jo.getString("VendorId"));
-                modelRequest.setVendorName(jo.getString("VendorName"));
-                modelRequest.setVendorEmail(jo.getString("VendorEmail"));
-                modelRequest.setVendorMobile(jo.getString("VendorMobile"));
-                modelRequest.setVendorLatitude(jo.getString("VendorLatitude"));
-                modelRequest.setVendorAddress(jo.getString("VendorAddress"));
-                modelRequest.setVendorProfileImage(jo.getString("VendorProfileImage"));
-                modelRequest.setVendorLongitude(jo.getString("VendorLongitude"));*/
-
-                LatLng lat = new LatLng(Double.parseDouble(jo.getString("VendorLatitude")), Double.parseDouble(jo.getString("VendorLongitude")));
+                LatLng lat = new LatLng(Double.parseDouble(packet.getString("lat")), Double.parseDouble(packet.getString("lng")));
                 markerLocation.add(lat);
-
-                listVendor.add(modelRequest);
             }
 
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

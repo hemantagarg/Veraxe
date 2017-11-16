@@ -282,7 +282,9 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
                         itemList.setLng(packet.getString("lng"));
                         arrayListLocation.add(itemList);
                     }
-
+                    Intent intent = new Intent(context, MapViewVehicle.class);
+                    intent.putExtra("location", location.toString());
+                    startActivity(intent);
                 } else {
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
