@@ -12,10 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -30,7 +27,6 @@ import com.app.veraxe.model.ModelStudent;
 import com.app.veraxe.utils.AppUtils;
 import com.app.veraxe.utils.Constant;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -50,14 +46,8 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
     RelativeLayout rl_main_layout, rl_network;
     LinearLayoutManager layoutManager;
     Toolbar toolbar;
-    private Spinner spinner_leave;
     private BroadcastReceiver broadcastReceiver;
     SwipeRefreshLayout swipe_refresh;
-    private int deletePosition;
-    private TextView mTvFromDate, mTvToDate, mTvtype_of_leave;
-    ArrayAdapter<String> adapterLeaveTypes;
-    ArrayList<String> leaveList = new ArrayList<>();
-    ArrayList<String> leaveListId = new ArrayList<>();
     private String user = "", password = "";
     private String token = "";
 
@@ -302,27 +292,9 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
 
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
-            } else if (method == 3) {
-                JSONArray array = response.getJSONArray("data");
-                leaveList.clear();
-                leaveListId.clear();
-                for (int i = 0; i < array.length(); i++) {
-
-                    JSONObject jo = array.getJSONObject(i);
-                    leaveListId.add(jo.getString("id"));
-                    leaveList.add(jo.getString("label"));
-                }
-                adapterLeaveTypes = new ArrayAdapter<String>(context, R.layout.row_spinner, R.id.textview, leaveList);
-
             }
-        } catch (
-                Exception e)
-
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
-
 }
