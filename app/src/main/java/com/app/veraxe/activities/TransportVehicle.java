@@ -286,7 +286,8 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
                     intent.putExtra("location", location.toString());
                     startActivity(intent);
                 } else {
-                    Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
+                    JSONObject data = response.getJSONObject("data");
+                    Toast.makeText(context, data.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {
