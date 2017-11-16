@@ -15,6 +15,10 @@
     <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
     <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
 
+    <uses-permission
+        android:name="com.app.justclap.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
     <permission
         android:name="com.app.veraxe.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -39,6 +43,12 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCVC4kApjp3AvfPZHUQqBI1mbzKefRmhTs" />
+        <!--signed key  AIzaSyCVC4kApjp3AvfPZHUQqBI1mbzKefRmhTs-->
+        <!--debug key  AIzaSyBeiOo2v8acuEwNVBeJ9Na2NUWk1owSpzc-->
 
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
@@ -84,6 +94,13 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".activities.MapViewVehicle"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
             android:name=".activities.DashboardActivity"
             android:label="@string/title_activity_dashboard"
             android:screenOrientation="portrait"
@@ -107,7 +124,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-<activity
+        <activity
             android:name=".activities.LibraryManagement"
             android:label="@string/title_activity_dashboard"
             android:screenOrientation="portrait"
@@ -321,9 +338,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activities.ZoomImageAcivity"
+        <activity
+            android:name=".activities.ZoomImageAcivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -86,7 +86,6 @@ public class AdapterTransportVehicleList extends RecyclerView.Adapter<RecyclerVi
                 }
             });
 
-
             ((CustomViewHolder) holder).text_status.setText(m1.getVehicle_no());
 
         } else {

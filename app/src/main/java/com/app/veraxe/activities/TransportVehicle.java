@@ -27,6 +27,7 @@ import com.app.veraxe.model.ModelStudent;
 import com.app.veraxe.utils.AppUtils;
 import com.app.veraxe.utils.Constant;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
     ModelStudent itemList;
     AdapterTransportVehicleList adapterTransportVehicleList;
     ArrayList<ModelStudent> arrayList;
+    ArrayList<ModelStudent> arrayListLocation = new ArrayList<>();
     ConnectionDetector cd;
     RelativeLayout rl_main_layout, rl_network;
     LinearLayoutManager layoutManager;
@@ -114,18 +116,6 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
                 finish();
             }
         });
-    }
-
-    /**
-     * Open dialog for the apply leave
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 21 && resultCode == RESULT_OK) {
-
-            transportListRefresh();
-        }
     }
 
     public void deviceLocation() {
@@ -225,14 +215,6 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
 
 
     @Override
-    public void onItemClickListener(int position, int flag) {
-        if (flag == 2) {
-            deviceLocation();
-        }
-    }
-
-
-    @Override
     public void getResponse(int method, JSONObject response) {
         try {
             if (method == 1) {
@@ -256,7 +238,7 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
 
                     arrayList.add(itemList);
 
-                    adapterTransportVehicleList = new AdapterTransportVehicleList(context, this, arrayList);
+                    adapterTransportVehicleList = new AdapterTransportVehicleList(context, TransportVehicle.this, arrayList);
                     mRecyclerView.setAdapter(adapterTransportVehicleList);
                     if (swipe_refresh != null) {
                         swipe_refresh.setRefreshing(false);
@@ -288,13 +270,32 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
                     Toast.makeText(context, data.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
             } else if (method == 4) {
-                if (response.getString("response").equalsIgnoreCase("1")) {
+                if (response.getString("status").equalsIgnoreCase("ok")) {
+                    JSONArray location = response.getJSONArray("location");
+                    arrayListLocation.clear();
+                    for (int i = 0; i < location.length(); i++) {
+                        JSONObject jsonObject = location.getJSONObject(i);
+                        itemList = new ModelStudent();
+                        JSONObject packet = jsonObject.getJSONObject("packet");
+                        itemList.setLat(packet.getString("lat"));
+                        itemList.setAddress(packet.getString("address"));
+                        itemList.setLng(packet.getString("lng"));
+                        arrayListLocation.add(itemList);
+                    }
 
+                } else {
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onItemClickListener(int position, int flag) {
+        if (flag == 2) {
+            deviceLocation();
         }
     }
 }

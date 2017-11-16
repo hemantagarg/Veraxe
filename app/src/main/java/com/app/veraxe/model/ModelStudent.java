@@ -13,7 +13,7 @@ public class ModelStudent {
     private String leave_type_name;
     private String student_remark;
     private String teacher_remark;
-    private String leave_type_id;
+    private String leave_type_id,lat,lng,address;
 
     public String getSection_name() {
         return section_name;
@@ -659,5 +659,29 @@ public class ModelStudent {
 
     public void setLeave_type_id(String leave_type_id) {
         this.leave_type_id = leave_type_id;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
