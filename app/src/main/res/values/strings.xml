@@ -36,6 +36,7 @@
     <string name="teacherleave_list">student-pending-leaves</string>
     <string name="library_list">student-book-media</string>
     <string name="transport_list">student-transport</string>
+    <string name="tracking_availability">tracking-availability</string>
     <string name="list_leave_types">list-leave-types</string>
     <string name="report_spam_event">report-spam-event</string>
     <string name="dashboard_student">dashboard-student</string>

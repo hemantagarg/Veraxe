@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -80,12 +79,14 @@ public class AdapterTransportVehicleList extends RecyclerView.Adapter<RecyclerVi
            // ((CustomViewHolder) holder).text_vehicleno.setText(m1.getVehicle_no());
             ((CustomViewHolder) holder).text_bus.setText(m1.getColor()+" "+m1.getType());
 
-         /*   ((CustomViewHolder) holder).text_status.setOnClickListener(new View.OnClickListener() {
+            ((CustomViewHolder) holder).text_vehicleno.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onItemClickListener(position,2);
                 }
-            });*/
+            });
+
+
             ((CustomViewHolder) holder).text_status.setText(m1.getVehicle_no());
 
         } else {

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,16 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.app.veraxe.R;
-import com.app.veraxe.adapter.AdapterLibraryList;
 import com.app.veraxe.adapter.AdapterTransportVehicleList;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
+import com.app.veraxe.asyncTask.CommonAsyncTaskVolley;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
@@ -59,6 +58,8 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
     ArrayAdapter<String> adapterLeaveTypes;
     ArrayList<String> leaveList = new ArrayList<>();
     ArrayList<String> leaveListId = new ArrayList<>();
+    private String user = "", password = "";
+    private String token = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,29 +124,60 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
                 finish();
             }
         });
-
-
-
     }
 
     /**
      * Open dialog for the apply leave
      */
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 21 && resultCode == RESULT_OK) {
 
-          transportListRefresh();
+            transportListRefresh();
+        }
+    }
+
+    public void deviceLocation() {
+        try {
+            if (AppUtils.isNetworkAvailable(context)) {
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("token", token);
+                jsonObject.put("imei", AppUtils.getimei(context));
+
+                String url = "http://globetrack.co.in/apis/device-location/";
+                new CommonAsyncTaskVolley(4, context, this).getqueryJsonbject(url, jsonObject, Request.Method.POST);
+
+            } else {
+                Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
 
+    public void trackVehicle() {
+        try {
+            if (AppUtils.isNetworkAvailable(context)) {
 
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("imei", AppUtils.getimei(context));
+                jsonObject.put("imsi", AppUtils.getimsi(context));
+                jsonObject.put("login-name", user);
+                jsonObject.put("password", password);
 
+                String url = "http://globetrack.co.in/apis/login/";
+                new CommonAsyncTaskVolley(5, context, this).getqueryJsonbject(url, jsonObject, Request.Method.POST);
 
+            } else {
+                Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void transportList() {
@@ -164,7 +196,25 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
         } else {
             Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
         }
+    }
 
+
+    public void trackingAvailability() {
+
+        if (AppUtils.isNetworkAvailable(context)) {
+
+            HashMap<String, Object> hm = new HashMap<>();
+
+            hm.put("student_id", AppUtils.getStudentId(context));
+            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("school_id", AppUtils.getSchoolId(context));
+
+            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.tracking_availability);
+            new CommonAsyncTaskHashmap(2, context, this).getquery(url, hm);
+
+        } else {
+            Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void transportListRefresh() {
@@ -186,13 +236,10 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
 
     @Override
     public void onItemClickListener(int position, int flag) {
-
-
+        if (flag == 2) {
+            deviceLocation();
+        }
     }
-
-
-
-
 
 
     @Override
@@ -203,47 +250,56 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
 
                     JSONObject jobj = response.getJSONObject("result");
                     arrayList.clear();
+                    itemList = new ModelStudent();
 
-
-                        itemList = new ModelStudent();
-
-                        itemList.setId(jobj.getString("id"));
-                        itemList.setVehicle_no(jobj.getString("vehicle_no"));
-                        itemList.setColor(jobj.getString("color"));
-                        itemList.setRowType(1);
-                        itemList.setType(jobj.getString("type"));
-                        itemList.setGps(jobj.getString("gps"));
-                        itemList.setImei(jobj.getString("imei"));
-                        itemList.setImsi(jobj.getString("imsi"));
+                    itemList.setId(jobj.getString("id"));
+                    itemList.setVehicle_no(jobj.getString("vehicle_no"));
+                    itemList.setColor(jobj.getString("color"));
+                    itemList.setRowType(1);
+                    itemList.setType(jobj.getString("type"));
+                    itemList.setGps(jobj.getString("gps"));
+                    itemList.setImei(jobj.getString("imei"));
+                    itemList.setImsi(jobj.getString("imsi"));
 
                     AppUtils.setimei(context, jobj.getString("imei"));
                     AppUtils.setimsi(context, jobj.getString("imsi"));
 
-
-                        arrayList.add(itemList);
+                    arrayList.add(itemList);
 
                     adapterTransportVehicleList = new AdapterTransportVehicleList(context, this, arrayList);
                     mRecyclerView.setAdapter(adapterTransportVehicleList);
                     if (swipe_refresh != null) {
                         swipe_refresh.setRefreshing(false);
                     }
+                    if (itemList.getGps().equalsIgnoreCase("1")) {
+                        trackingAvailability();
+                    }
 
                 } else {
-
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
 
             } else if (method == 2) {
-                if (response.getString("response").equalsIgnoreCase("1")) {
-
-                    arrayList.remove(deletePosition);
-                    adapterTransportVehicleList.notifyDataSetChanged();
+                if (response.getString("track").equalsIgnoreCase("1")) {
+                    JSONObject gps = response.getJSONObject("gps");
+                    user = gps.getString("user");
+                    password = gps.getString("pass");
+                    trackVehicle();
+                } else {
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
+                }
+            } else if (method == 5) {
+                if (response.getString("status").equalsIgnoreCase("OK")) {
+                    JSONObject data = response.getJSONObject("data");
+                    token = data.getString("token");
+
+                } else {
+                    JSONObject data = response.getJSONObject("data");
+                    Toast.makeText(context, data.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
             } else if (method == 4) {
                 if (response.getString("response").equalsIgnoreCase("1")) {
 
-                  transportListRefresh();
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
             } else if (method == 3) {

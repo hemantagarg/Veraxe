@@ -103,10 +103,7 @@ public class CommonAsyncTaskHashmap {
                         //   Alerts.okAlert(context, context.getString(R.string.something_went_wrong));
                     }
                 }
-
         );
 
-
     }
-
 }
