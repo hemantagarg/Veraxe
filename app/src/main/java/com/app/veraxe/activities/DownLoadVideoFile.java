@@ -17,6 +17,7 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.app.veraxe.R;
+import com.app.veraxe.utils.AppConstants;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -164,7 +165,7 @@ public class DownLoadVideoFile extends IntentService {
 
                 File filepath = Environment.getExternalStorageDirectory();
                 File dir = new File(filepath.getAbsolutePath()
-                        + "/Veraxe/");
+                        + AppConstants.VERAXE_PATH);
                 if (!dir.exists()) {
                     dir.mkdir();
                     Log.d("directory", "veraxe created for first time");

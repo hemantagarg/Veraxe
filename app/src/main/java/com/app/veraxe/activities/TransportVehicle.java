@@ -24,8 +24,8 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -167,7 +167,7 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
             HashMap<String, Object> hm = new HashMap<>();
 
             hm.put("student_id", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("school_id", AppUtils.getSchoolId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.transport_list);
@@ -186,7 +186,7 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
             HashMap<String, Object> hm = new HashMap<>();
 
             hm.put("student_id", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("school_id", AppUtils.getSchoolId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.tracking_availability);
@@ -203,7 +203,7 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("student_id", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("school_id", AppUtils.getSchoolId(context));
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.transport_list);
             new CommonAsyncTaskHashmap(1, context, this).getqueryNoProgress(url, hm);

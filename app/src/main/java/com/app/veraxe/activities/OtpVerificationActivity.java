@@ -17,7 +17,7 @@ import com.app.veraxe.R;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
+import com.app.veraxe.utils.AppConstants;
 
 import org.json.JSONObject;
 
@@ -91,7 +91,7 @@ public class OtpVerificationActivity extends AppCompatActivity implements ApiRes
         if (AppUtils.isNetworkAvailable(context)) {
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("mobilenumber", mobileno);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.resendotp);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);

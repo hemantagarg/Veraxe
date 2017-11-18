@@ -19,7 +19,7 @@ import com.app.veraxe.R;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
-import com.app.veraxe.utils.Constant;
+import com.app.veraxe.utils.AppConstants;
 
 import org.json.JSONObject;
 
@@ -110,7 +110,7 @@ public class ChangePassword extends AppCompatActivity implements ApiResponse {
                             hm.put("mobilenumber", old_password.getText().toString());
                             hm.put("password", new_password.getText().toString());
                             hm.put("confirmpassword", confirm_password.getText().toString());
-                            hm.put("authkey", Constant.AUTHKEY);
+                            hm.put("authkey", AppConstants.AUTHKEY);
 
                             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.update_studentpassword);
                             new CommonAsyncTaskHashmap(1, context, ChangePassword.this).getquery(url, hm);

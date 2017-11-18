@@ -35,8 +35,8 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.json.JSONArray;
@@ -268,7 +268,7 @@ public class LeaveList extends AppCompatActivity implements OnCustomItemClicList
         if (AppUtils.isNetworkAvailable(context)) {
 
             HashMap<String, Object> hm = new HashMap<>();
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.list_leave_types);
             new CommonAsyncTaskHashmap(3, context, this).getqueryNoProgress(url, hm);
@@ -290,7 +290,7 @@ public class LeaveList extends AppCompatActivity implements OnCustomItemClicList
             hm.put("start_date", mTvFromDate.getText().toString());
             hm.put("end_date", mTvToDate.getText().toString());
             hm.put("remark", remark);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.send_apply_leave);
             new CommonAsyncTaskHashmap(4, context, this).getquery(url, hm);
@@ -309,7 +309,7 @@ public class LeaveList extends AppCompatActivity implements OnCustomItemClicList
             HashMap<String, Object> hm = new HashMap<>();
 
             hm.put("student_id", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.leave_list);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
@@ -326,7 +326,7 @@ public class LeaveList extends AppCompatActivity implements OnCustomItemClicList
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("student_id", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.leave_list);
             new CommonAsyncTaskHashmap(1, context, this).getqueryNoProgress(url, hm);
@@ -361,7 +361,7 @@ public class LeaveList extends AppCompatActivity implements OnCustomItemClicList
         if (AppUtils.isNetworkAvailable(context)) {
 
             HashMap<String, Object> hm = new HashMap<>();
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("id", arrayList.get(position).getId());
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.delete_leave);

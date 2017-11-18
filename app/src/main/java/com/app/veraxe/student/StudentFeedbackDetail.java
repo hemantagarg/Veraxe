@@ -28,8 +28,8 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -212,7 +212,7 @@ public class StudentFeedbackDetail extends AppCompatActivity implements OnCustom
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("id", feedback_id);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.feedback_detail);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
@@ -231,7 +231,7 @@ public class StudentFeedbackDetail extends AppCompatActivity implements OnCustom
             hm.put("id", feedback_id);
             hm.put("comment_text", edit_message.getText().toString());
             hm.put("student_id", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.feedback_addcomment);
             new CommonAsyncTaskHashmap(2, context, this).getquery(url, hm);
@@ -248,7 +248,7 @@ public class StudentFeedbackDetail extends AppCompatActivity implements OnCustom
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("id", feedback_id);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.feedback_close);
             new CommonAsyncTaskHashmap(4, context, this).getquery(url, hm);
@@ -264,7 +264,7 @@ public class StudentFeedbackDetail extends AppCompatActivity implements OnCustom
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("id", feedback_id);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.feedback_trash);
             new CommonAsyncTaskHashmap(3, context, this).getquery(url, hm);
@@ -281,7 +281,7 @@ public class StudentFeedbackDetail extends AppCompatActivity implements OnCustom
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("id", feedback_id);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.feedback_detail);
             new CommonAsyncTaskHashmap(1, context, this).getqueryNoProgress(url, hm);

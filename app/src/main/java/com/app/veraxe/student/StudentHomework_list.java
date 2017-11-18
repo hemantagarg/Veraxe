@@ -1,9 +1,11 @@
 package com.app.veraxe.student;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +14,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.veraxe.R;
@@ -22,8 +32,8 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -56,9 +66,14 @@ public class StudentHomework_list extends AppCompatActivity implements OnCustomI
     //  RelativeLayout rl_main_layout, rl_network;
     LinearLayoutManager layoutManager;
     Toolbar toolbar;
+    private int lastSelectedPosition = 0;
     private BroadcastReceiver broadcastReceiver;
     //  SwipeRefreshLayout swipe_refresh;
     MaterialCalendarView widget;
+    private ArrayList<String> reasonList = new ArrayList<>();
+    private ArrayList<String> reasonListId = new ArrayList<>();
+    private ArrayAdapter<String> adapterReasonTypes;
+    private Spinner spinner_spam_reason;
     private AdView mAdView;
 
     @Override
@@ -154,6 +169,20 @@ public class StudentHomework_list extends AppCompatActivity implements OnCustomI
         widget.setOnDateChangedListener(this);
         Calendar calendar = Calendar.getInstance();
         widget.setSelectedDate(calendar.getTime());
+        reasonList.add("It's sexually inappropriate");
+        reasonList.add("It's violent or prohibited content");
+        reasonList.add("It's offensive");
+        reasonList.add("It's misleading or a scam");
+        reasonList.add("I disagree with it");
+        reasonList.add("Something else");
+
+        reasonListId.add("2");
+        reasonListId.add("3");
+        reasonListId.add("4");
+        reasonListId.add("5");
+        reasonListId.add("6");
+        reasonListId.add("1");
+        adapterReasonTypes = new ArrayAdapter<String>(context, R.layout.row_spinner, R.id.textview, reasonList);
 
     }
 
@@ -185,7 +214,7 @@ public class StudentHomework_list extends AppCompatActivity implements OnCustomI
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("studentid", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("date", date);
             //  date = 2016 - 09 - 10
@@ -205,7 +234,7 @@ public class StudentHomework_list extends AppCompatActivity implements OnCustomI
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("studentid", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.student_homework);
@@ -227,9 +256,109 @@ public class StudentHomework_list extends AppCompatActivity implements OnCustomI
             intent.putExtra("homeworkId", arrayList.get(position).getId());
             startActivity(intent);
 
+        } else if (flag == 3) {
+            lastSelectedPosition = position;
+            openSpamDialog();
         }
     }
 
+    private void openSpamDialog() {
+        try {
+            final Dialog dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+            // inflate the layout dialog_layout.xml and set it as contentView
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.spam_dialog, null, false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setContentView(view);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            final EditText mEdtComment = (EditText) view.findViewById(R.id.mEdtComment);
+            final TextView mTvtype_of_leave = (TextView) view.findViewById(R.id.mTvtype_of_leave);
+            spinner_spam_reason = (Spinner) view.findViewById(R.id.spinner_spam_reason);
+            Button btnSubmit = (Button) view.findViewById(R.id.btn_submit);
+            Button btnCancel = (Button) view.findViewById(R.id.btn_cancel);
+
+            spinner_spam_reason.setAdapter(adapterReasonTypes);
+            mTvtype_of_leave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    spinner_spam_reason.performClick();
+                }
+            });
+
+            spinner_spam_reason.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    mTvtype_of_leave.setText(spinner_spam_reason.getSelectedItem().toString());
+                    if (reasonListId.get(spinner_spam_reason.getSelectedItemPosition()).equalsIgnoreCase("1")) {
+                        mEdtComment.setVisibility(View.VISIBLE);
+                    } else {
+                        mEdtComment.setVisibility(View.GONE);
+                        mEdtComment.setText("");
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+            btnSubmit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (mEdtComment.getVisibility() == View.VISIBLE) {
+                        if (!mEdtComment.getText().toString().equalsIgnoreCase("")) {
+                            reportSpamApi(mEdtComment.getText().toString());
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(context, "Please fill all details", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        reportSpamApi(mEdtComment.getText().toString());
+                        dialog.dismiss();
+                    }
+
+                }
+            });
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            if (dialog != null && !dialog.isShowing()) {
+                dialog.show();
+            }
+        } catch (Exception e) {
+            Log.e("Leave List", " Exception error : " + e);
+        }
+    }
+
+    public void reportSpamApi(String remark) {
+
+        if (AppUtils.isNetworkAvailable(context)) {
+
+            HashMap<String, Object> hm = new HashMap<>();
+
+            //   hm.put("student_id", AppUtils.getStudentId(context));
+            hm.put("spam_reason_id", reasonListId.get(spinner_spam_reason.getSelectedItemPosition()));
+            hm.put("id", arrayList.get(lastSelectedPosition).getId());
+            hm.put("other_reason", remark);
+            hm.put("authkey", AppConstants.AUTHKEY);
+            hm.put("student_id", AppUtils.getStudentId(context));
+
+            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.report_spam_homework);
+            new CommonAsyncTaskHashmap(4, context, this).getquery(url, hm);
+
+        } else {
+            Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     public void getResponse(int method, JSONObject response) {
@@ -268,6 +397,10 @@ public class StudentHomework_list extends AppCompatActivity implements OnCustomI
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
 
+            } else if (method == 4) {
+                if (response.getString("response").equalsIgnoreCase("1")) {
+                    Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

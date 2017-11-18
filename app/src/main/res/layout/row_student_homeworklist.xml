@@ -78,6 +78,16 @@
                 android:text="12-07-2016"
                 android:textColor="@color/text_color_darkgrey"
                 android:textSize="@dimen/text_size_15" />
+            <TextView
+                android:id="@+id/text_report_spam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dp5"
+                android:layout_alignBottom="@+id/text_date"
+                android:text="Report Spam"
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_size_12" />
 
 
         </RelativeLayout>

@@ -16,9 +16,9 @@ import android.widget.Toast;
 import com.app.veraxe.R;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
 import com.app.veraxe.utils.CircleTransform;
-import com.app.veraxe.utils.Constant;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -63,7 +63,7 @@ public class TeacherProfile extends AppCompatActivity implements ApiResponse {
 
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.userprofile);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);

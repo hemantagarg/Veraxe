@@ -683,8 +683,8 @@ public class AppUtils {
 
         String ud_id = "";
         try {
-            SharedPreferences sub_share = context.getSharedPreferences(Constant.MyPREFERENCES, Context.MODE_PRIVATE);
-            ud_id = sub_share.getString(Constant.REGID, "");
+            SharedPreferences sub_share = context.getSharedPreferences(AppConstants.MyPREFERENCES, Context.MODE_PRIVATE);
+            ud_id = sub_share.getString(AppConstants.REGID, "");
         } catch (Exception e) {
             e.printStackTrace();
         }

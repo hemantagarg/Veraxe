@@ -26,8 +26,8 @@ import com.app.veraxe.adapter.MultiSelectSpinnerAdapter;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
@@ -147,7 +147,7 @@ public class AddEvent extends AppCompatActivity implements ApiResponse, OnCustom
 
             HashMap<String, Object> hm = new HashMap<>();
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
             hm.put("userrole", AppUtils.getUserRole(context));
@@ -180,7 +180,7 @@ public class AddEvent extends AppCompatActivity implements ApiResponse, OnCustom
                 }
             }
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
 
@@ -205,7 +205,7 @@ public class AddEvent extends AppCompatActivity implements ApiResponse, OnCustom
                 int j = i + 1;
                 hm.put("file[1]", selectedVideo.get(i));
             }
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
 
@@ -225,7 +225,7 @@ public class AddEvent extends AppCompatActivity implements ApiResponse, OnCustom
 
             HashMap<String, Object> hm = new HashMap<>();
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
             hm.put("userrole", AppUtils.getUserRole(context));
@@ -291,7 +291,7 @@ public class AddEvent extends AppCompatActivity implements ApiResponse, OnCustom
 
             HashMap<String, Object> hm = new HashMap<>();
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
             hm.put("userrole", AppUtils.getUserRole(context));

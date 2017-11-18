@@ -20,7 +20,7 @@ import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
+import com.app.veraxe.utils.AppConstants;
 
 import org.json.JSONObject;
 
@@ -111,7 +111,7 @@ public class CheckMobileno extends AppCompatActivity implements ApiResponse {
 
                                 HashMap<String, Object> hm = new HashMap<>();
                                 hm.put("mobilenumber", old_password.getText().toString());
-                                hm.put("authkey", Constant.AUTHKEY);
+                                hm.put("authkey", AppConstants.AUTHKEY);
 
                                 String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.resendotp);
                                 new CommonAsyncTaskHashmap(1, context, CheckMobileno.this).getquery(url, hm);
@@ -180,7 +180,7 @@ public class CheckMobileno extends AppCompatActivity implements ApiResponse {
         if (AppUtils.isNetworkAvailable(context)) {
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("mobilenumber", old_password.getText().toString());
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.resendotp);
             new CommonAsyncTaskHashmap(2, context, this).getquery(url, hm);

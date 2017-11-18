@@ -1,36 +1,26 @@
 package com.app.veraxe.activities;
 
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.veraxe.R;
-import com.app.veraxe.adapter.AdapterLeaveList;
 import com.app.veraxe.adapter.AdapterLibraryList;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
@@ -38,14 +28,12 @@ import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.app.veraxe.utils.AppConstants;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -205,7 +193,7 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
             HashMap<String, Object> hm = new HashMap<>();
 
             hm.put("student_id", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.library_list);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
@@ -222,7 +210,7 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("student_id", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.library_list);
             new CommonAsyncTaskHashmap(1, context, this).getqueryNoProgress(url, hm);

@@ -20,7 +20,7 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelTimeTable;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
+import com.app.veraxe.utils.AppConstants;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -145,7 +145,7 @@ public class StudentTimeTable extends AppCompatActivity implements OnCustomItemC
 
             HashMap<String, Object> hm = new HashMap<>();
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("studentid", AppUtils.getStudentId(context));
 

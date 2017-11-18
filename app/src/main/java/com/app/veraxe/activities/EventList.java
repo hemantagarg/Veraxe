@@ -26,8 +26,8 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -163,7 +163,7 @@ public class EventList extends AppCompatActivity implements OnCustomItemClicList
 
             hm.put("userid", AppUtils.getUserId(context));
             hm.put("userrole", AppUtils.getUserRole(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.events);
@@ -182,7 +182,7 @@ public class EventList extends AppCompatActivity implements OnCustomItemClicList
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("userid", AppUtils.getUserId(context));
             hm.put("userrole", AppUtils.getUserRole(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.events);
@@ -218,7 +218,7 @@ public class EventList extends AppCompatActivity implements OnCustomItemClicList
         if (AppUtils.isNetworkAvailable(context)) {
 
             HashMap<String, Object> hm = new HashMap<>();
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("id", arrayList.get(position).getId());
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.delete_event);

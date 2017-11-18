@@ -26,7 +26,7 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
+import com.app.veraxe.utils.AppConstants;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -204,7 +204,7 @@ public class StudentSelfAttendance extends AppCompatActivity implements OnDateSe
 
             hm.put("studentid", AppUtils.getStudentId(context));
             hm.put("schoolid", AppUtils.getSchoolId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("yearMonth", yearMonth);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.student_attendance);

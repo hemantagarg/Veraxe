@@ -25,8 +25,8 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.json.JSONArray;
@@ -98,7 +98,7 @@ public class AttendanceReport extends AppCompatActivity implements OnCustomItemC
             hm.put("userid", AppUtils.getUserId(context));
             hm.put("userrole", AppUtils.getUserRole(context));
             hm.put("schoolid", AppUtils.getSchoolId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.selectlist_class);
             new CommonAsyncTaskHashmap(2, context, this).getquery(url, hm);
@@ -115,7 +115,7 @@ public class AttendanceReport extends AppCompatActivity implements OnCustomItemC
 
             HashMap<String, Object> hm = new HashMap<>();
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("classid", classid);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
@@ -171,7 +171,7 @@ public class AttendanceReport extends AppCompatActivity implements OnCustomItemC
 
             HashMap<String, Object> hm = new HashMap<>();
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("classid", class_listId.get(spinner_class.getSelectedItemPosition()));
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("sectionid", section_listId.get(spinner_section.getSelectedItemPosition()));

@@ -19,8 +19,8 @@ import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelTimeTable;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -103,7 +103,7 @@ public class TimeTable extends AppCompatActivity implements OnCustomItemClicList
             HashMap<String, Object> hm = new HashMap<>();
 
             hm.put("teacherid", AppUtils.getUserId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             //hm.put("studentid", "70");
 

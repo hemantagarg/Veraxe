@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,22 +28,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.veraxe.R;
-import com.app.veraxe.adapter.AdapterLeaveList;
 import com.app.veraxe.adapter.AdapterTeacherLeaveList;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -170,7 +167,7 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
         if (AppUtils.isNetworkAvailable(context)) {
 
             HashMap<String, Object> hm = new HashMap<>();
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.list_leave_types);
             new CommonAsyncTaskHashmap(3, context, this).getqueryNoProgress(url, hm);
@@ -192,7 +189,7 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
             hm.put("start_date", mTvFromDate.getText().toString());
             hm.put("end_date", mTvToDate.getText().toString());
             hm.put("remark", remark);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.send_apply_leave);
             new CommonAsyncTaskHashmap(4, context, this).getquery(url, hm);
@@ -211,7 +208,7 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
             HashMap<String, Object> hm = new HashMap<>();
 
             hm.put("user_id", AppUtils.getUserId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("school_id", AppUtils.getSchoolId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.teacherleave_list);
@@ -229,7 +226,7 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("user_id", AppUtils.getUserId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("school_id", AppUtils.getSchoolId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.teacherleave_list);
@@ -303,7 +300,7 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
         if (AppUtils.isNetworkAvailable(context)) {
 
             HashMap<String, Object> hm = new HashMap<>();
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("id", arrayList.get(position).getId());
             hm.put("status", arrayList.get(position).getId());
             hm.put("remark", arrayList.get(position).getId());

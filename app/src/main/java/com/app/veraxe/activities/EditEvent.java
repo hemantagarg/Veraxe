@@ -27,8 +27,8 @@ import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
@@ -102,7 +102,7 @@ public class EditEvent extends AppCompatActivity implements ApiResponse, OnCusto
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("eventid", eventId);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.event_detail);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
@@ -186,7 +186,7 @@ public class EditEvent extends AppCompatActivity implements ApiResponse, OnCusto
                 }
             }
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
 
@@ -213,7 +213,7 @@ public class EditEvent extends AppCompatActivity implements ApiResponse, OnCusto
             }
 
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
 
@@ -233,7 +233,7 @@ public class EditEvent extends AppCompatActivity implements ApiResponse, OnCusto
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("id", id);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.delete_event_photo);
             new CommonAsyncTaskHashmap(3, context, this).getquery(url, hm);
 
@@ -249,7 +249,7 @@ public class EditEvent extends AppCompatActivity implements ApiResponse, OnCusto
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("id", id);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.delete_event_video);
             new CommonAsyncTaskHashmap(4, context, this).getquery(url, hm);
 
@@ -304,7 +304,7 @@ public class EditEvent extends AppCompatActivity implements ApiResponse, OnCusto
 
             HashMap<String, Object> hm = new HashMap<>();
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("eventid", eventId);
             hm.put("title", text_event_title.getText().toString());
             hm.put("description", text_aboutevent.getText().toString());

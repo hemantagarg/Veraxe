@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.app.veraxe.R;
+import com.app.veraxe.utils.AppConstants;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.squareup.picasso.Picasso;
@@ -49,10 +50,10 @@ public class ZoomImageAcivity extends AppCompatActivity {
         String imageurl = intent1.getStringExtra("imageurl");
 
         File extStore = Environment.getExternalStorageDirectory();
-        File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + filename);
+        File myFile = new File(extStore.getAbsolutePath() + AppConstants.VERAXE_PATH + filename);
 
         if (myFile.exists()) {
-            image_zoom.setImage(ImageSource.uri(extStore.getAbsolutePath() + "/Veraxe/" + filename));
+            image_zoom.setImage(ImageSource.uri(extStore.getAbsolutePath() + AppConstants.VERAXE_PATH + filename));
         } else {
             loadImage(imageurl);
             Intent intent = new Intent(context, DownLoadFile.class);

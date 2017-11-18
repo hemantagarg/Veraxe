@@ -26,8 +26,8 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -169,7 +169,7 @@ public class SchoolFeedbackDetail extends AppCompatActivity implements OnCustomI
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("id", feedback_id);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.school_feedback_detail);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
@@ -188,7 +188,7 @@ public class SchoolFeedbackDetail extends AppCompatActivity implements OnCustomI
             hm.put("id", feedback_id);
             hm.put("comment_text", edit_message.getText().toString());
             hm.put("user_id", AppUtils.getUserId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.feedback_addcomment);
             new CommonAsyncTaskHashmap(2, context, this).getquery(url, hm);
@@ -205,7 +205,7 @@ public class SchoolFeedbackDetail extends AppCompatActivity implements OnCustomI
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("id", feedback_id);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.school_feedback_detail);
             new CommonAsyncTaskHashmap(1, context, this).getqueryNoProgress(url, hm);

@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.VideoView;
 
 import com.app.veraxe.R;
+import com.app.veraxe.utils.AppConstants;
 
 import java.io.File;
 
@@ -72,9 +73,9 @@ public class PlayVideo extends AppCompatActivity {
             video_view.setVisibility(View.VISIBLE);
             video_view.setMediaController(mediaControls);
             File extStore = Environment.getExternalStorageDirectory();
-            File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + filename);
+            File myFile = new File(extStore.getAbsolutePath() + AppConstants.VERAXE_PATH + filename);
             if (myFile.exists()) {
-                video_view.setVideoURI(Uri.parse(extStore.getAbsolutePath() + "/Veraxe/" + filename));
+                video_view.setVideoURI(Uri.parse(extStore.getAbsolutePath() + AppConstants.VERAXE_PATH + filename));
             } else {
                 video_view.setVideoURI(Uri.parse(videoPath));
                 Intent intent = new Intent(context, DownLoadVideoFile.class);

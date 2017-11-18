@@ -91,6 +91,12 @@ public class AdapterStudentHomeworkList extends RecyclerView.Adapter<RecyclerVie
                     listener.onItemClickListener(position, 2);
                 }
             });
+            ((CustomViewHolder) holder).text_report_spam.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClickListener(position, 3);
+                }
+            });
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
@@ -106,7 +112,7 @@ public class AdapterStudentHomeworkList extends RecyclerView.Adapter<RecyclerVie
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        TextView text_name, text_date, text_ix, text_a;
+        TextView text_name, text_date, text_ix, text_a, text_report_spam;
         ImageView image_delete;
         CardView card_view;
 
@@ -114,6 +120,7 @@ public class AdapterStudentHomeworkList extends RecyclerView.Adapter<RecyclerVie
             super(view);
 
             this.text_name = (TextView) view.findViewById(R.id.text_name);
+            this.text_report_spam = (TextView) view.findViewById(R.id.text_report_spam);
             this.text_a = (TextView) view.findViewById(R.id.text_a);
             this.text_ix = (TextView) view.findViewById(R.id.text_ix);
             this.text_date = (TextView) view.findViewById(R.id.text_date);

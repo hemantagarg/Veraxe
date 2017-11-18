@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.veraxe.R;
@@ -25,8 +24,8 @@ import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
 import com.app.veraxe.student.AddFeedback;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -157,7 +156,7 @@ public class SchoolFeedbackList extends AppCompatActivity implements OnCustomIte
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("user_id", AppUtils.getUserId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.school_feedback_list);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
@@ -173,7 +172,7 @@ public class SchoolFeedbackList extends AppCompatActivity implements OnCustomIte
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("user_id", AppUtils.getUserId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.school_feedback_list);
             new CommonAsyncTaskHashmap(1, context, this).getqueryNoProgress(url, hm);

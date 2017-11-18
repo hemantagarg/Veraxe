@@ -26,8 +26,8 @@ import com.app.veraxe.R;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.student.StudentList;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 
 import org.json.JSONObject;
 
@@ -263,9 +263,9 @@ public class Login extends AppCompatActivity implements ApiResponse {
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("username", text_username.getText().toString());
             hm.put("password", text_password.getText().toString());
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("devicetoken", AppUtils.getGcmRegistrationKey(context));
-            hm.put("devicetype", Constant.DEVICETYPE);
+            hm.put("devicetype", AppConstants.DEVICETYPE);
             hm.put("schoolid", text_schoolId.getText().toString());
             hm.put("emeino", getemeiNo());
 
@@ -283,7 +283,7 @@ public class Login extends AppCompatActivity implements ApiResponse {
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("mobilenumber", text_mobileno.getText().toString());
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.studentmobile);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
@@ -300,9 +300,9 @@ public class Login extends AppCompatActivity implements ApiResponse {
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("mobilenumber", text_mobileno.getText().toString());
             hm.put("password", text_password.getText().toString());
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("devicetoken", AppUtils.getGcmRegistrationKey(context));
-            hm.put("devicetype", Constant.DEVICETYPE);
+            hm.put("devicetype", AppConstants.DEVICETYPE);
             hm.put("emeino", getemeiNo());
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.studentlogin);

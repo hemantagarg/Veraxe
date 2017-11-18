@@ -33,8 +33,8 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -203,7 +203,7 @@ public class MessageList extends AppCompatActivity implements OnCustomItemClicLi
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("studentid", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.student_messages);
@@ -221,7 +221,7 @@ public class MessageList extends AppCompatActivity implements OnCustomItemClicLi
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("studentid", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.student_messages);
@@ -231,6 +231,7 @@ public class MessageList extends AppCompatActivity implements OnCustomItemClicLi
             Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
         }
     }
+
     public void reportSpamApi(String remark) {
 
         if (AppUtils.isNetworkAvailable(context)) {
@@ -241,24 +242,24 @@ public class MessageList extends AppCompatActivity implements OnCustomItemClicLi
             hm.put("spam_reason_id", reasonListId.get(spinner_spam_reason.getSelectedItemPosition()));
             hm.put("id", arrayList.get(lastSelectedPosition).getId());
             hm.put("other_reason", remark);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("student_id", AppUtils.getStudentId(context));
 
-            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.report_spam_event);
+            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.report_spam_message);
             new CommonAsyncTaskHashmap(4, context, this).getquery(url, hm);
 
         } else {
             Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public void onItemClickListener(int position, int flag) {
         if (flag == 1) {
             Intent intent = new Intent(context, MessageDetail.class);
             intent.putExtra("messageId", arrayList.get(position).getId());
             startActivity(intent);
-        }
-        else if (flag == 3) {
+        } else if (flag == 3) {
             lastSelectedPosition = position;
             openSpamDialog();
         }
@@ -340,6 +341,7 @@ public class MessageList extends AppCompatActivity implements OnCustomItemClicLi
             Log.e("Leave List", " Exception error : " + e);
         }
     }
+
     @Override
     public void getResponse(int method, JSONObject response) {
         try {
@@ -374,8 +376,7 @@ public class MessageList extends AppCompatActivity implements OnCustomItemClicLi
                 }
 
 
-            }
-            else if (method == 4) {
+            } else if (method == 4) {
                 if (response.getString("response").equalsIgnoreCase("1")) {
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }

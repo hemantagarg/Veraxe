@@ -39,6 +39,8 @@
     <string name="tracking_availability">tracking-availability</string>
     <string name="list_leave_types">list-leave-types</string>
     <string name="report_spam_event">report-spam-event</string>
+    <string name="report_spam_message">report-spam-message</string>
+    <string name="report_spam_homework">report-spam-homework</string>
     <string name="dashboard_student">dashboard-student</string>
     <string name="dashboard_school">dashboard-school</string>
     <string name="auth_changepassword">auth/changepassword</string>

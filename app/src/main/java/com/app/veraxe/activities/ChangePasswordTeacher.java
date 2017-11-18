@@ -20,7 +20,7 @@ import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
+import com.app.veraxe.utils.AppConstants;
 
 import org.json.JSONObject;
 
@@ -111,7 +111,7 @@ public class ChangePasswordTeacher extends AppCompatActivity implements ApiRespo
                             hm.put("currentpassword", old_password.getText().toString());
                             hm.put("newpassword", new_password.getText().toString());
                             hm.put("confirmpassword", confirm_password.getText().toString());
-                            hm.put("authkey", Constant.AUTHKEY);
+                            hm.put("authkey", AppConstants.AUTHKEY);
                             hm.put("userid", AppUtils.getUserId(context));
 
                             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.auth_changepassword);

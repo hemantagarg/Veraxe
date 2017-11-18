@@ -21,8 +21,8 @@ import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.student.StudentList;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 
 import org.json.JSONObject;
 
@@ -114,8 +114,8 @@ public class SetStudentPassword extends AppCompatActivity implements ApiResponse
                             hm.put("mobilenumber", mobileno);
                             hm.put("password", new_password.getText().toString());
                             hm.put("confirmpassword", confirm_password.getText().toString());
-                            hm.put("authkey", Constant.AUTHKEY);
-                            hm.put("devicetype", Constant.DEVICETYPE);
+                            hm.put("authkey", AppConstants.AUTHKEY);
+                            hm.put("devicetype", AppConstants.DEVICETYPE);
                             hm.put("devicetoken", AppUtils.getGcmRegistrationKey(context));
                             hm.put("emeino", getemeiNo());
 

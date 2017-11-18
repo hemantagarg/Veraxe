@@ -60,6 +60,7 @@
             android:layout_marginTop="@dimen/dp15"
             android:background="@drawable/edit_bg"
             android:hint="Other Reason"
+            android:maxHeight="100dp"
             android:padding="@dimen/dp10"
             android:textColor="@color/textcolordark"
             android:textColorHint="@color/text_hint_color"

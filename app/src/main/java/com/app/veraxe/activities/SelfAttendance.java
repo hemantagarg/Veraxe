@@ -23,8 +23,8 @@ import com.app.veraxe.decorators.EventDecorator;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -131,7 +131,7 @@ public class SelfAttendance extends AppCompatActivity implements OnDateSelectedL
 
             hm.put("userid", AppUtils.getUserId(context));
             hm.put("schoolid", AppUtils.getSchoolId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             //  hm.put("schoolid", AppUtils.getSchoolId(context));
             // hm.put("userid", AppUtils.getUserId(context));
 

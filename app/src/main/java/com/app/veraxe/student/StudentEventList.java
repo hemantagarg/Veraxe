@@ -34,7 +34,7 @@ import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
+import com.app.veraxe.utils.AppConstants;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -197,7 +197,7 @@ public class StudentEventList extends AppCompatActivity implements OnCustomItemC
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("studentid", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.student_events);
@@ -215,7 +215,7 @@ public class StudentEventList extends AppCompatActivity implements OnCustomItemC
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("studentid", AppUtils.getStudentId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.student_events);
@@ -329,7 +329,7 @@ public class StudentEventList extends AppCompatActivity implements OnCustomItemC
             hm.put("spam_reason_id", reasonListId.get(spinner_spam_reason.getSelectedItemPosition()));
             hm.put("id", arrayList.get(lastSelectedPosition).getId());
             hm.put("other_reason", remark);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("student_id", AppUtils.getStudentId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.report_spam_event);

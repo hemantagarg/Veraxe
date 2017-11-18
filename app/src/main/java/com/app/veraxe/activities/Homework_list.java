@@ -25,8 +25,8 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -45,7 +45,6 @@ import java.util.HashMap;
  * Created by admin on 06-01-2016.
  */
 public class Homework_list extends AppCompatActivity implements OnCustomItemClicListener, ApiResponse, OnDateSelectedListener {
-
 
     Context context;
     RecyclerView mRecyclerView;
@@ -170,7 +169,7 @@ public class Homework_list extends AppCompatActivity implements OnCustomItemClic
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("userid", AppUtils.getUserId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userrole", AppUtils.getUserRole(context));
             hm.put("classid", "");
@@ -193,7 +192,7 @@ public class Homework_list extends AppCompatActivity implements OnCustomItemClic
 
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("userid", AppUtils.getUserId(context));
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userrole", AppUtils.getUserRole(context));
             hm.put("classid", "");
@@ -245,7 +244,7 @@ public class Homework_list extends AppCompatActivity implements OnCustomItemClic
         if (AppUtils.isNetworkAvailable(context)) {
 
             HashMap<String, Object> hm = new HashMap<>();
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("id", arrayList.get(position).getId());
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.delete_homework);

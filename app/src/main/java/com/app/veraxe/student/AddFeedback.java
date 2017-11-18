@@ -19,7 +19,7 @@ import com.app.veraxe.R;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
+import com.app.veraxe.utils.AppConstants;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -72,7 +72,7 @@ public class AddFeedback extends AppCompatActivity implements ApiResponse {
 
             HashMap<String, Object> hm = new HashMap<>();
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.feedback_department);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
@@ -97,7 +97,7 @@ public class AddFeedback extends AppCompatActivity implements ApiResponse {
             hm.put("student_id", AppUtils.getStudentId(context));
             hm.put("school_id", AppUtils.getSchoolId(context));
             hm.put("message_text", text_message.getText().toString());
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("department_id", department_listId.get(spinner_department.getSelectedItemPosition()));
             hm.put("feedback_type_id", nature_feedback_listId.get(spinner_nature_feedback.getSelectedItemPosition()));
 

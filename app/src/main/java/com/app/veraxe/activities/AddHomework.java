@@ -28,8 +28,8 @@ import com.app.veraxe.R;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
+import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
@@ -179,7 +179,7 @@ public class AddHomework extends AppCompatActivity implements ApiResponse, OnCus
 
             HashMap<String, Object> hm = new HashMap<>();
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
             hm.put("userrole", AppUtils.getUserRole(context));
@@ -199,7 +199,7 @@ public class AddHomework extends AppCompatActivity implements ApiResponse, OnCus
 
             HashMap<String, Object> hm = new HashMap<>();
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
             hm.put("userrole", AppUtils.getUserRole(context));
@@ -220,7 +220,7 @@ public class AddHomework extends AppCompatActivity implements ApiResponse, OnCus
 
             HashMap<String, Object> hm = new HashMap<>();
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
             hm.put("userrole", AppUtils.getUserRole(context));
@@ -255,7 +255,7 @@ public class AddHomework extends AppCompatActivity implements ApiResponse, OnCus
                     hm.put("file[" + j + "]", file);
                 }
             }
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
 
@@ -278,7 +278,7 @@ public class AddHomework extends AppCompatActivity implements ApiResponse, OnCus
             File file = new File(path);
             hm.put("file[1]", file);
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
 
@@ -350,7 +350,7 @@ public class AddHomework extends AppCompatActivity implements ApiResponse, OnCus
                 sendto_mother = "0";
             }
 
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
             hm.put("schoolid", AppUtils.getSchoolId(context));
             hm.put("userid", AppUtils.getUserId(context));
             //    hm.put("userrole", AppUtils.getUserRole(context));

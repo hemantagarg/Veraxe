@@ -35,7 +35,7 @@ import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
 import com.app.veraxe.utils.AppUtils;
-import com.app.veraxe.utils.Constant;
+import com.app.veraxe.utils.AppConstants;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.squareup.picasso.Picasso;
@@ -187,7 +187,7 @@ public class EventDetail extends AppCompatActivity implements OnCustomItemClicLi
             HashMap<String, Object> hm = new HashMap<>();
 
             hm.put("eventid", eventId);
-            hm.put("authkey", Constant.AUTHKEY);
+            hm.put("authkey", AppConstants.AUTHKEY);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.event_detail);
             new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
@@ -230,7 +230,7 @@ public class EventDetail extends AppCompatActivity implements OnCustomItemClicLi
 
         } else if (flag == 4) {
             File extStore = Environment.getExternalStorageDirectory();
-            File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + arrayList.get(position).getFilename());
+            File myFile = new File(extStore.getAbsolutePath() + AppConstants.VERAXE_PATH + arrayList.get(position).getFilename());
 
             if (myFile.exists()) {
                 Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
@@ -249,7 +249,7 @@ public class EventDetail extends AppCompatActivity implements OnCustomItemClicLi
             }
         } else if (flag == 5) {
             File extStore = Environment.getExternalStorageDirectory();
-            File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + videoList.get(position).getFilename());
+            File myFile = new File(extStore.getAbsolutePath() + AppConstants.VERAXE_PATH + videoList.get(position).getFilename());
             if (myFile.exists()) {
                 Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
             } else {
