@@ -4,10 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,16 +28,13 @@ import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
 import com.app.veraxe.utils.AppUtils;
 import com.app.veraxe.utils.Constant;
-import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -173,64 +168,80 @@ public class HomeworkDetail extends AppCompatActivity implements OnCustomItemCli
     @Override
     public void onItemClickListener(int position, int flag) {
         if (flag == 2) {
-
-            if (arrayList.get(position).getFilename().contains(".jpg") || arrayList.get(position).getFilename().contains(".png")) {
-
+            if (arrayList.get(position).getFile_type().equalsIgnoreCase("jpg") || arrayList.get(position).getFile_type().equalsIgnoreCase("png") || arrayList.get(position).getFile_type().equalsIgnoreCase("jpeg")) {
                 Intent intent = new Intent(context, ZoomImageAcivity.class);
-
                 try {
                     intent.putExtra("imageurl", arrayList.get(position).getUrl());
+                    intent.putExtra("filename", arrayList.get(position).getFilename());
                     startActivity(intent);
-
                 } catch (Exception e) {
-                    // Log exception
-                    Log.w(getClass().toString(), e);
+                    e.printStackTrace();
                 }
-               /* rl_zoomimage.setVisibility(View.VISIBLE);
-                new ImageLoad().execute(arrayList.get(position).getUrl());
+            } else if (arrayList.get(position).getFile_type().equalsIgnoreCase("mp4")) {
+                Intent in = new Intent(context, PlayVideo.class);
+                in.putExtra("videoPath", arrayList.get(position).getUrl());
+                in.putExtra("filename", arrayList.get(position).getFilename());
+                startActivity(in);
+            } else {
+                File extStore = Environment.getExternalStorageDirectory();
+                File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + arrayList.get(position).getFilename());
+                if (myFile.exists()) {
+                    Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, DownLoadDocsFile.class);
+                    intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
+                    intent.putExtra(DownLoadFile.URL,
+                            arrayList.get(position).getUrl());
+                    context.startService(intent);
 
-                isImageVisible = true;*/
+                    Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+                }
             }
-
         } else if (flag == 4) {
+            if (arrayList.get(position).getFile_type().equalsIgnoreCase("jpg") || arrayList.get(position).getFile_type().equalsIgnoreCase("png") || arrayList.get(position).getFile_type().equalsIgnoreCase("jpeg")) {
+                File extStore = Environment.getExternalStorageDirectory();
+                File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + arrayList.get(position).getFilename());
+                if (myFile.exists()) {
+                    Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, DownLoadFile.class);
+                    intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
+                    intent.putExtra(DownLoadFile.URL,
+                            arrayList.get(position).getUrl());
+                    context.startService(intent);
+                    Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+                }
+            } else if (arrayList.get(position).getFile_type().equalsIgnoreCase("mp4")) {
+                File extStore = Environment.getExternalStorageDirectory();
+                File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + arrayList.get(position).getFilename());
+                if (myFile.exists()) {
+                    Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, DownLoadVideoFile.class);
+                    intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
+                    intent.putExtra(DownLoadFile.URL,
+                            arrayList.get(position).getUrl());
+                    context.startService(intent);
+                    Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+                }
+            } else {
 
-            Intent intent = new Intent(context, DownLoadFile.class);
-            intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
-            intent.putExtra(DownLoadFile.URL,
-                    arrayList.get(position).getUrl());
-            context.startService(intent);
+                File extStore = Environment.getExternalStorageDirectory();
+                File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + arrayList.get(position).getFilename());
+                if (myFile.exists()) {
+                    Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, DownLoadDocsFile.class);
+                    intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
+                    intent.putExtra(DownLoadFile.URL,
+                            arrayList.get(position).getUrl());
+                    context.startService(intent);
 
-            Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    class ImageLoad extends AsyncTask<String, Void, Bitmap> {
-
-        private Exception exception;
-
-        protected Bitmap doInBackground(String... urls) {
-            try {
-
-                URL url = new URL(urls[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);
-
-                return myBitmap;
-            } catch (Exception e) {
-                this.exception = e;
-
-                return null;
+                    Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 
-        protected void onPostExecute(Bitmap feed) {
-            image_zoom.setImage(ImageSource.bitmap(feed));
-            // TODO: check this.exception
-            // TODO: do something with the feed
-        }
     }
 
     @Override
@@ -275,28 +286,13 @@ public class HomeworkDetail extends AppCompatActivity implements OnCustomItemCli
                         //  itemList.setId(jo.getString("id"));
                         itemList.setFilename(jo.getString("file"));
                         itemList.setUrl(jo.getString("url"));
+                        itemList.setFile_type(jo.getString("file_type"));
                         itemList.setRowType(1);
                         arrayList.add(itemList);
                     }
                     adapterHomeworkPhotoDetail = new AdapterHomeworkPhotoDetail(context, this, arrayList);
                     mRecyclerView.setAdapter(adapterHomeworkPhotoDetail);
                     Picasso.with(context).load(result.getString("banner")).into(background_image);
-//                    "result": {
-//                        "id": 1,
-//                                "title": "Diwali Function",
-//                                "description": "Dewali .....",
-//                                "start_date": "29/10/2016",
-//                                "end_date": "29/10/2016",
-//                                "photos": [
-//                        {
-//                            "id": "10",
-//                                "filename": "982fed236637cb9d698ec4e73f6b3b74.jpg",
-//                                "url": " http://manage.veraxe.com /uploads/school/event/photo/220/982fed236637cb9d698ec4e73f6b3b74.jpg"
-//                        }
-//                        ],
-//                        "videos": []
-//                    }
-
 
                 } else {
 

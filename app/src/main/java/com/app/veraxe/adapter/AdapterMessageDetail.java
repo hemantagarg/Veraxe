@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.MediaMetadataRetriever;
 import android.os.Build;
-import android.os.Handler;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -84,16 +83,6 @@ public class AdapterMessageDetail extends RecyclerView.Adapter<RecyclerView.View
             if (m1.getIsVideo() == 1) {
                 ((CustomViewHolder) holder).image_download.setVisibility(View.GONE);
                 ((CustomViewHolder) holder).image_play.setVisibility(View.VISIBLE);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            ((CustomViewHolder) holder).image.setImageBitmap(retriveVideoFrameFromVideo(m1.getUrl()));
-                        } catch (Throwable throwable) {
-                            throwable.printStackTrace();
-                        }
-                    }
-                }, 10);
 
             } else {
                 ((CustomViewHolder) holder).image_download.setVisibility(View.VISIBLE);

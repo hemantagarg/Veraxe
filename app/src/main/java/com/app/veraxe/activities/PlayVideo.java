@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +18,8 @@ import android.widget.VideoView;
 
 import com.app.veraxe.R;
 
+import java.io.File;
+
 public class PlayVideo extends AppCompatActivity {
 
     private BroadcastReceiver broadcastReceiver;
@@ -25,7 +28,7 @@ public class PlayVideo extends AppCompatActivity {
     VideoView video_view = null;
     ProgressBar progressBar1;
     private MediaController mediaControls;
-    String videoPath = "";
+    String videoPath = "", filename = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class PlayVideo extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         Intent in = getIntent();
         videoPath = in.getExtras().getString("videoPath");
+        filename = in.getExtras().getString("filename");
 
         setListener();
         video_view.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -67,7 +71,19 @@ public class PlayVideo extends AppCompatActivity {
         try {
             video_view.setVisibility(View.VISIBLE);
             video_view.setMediaController(mediaControls);
-            video_view.setVideoURI(Uri.parse(videoPath));
+            File extStore = Environment.getExternalStorageDirectory();
+            File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + filename);
+            if (myFile.exists()) {
+                video_view.setVideoURI(Uri.parse(extStore.getAbsolutePath() + "/Veraxe/" + filename));
+            } else {
+                video_view.setVideoURI(Uri.parse(videoPath));
+                Intent intent = new Intent(context, DownLoadVideoFile.class);
+                intent.putExtra(DownLoadFile.FILENAME, filename);
+                intent.putExtra(DownLoadFile.URL,
+                        videoPath);
+                context.startService(intent);
+            }
+
             video_view.start();
             mediaControls.setAnchorView(video_view);
 

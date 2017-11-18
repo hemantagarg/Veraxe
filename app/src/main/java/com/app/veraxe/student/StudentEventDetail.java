@@ -10,6 +10,8 @@ import android.media.MediaMetadataRetriever;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 
 import com.app.veraxe.R;
 import com.app.veraxe.activities.DownLoadFile;
+import com.app.veraxe.activities.DownLoadVideoFile;
 import com.app.veraxe.activities.PlayVideo;
 import com.app.veraxe.activities.ZoomImageAcivity;
 import com.app.veraxe.adapter.AdapterEventPhotoDetail;
@@ -42,6 +45,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -61,6 +65,7 @@ public class StudentEventDetail extends AppCompatActivity implements OnCustomIte
     ConnectionDetector cd;
     RelativeLayout rl_main_layout, rl_network;
     Toolbar toolbar;
+    private NestedScrollView scrollview;
     String eventId = "";
     TextView text_detail, text_date, text_event_name, text_eventtitle;
     private BroadcastReceiver broadcastReceiver;
@@ -132,7 +137,8 @@ public class StudentEventDetail extends AppCompatActivity implements OnCustomIte
         GridLayoutManager gridlayoutManager = new GridLayoutManager(context, 2);
         gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(gridlayoutManager);
-
+        scrollview = (NestedScrollView) findViewById(R.id.scrollview);
+        scrollview.setSmoothScrollingEnabled(true);
         GridLayoutManager gridlayoutManagervideo = new GridLayoutManager(context, 2);
         gridlayoutManagervideo.setOrientation(GridLayoutManager.VERTICAL);
         recycler_view_video.setLayoutManager(gridlayoutManagervideo);
@@ -199,6 +205,7 @@ public class StudentEventDetail extends AppCompatActivity implements OnCustomIte
 
             Intent in = new Intent(context, PlayVideo.class);
             in.putExtra("videoPath", videoList.get(position).getUrl());
+            in.putExtra("filename", videoList.get(position).getFilename());
             startActivity(in);
 
         } else if (flag == 2) {
@@ -206,16 +213,31 @@ public class StudentEventDetail extends AppCompatActivity implements OnCustomIte
             Intent intent = new Intent(context, ZoomImageAcivity.class);
             try {
                 intent.putExtra("imageurl", arrayList.get(position).getOrgiginalImage());
+                intent.putExtra("filename", arrayList.get(position).getFilename());
                 startActivity(intent);
             } catch (Exception e) {
                 Log.w(getClass().toString(), e);
             }
         } else if (flag == 4) {
+            File extStore = Environment.getExternalStorageDirectory();
+            File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + arrayList.get(position).getFilename());
 
-            Intent intent = new Intent(context, DownLoadFile.class);
-            intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
+            if (myFile.exists()) {
+                Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(context, DownLoadFile.class);
+                intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
+                intent.putExtra(DownLoadFile.URL,
+                        arrayList.get(position).getOrgiginalImage());
+                context.startService(intent);
+                Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+            }
+        } else if (flag == 5) {
+
+            Intent intent = new Intent(context, DownLoadVideoFile.class);
+            intent.putExtra(DownLoadFile.FILENAME, videoList.get(position).getFilename());
             intent.putExtra(DownLoadFile.URL,
-                    arrayList.get(position).getOrgiginalImage());
+                    videoList.get(position).getUrl());
             context.startService(intent);
 
             Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
@@ -278,8 +300,7 @@ public class StudentEventDetail extends AppCompatActivity implements OnCustomIte
                             itemList.setFilename(jo.getString("filename"));
                             itemList.setUrl(jo.getString("url"));
                             itemList.setRowType(1);
-                            //  itemList.setThubnail(retriveVideoFrameFromVideo(jo.getString("url")));
-                            //  Log.e("thumbnail", "*" + retriveVideoFrameFromVideo(jo.getString("url")));
+                            itemList.setThubnail(jo.getString("thumb"));
 
                             videoList.add(itemList);
                         }
@@ -287,25 +308,7 @@ public class StudentEventDetail extends AppCompatActivity implements OnCustomIte
                         recycler_view_video.setAdapter(adapterEventVideoDetail);
 
                         Picasso.with(context).load(result.getString("banner")).into(background_image);
-
                     }
-//                    "result": {
-//                        "id": 1,
-//                                "title": "Diwali Function",
-//                                "description": "Dewali .....",
-//                                "start_date": "29/10/2016",
-//                                "end_date": "29/10/2016",
-//                                "photos": [
-//                        {
-//                            "id": "10",
-//                                "filename": "982fed236637cb9d698ec4e73f6b3b74.jpg",
-//                                "url": " http://manage.veraxe.com /uploads/school/event/photo/220/982fed236637cb9d698ec4e73f6b3b74.jpg"
-//                        }
-//                        ],
-//                        "videos": []
-//                    }
-
-
                 } else {
 
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();

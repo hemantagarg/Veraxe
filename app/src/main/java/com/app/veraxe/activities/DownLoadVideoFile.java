@@ -5,12 +5,14 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
@@ -23,11 +25,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Random;
 
 /**
  * Created by admin on 13-05-2016.
  */
-public class DownLoadDocsFile extends IntentService {
+public class DownLoadVideoFile extends IntentService {
 
     private int result = Activity.RESULT_CANCELED;
     public static final String URL = "urlpath";
@@ -35,21 +38,27 @@ public class DownLoadDocsFile extends IntentService {
     public static final String FILEPATH = "filepath";
     public static final String RESULT = "result";
     Context context;
+    static String urlPath = "", filename = "";
     public static final String NOTIFICATION = "service receiver";
 
-    public DownLoadDocsFile() {
+    public DownLoadVideoFile() {
+
         super("DownLoadFile");
         context = this;
+
     }
 
     // Will be called asynchronously by OS.
     @Override
     protected void onHandleIntent(Intent intent) {
+
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+
         String urlPath = intent.getStringExtra(URL);
         String fileName = intent.getStringExtra(FILENAME);
-
+        this.urlPath = urlPath;
+        this.filename = filename;
         Log.e("File path", urlPath);
         // new AsyncDownloadFile(context, urlPath, fileName);
         new DownloadFileFromURL(context, urlPath, fileName);
@@ -89,7 +98,8 @@ public class DownLoadDocsFile extends IntentService {
         // Intent intent = new Intent(this, NotificationReceiver.class);
 // use System.currentTimeMillis() to have a unique ID for the pending intent
         PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), notificationIntent, 0);
-        String title = context.getString(R.string.app_name);
+        Random r = new Random();
+        int when = r.nextInt(1000);
 // build notification
 // the addAction re-use the same intent to keep the example short
         Notification notification = new Notification.Builder(context)
@@ -109,7 +119,7 @@ public class DownLoadDocsFile extends IntentService {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0, notification);
+        notificationManager.notify(when, notification);
     }
 
 
@@ -141,9 +151,9 @@ public class DownLoadDocsFile extends IntentService {
         @Override
         protected String doInBackground(String... f_url) {
             int count;
-            String filePath = "";
+            OutputStream output;
             try {
-                java.net.URL url = new URL(urlPath);
+                URL url = new URL(urlPath);
                 URLConnection conection = url.openConnection();
                 conection.connect();
                 // getting file length
@@ -161,9 +171,7 @@ public class DownLoadDocsFile extends IntentService {
                 }
                 File file = new File(dir, fileName);
 
-                OutputStream output = new FileOutputStream(file);
-                // OutputStream output = new FileOutputStream(getFilesDir().toString() + "/" + fileName);
-
+                output = new FileOutputStream(file);
                 byte data[] = new byte[1024];
 
                 long total = 0;
@@ -180,16 +188,17 @@ public class DownLoadDocsFile extends IntentService {
 
                 // flushing output
                 output.flush();
-                filePath = file.getPath();
+
                 // closing streams
                 output.close();
+                addVideo(file.getAbsolutePath(), context);
                 input.close();
 
             } catch (Exception e) {
                 Log.e("Error: ", e.getMessage());
             }
 
-            return filePath;
+            return null;
         }
 
         /**
@@ -209,12 +218,18 @@ public class DownLoadDocsFile extends IntentService {
 
             // Displaying downloaded image into image view
             // Reading image path from sdcard
-            //  String imagePath = Environment.getExternalStorageDirectory().toString() + "/" + fileName;
-            publishResults(file_url, Activity.RESULT_OK);
+            String imagePath = Environment.getExternalStorageDirectory().toString() + "/" + fileName;
+            Log.e("imagePath", "onPostExecute: " + imagePath);
+            publishResults(imagePath, Activity.RESULT_OK);
             // setting downloaded into image view
         }
-
     }
 
+    public static void addVideo(final String filePath, final Context context) {
+        ContentValues values = new ContentValues(3);
+        values.put(MediaStore.Video.Media.MIME_TYPE, "video/mp4");
+        values.put(MediaStore.Video.Media.DATA, filePath);
+        context.getContentResolver().insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
+    }
 
 }

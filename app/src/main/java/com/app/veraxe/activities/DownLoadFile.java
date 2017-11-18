@@ -219,7 +219,7 @@ public class DownLoadFile extends IntentService {
             // Displaying downloaded image into image view
             // Reading image path from sdcard
             String imagePath = Environment.getExternalStorageDirectory().toString() + "/" + fileName;
-            Log.e("imagePath", "onPostExecute: "+imagePath);
+            Log.e("imagePath", "onPostExecute: " + imagePath);
             publishResults(imagePath, Activity.RESULT_OK);
             // setting downloaded into image view
         }
@@ -231,39 +231,13 @@ public class DownLoadFile extends IntentService {
         ContentValues values = new ContentValues();
 
         values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        String[] mimetypes = {"image/*", "video/*"};
+        //  intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/*");
         values.put(MediaStore.MediaColumns.DATA, filePath);
 
         context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
     }
 
-/*
-    public static void addImageToGallery(final String filePath, final Context context) {
 
-        File direct =
-                new File(Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                        .getAbsolutePath() + "/" + "veraxe" + "/");
-
-
-        if (!direct.exists()) {
-            direct.mkdir();
-            Log.d("directory", "dir created for first time");
-        }
-
-
-        DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-        Uri downloadUri = Uri.parse(filePath);
-        DownloadManager.Request request = new DownloadManager.Request(downloadUri);
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
-                .setAllowedOverRoaming(false)
-                .setTitle(filename)
-                .setMimeType("image/jpeg")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES,
-                        File.separator + "veraxe" + File.separator + filename);
-
-        dm.enqueue(request);
-    }
-*/
 }

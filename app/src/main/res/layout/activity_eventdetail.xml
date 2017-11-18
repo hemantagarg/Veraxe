@@ -29,7 +29,8 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar"
@@ -47,11 +48,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
 
-                <ImageView android:id="@+id/background_image"
+                <ImageView
+                    android:id="@+id/background_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                   />
+                    android:scaleType="fitXY" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -109,6 +110,7 @@
 
 
                     <TextView
+                        android:id="@+id/event"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/dp5"
@@ -123,6 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/dp10"
+                        android:layout_toRightOf="@+id/event"
                         android:padding="@dimen/dp5"
                         android:text=" "
                         android:textColor="@color/text_color_darkgrey"
@@ -239,8 +242,8 @@
                     android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/dp10"
-                    android:layout_margin="@dimen/dp5">
+                    android:layout_margin="@dimen/dp5"
+                    android:padding="@dimen/dp10">
 
                 </android.support.v7.widget.RecyclerView>
 
@@ -257,14 +260,14 @@
                     android:id="@+id/recycler_view_video"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/dp10"
-                    android:layout_margin="@dimen/dp5">
+                    android:layout_margin="@dimen/dp5"
+                    android:padding="@dimen/dp10">
 
                 </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 
     <RelativeLayout
@@ -278,7 +281,7 @@
         <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
             android:id="@+id/image_zoom"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 

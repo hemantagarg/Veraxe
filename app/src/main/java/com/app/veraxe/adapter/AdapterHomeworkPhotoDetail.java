@@ -76,21 +76,19 @@ public class AdapterHomeworkPhotoDetail extends RecyclerView.Adapter<RecyclerVie
 
             ModelStudent m1 = (ModelStudent) detail.get(position);
 
-            Picasso.with(mContext).load(m1.getUrl()).placeholder(R.drawable.doc_placeholder).into(((CustomViewHolder) holder).image);
-            //  ((CustomViewHolder) holder).text_name.setText(m1.getSubject_name());
-
+            if (!m1.getUrl().equalsIgnoreCase("")) {
+                Picasso.with(mContext).load(m1.getUrl()).placeholder(R.drawable.doc_placeholder).into(((CustomViewHolder) holder).image);
+            }
             ((CustomViewHolder) holder).image_download.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onItemClickListener(position, 4);
-
                 }
             });
             ((CustomViewHolder) holder).card_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onItemClickListener(position, 2);
-
                 }
             });
 
@@ -108,7 +106,7 @@ public class AdapterHomeworkPhotoDetail extends RecyclerView.Adapter<RecyclerVie
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView image,image_download;
+        ImageView image, image_download;
         CardView card_view;
 
         public CustomViewHolder(View view) {

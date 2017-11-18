@@ -10,6 +10,8 @@ import android.media.MediaMetadataRetriever;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +43,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -71,6 +74,7 @@ public class EventDetail extends AppCompatActivity implements OnCustomItemClicLi
     SubsamplingScaleImageView image_zoom;
     ImageView img_back;
     boolean isImageVisible = false;
+    private NestedScrollView scrollview;
 
 
     @Override
@@ -97,7 +101,8 @@ public class EventDetail extends AppCompatActivity implements OnCustomItemClicLi
     }
 
     private void init() {
-
+        scrollview = (NestedScrollView) findViewById(R.id.scrollview);
+        scrollview.setSmoothScrollingEnabled(true);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.package.ACTION_LOGOUT");
 
@@ -127,21 +132,20 @@ public class EventDetail extends AppCompatActivity implements OnCustomItemClicLi
         GridLayoutManager gridlayoutManager = new GridLayoutManager(context, 2);
         gridlayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(gridlayoutManager);
-
+        mRecyclerView.setNestedScrollingEnabled(false);
         GridLayoutManager gridlayoutManagervideo = new GridLayoutManager(context, 2);
         gridlayoutManagervideo.setOrientation(GridLayoutManager.VERTICAL);
         recycler_view_video.setLayoutManager(gridlayoutManagervideo);
+        recycler_view_video.setNestedScrollingEnabled(false);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(broadcastReceiver);
-
     }
 
     public void setListener() {
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,6 +205,7 @@ public class EventDetail extends AppCompatActivity implements OnCustomItemClicLi
 
             Intent in = new Intent(context, PlayVideo.class);
             in.putExtra("videoPath", videoList.get(position).getUrl());
+            in.putExtra("filename", videoList.get(position).getFilename());
             startActivity(in);
 
         } else if (flag == 2) {
@@ -212,6 +217,7 @@ public class EventDetail extends AppCompatActivity implements OnCustomItemClicLi
                 } else {
                     intent.putExtra("imageurl", arrayList.get(position).getOrgiginalImage());
                 }
+                intent.putExtra("filename", arrayList.get(position).getFilename());
                 startActivity(intent);
 
             } catch (Exception e) {
@@ -220,22 +226,40 @@ public class EventDetail extends AppCompatActivity implements OnCustomItemClicLi
             }
 
             //   Picasso.with(context).load(arrayList.get(position).getUrl()).into(image_zoom);
-        //    isImageVisible = true;
+            //    isImageVisible = true;
 
         } else if (flag == 4) {
+            File extStore = Environment.getExternalStorageDirectory();
+            File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + arrayList.get(position).getFilename());
 
-            Intent intent = new Intent(context, DownLoadFile.class);
-            intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
-            if (arrayList.get(position).getOrgiginalImage().equalsIgnoreCase("")) {
-                intent.putExtra(DownLoadFile.URL,
-                        arrayList.get(position).getUrl());
+            if (myFile.exists()) {
+                Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
             } else {
-                intent.putExtra(DownLoadFile.URL,
-                        arrayList.get(position).getOrgiginalImage());
+                Intent intent = new Intent(context, DownLoadFile.class);
+                intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
+                if (arrayList.get(position).getOrgiginalImage().equalsIgnoreCase("")) {
+                    intent.putExtra(DownLoadFile.URL,
+                            arrayList.get(position).getUrl());
+                } else {
+                    intent.putExtra(DownLoadFile.URL,
+                            arrayList.get(position).getOrgiginalImage());
+                }
+                context.startService(intent);
+                Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
             }
-            context.startService(intent);
-
-            Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+        } else if (flag == 5) {
+            File extStore = Environment.getExternalStorageDirectory();
+            File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + videoList.get(position).getFilename());
+            if (myFile.exists()) {
+                Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(context, DownLoadVideoFile.class);
+                intent.putExtra(DownLoadFile.FILENAME, videoList.get(position).getFilename());
+                intent.putExtra(DownLoadFile.URL,
+                        videoList.get(position).getUrl());
+                context.startService(intent);
+                Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -300,9 +324,9 @@ public class EventDetail extends AppCompatActivity implements OnCustomItemClicLi
                             itemList.setFilename(jo.getString("filename"));
                             itemList.setUrl(jo.getString("url"));
                             itemList.setRowType(1);
-                            //  itemList.setThubnail(retriveVideoFrameFromVideo(jo.getString("url")));
-                            //  Log.e("thumbnail", "*" + retriveVideoFrameFromVideo(jo.getString("url")));
 
+                            itemList.setThubnail(jo.getString("thumb"));
+                            Log.e("thumbnail : ", jo.getString("thumb") + "***" + itemList.getThubnail());
                             videoList.add(itemList);
                         }
                         adapterEventVideoDetail = new AdapterEventVideoDetail(context, this, videoList);
@@ -310,23 +334,6 @@ public class EventDetail extends AppCompatActivity implements OnCustomItemClicLi
 
                         Picasso.with(context).load(result.getString("banner")).into(background_image);
                     }
-//                    "result": {
-//                        "id": 1,
-//                                "title": "Diwali Function",
-//                                "description": "Dewali .....",
-//                                "start_date": "29/10/2016",
-//                                "end_date": "29/10/2016",
-//                                "photos": [
-//                        {
-//                            "id": "10",
-//                                "filename": "982fed236637cb9d698ec4e73f6b3b74.jpg",
-//                                "url": " http://manage.veraxe.com /uploads/school/event/photo/220/982fed236637cb9d698ec4e73f6b3b74.jpg"
-//                        }
-//                        ],
-//                        "videos": []
-//                    }
-
-
                 } else {
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }

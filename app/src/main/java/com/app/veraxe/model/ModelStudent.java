@@ -1,7 +1,5 @@
 package com.app.veraxe.model;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by hemanta on 12-11-2016.
  */
@@ -13,7 +11,7 @@ public class ModelStudent {
     private String leave_type_name;
     private String student_remark;
     private String teacher_remark;
-    private String leave_type_id,lat,lng,address;
+    private String leave_type_id, lat, lng, address;
 
     public String getSection_name() {
         return section_name;
@@ -141,7 +139,7 @@ public class ModelStudent {
         this.imsi = imsi;
     }
 
-    private String vehicle_no,color,type,gps,imei,imsi;
+    private String vehicle_no, color, type, gps, imei, imsi;
     private String add_status, from, student_name;
 
     public String getBook_media_title() {
@@ -200,7 +198,7 @@ public class ModelStudent {
         this.issue_date = issue_date;
     }
 
-    private String book_media_title, ref_no, subject,category,author,publisher,issue_date;
+    private String book_media_title, ref_no, subject, category, author, publisher, issue_date;
 
 
     public String getDepartment_id() {
@@ -307,15 +305,15 @@ public class ModelStudent {
 
     String student_class_id;
 
-    public Bitmap getThubnail() {
+    public String getThubnail() {
         return thubnail;
     }
 
-    public void setThubnail(Bitmap thubnail) {
+    public void setThubnail(String thubnail) {
         this.thubnail = thubnail;
     }
 
-    private Bitmap thubnail;
+    private String thubnail = "";
 
     public String getFilename() {
         return filename;
@@ -334,6 +332,16 @@ public class ModelStudent {
     }
 
     String filename;
+
+    public String getFile_type() {
+        return file_type;
+    }
+
+    public void setFile_type(String file_type) {
+        this.file_type = file_type;
+    }
+
+    String file_type = "";
     String url;
 
 

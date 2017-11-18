@@ -1,14 +1,11 @@
 package com.app.veraxe.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.media.MediaMetadataRetriever;
-import android.os.Build;
-import android.os.Handler;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +15,9 @@ import android.widget.ProgressBar;
 import com.app.veraxe.R;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by admin on 26-11-2015.
@@ -80,69 +77,27 @@ public class AdapterEventVideoDetail extends RecyclerView.Adapter<RecyclerView.V
 
             final ModelStudent m1 = (ModelStudent) detail.get(position);
 
-            //  Picasso.with(mContext).load(m1.getThubnail()).into(((CustomViewHolder) holder).image);
-
-            /*((Activity) mContext).runOnUiThread(new Runnable() {
+            Log.e("thumbnail", "**" + m1.getThubnail());
+            if (!m1.getThubnail().equalsIgnoreCase("")) {
+                Picasso.with(mContext).load(m1.getThubnail()).into(((CustomViewHolder) holder).image);
+            }
+            ((CustomViewHolder) holder).image_download.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void run() {
-                    try {
-                        ((CustomViewHolder) holder).image.setImageBitmap(retriveVideoFrameFromVideo(m1.getUrl()));
-                    } catch (Throwable throwable) {
-                        throwable.printStackTrace();
-                    }
+                public void onClick(View view) {
+                    listener.onItemClickListener(position, 5);
                 }
-            });*/
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        ((CustomViewHolder) holder).image.setImageBitmap(retriveVideoFrameFromVideo(m1.getUrl()));
-                    } catch (Throwable throwable) {
-                        throwable.printStackTrace();
-                    }
-                }
-            }, 1);
-
+            });
             ((CustomViewHolder) holder).card_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onItemClickListener(position, 3);
                 }
             });
-            //  ((CustomViewHolder) holder).text_name.setText(m1.getSubject_name());
-
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
         }
 
-    }
-
-    public static Bitmap retriveVideoFrameFromVideo(String videoPath)
-            throws Throwable {
-        Bitmap bitmap = null;
-        MediaMetadataRetriever mediaMetadataRetriever = null;
-        try {
-            mediaMetadataRetriever = new MediaMetadataRetriever();
-            if (Build.VERSION.SDK_INT >= 14)
-                mediaMetadataRetriever.setDataSource(videoPath, new HashMap<String, String>());
-            else
-                mediaMetadataRetriever.setDataSource(videoPath);
-            //   mediaMetadataRetriever.setDataSource(videoPath);
-            bitmap = mediaMetadataRetriever.getFrameAtTime();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Throwable(
-                    "Exception in retriveVideoFrameFromVideo(String videoPath)"
-                            + e.getMessage());
-
-        } finally {
-            if (mediaMetadataRetriever != null) {
-                mediaMetadataRetriever.release();
-            }
-        }
-        return bitmap;
     }
 
 
@@ -153,13 +108,14 @@ public class AdapterEventVideoDetail extends RecyclerView.Adapter<RecyclerView.V
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView image;
+        ImageView image, image_download;
         CardView card_view;
 
         public CustomViewHolder(View view) {
             super(view);
 
             this.image = (ImageView) view.findViewById(R.id.image);
+            this.image_download = (ImageView) view.findViewById(R.id.image_download);
             this.card_view = (CardView) view.findViewById(R.id.card_view);
 
         }

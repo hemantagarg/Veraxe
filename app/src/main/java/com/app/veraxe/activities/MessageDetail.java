@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +31,7 @@ import com.app.veraxe.utils.Constant;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -45,7 +47,7 @@ public class MessageDetail extends AppCompatActivity implements OnCustomItemClic
     RelativeLayout rl_main_layout, rl_network;
     Toolbar toolbar;
     String messageId = "";
-    TextView text_detail, text_date, text_event_name, text_stream;
+    TextView text_detail, text_date, text_event_name, text_stream, attachment;
     private BroadcastReceiver broadcastReceiver;
     RecyclerView mRecyclerView;
     AdapterMessageDetail adapterHomeworkPhotoDetail;
@@ -100,6 +102,7 @@ public class MessageDetail extends AppCompatActivity implements OnCustomItemClic
         text_detail = (TextView) findViewById(R.id.text_detail);
         background_image = (ImageView) findViewById(R.id.background_image);
         text_date = (TextView) findViewById(R.id.text_date);
+        attachment = (TextView) findViewById(R.id.attachment);
         text_stream = (TextView) findViewById(R.id.text_stream);
         text_event_name = (TextView) findViewById(R.id.text_event_name);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -163,28 +166,77 @@ public class MessageDetail extends AppCompatActivity implements OnCustomItemClic
     @Override
     public void onItemClickListener(int position, int flag) {
         if (flag == 2) {
-
-            Intent intent = new Intent(context, ZoomImageAcivity.class);
-            try {
-                intent.putExtra("imageurl", arrayList.get(position).getUrl());
-                startActivity(intent);
-            } catch (Exception e) {
-                Log.w(getClass().toString(), e);
-            }
-
-        } else if (flag == 4) {
-            if (arrayList.get(position).getIsVideo() == 0) {
-                Intent intent = new Intent(context, DownLoadFile.class);
-                intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
-                intent.putExtra(DownLoadFile.URL,
-                        arrayList.get(position).getUrl());
-                context.startService(intent);
-
-                Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
-            } else {
+            if (arrayList.get(position).getFile_type().equalsIgnoreCase("jpg") || arrayList.get(position).getFile_type().equalsIgnoreCase("png") || arrayList.get(position).getFile_type().equalsIgnoreCase("jpeg")) {
+                Intent intent = new Intent(context, ZoomImageAcivity.class);
+                try {
+                    intent.putExtra("imageurl", arrayList.get(position).getUrl());
+                    intent.putExtra("filename", arrayList.get(position).getFilename());
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (arrayList.get(position).getFile_type().equalsIgnoreCase("mp4")) {
                 Intent in = new Intent(context, PlayVideo.class);
                 in.putExtra("videoPath", arrayList.get(position).getUrl());
+                in.putExtra("filename", arrayList.get(position).getFilename());
                 startActivity(in);
+            } else {
+                File extStore = Environment.getExternalStorageDirectory();
+                File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + arrayList.get(position).getFilename());
+                if (myFile.exists()) {
+                    Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, DownLoadDocsFile.class);
+                    intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
+                    intent.putExtra(DownLoadFile.URL,
+                            arrayList.get(position).getUrl());
+                    context.startService(intent);
+
+                    Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else if (flag == 4) {
+            if (arrayList.get(position).getFile_type().equalsIgnoreCase("jpg") || arrayList.get(position).getFile_type().equalsIgnoreCase("png") || arrayList.get(position).getFile_type().equalsIgnoreCase("jpeg")) {
+                File extStore = Environment.getExternalStorageDirectory();
+                File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + arrayList.get(position).getFilename());
+                if (myFile.exists()) {
+                    Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, DownLoadFile.class);
+                    intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
+                    intent.putExtra(DownLoadFile.URL,
+                            arrayList.get(position).getUrl());
+                    context.startService(intent);
+                    Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+                }
+            } else if (arrayList.get(position).getFile_type().equalsIgnoreCase("mp4")) {
+                File extStore = Environment.getExternalStorageDirectory();
+                File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + arrayList.get(position).getFilename());
+                if (myFile.exists()) {
+                    Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, DownLoadVideoFile.class);
+                    intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
+                    intent.putExtra(DownLoadFile.URL,
+                            arrayList.get(position).getUrl());
+                    context.startService(intent);
+                    Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+
+                File extStore = Environment.getExternalStorageDirectory();
+                File myFile = new File(extStore.getAbsolutePath() + "/Veraxe/" + arrayList.get(position).getFilename());
+                if (myFile.exists()) {
+                    Toast.makeText(context, "Your file is already downloaded", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(context, DownLoadDocsFile.class);
+                    intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
+                    intent.putExtra(DownLoadFile.URL,
+                            arrayList.get(position).getUrl());
+                    context.startService(intent);
+
+                    Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -223,9 +275,15 @@ public class MessageDetail extends AppCompatActivity implements OnCustomItemClic
                         itemList.setId(jo.getString("id"));
                         itemList.setFilename(jo.getString("file"));
                         itemList.setUrl(jo.getString("url"));
+                        itemList.setFile_type(jo.getString("type"));
                         itemList.setIsVideo(jo.getInt("video"));
                         itemList.setRowType(1);
                         arrayList.add(itemList);
+                    }
+                    if (arrayList.size() > 0) {
+                        attachment.setVisibility(View.VISIBLE);
+                    } else {
+                        attachment.setVisibility(View.GONE);
                     }
                     adapterHomeworkPhotoDetail = new AdapterMessageDetail(context, this, arrayList);
                     mRecyclerView.setAdapter(adapterHomeworkPhotoDetail);
