@@ -43,7 +43,7 @@ import java.util.HashMap;
 public class LibraryManagement extends AppCompatActivity implements OnCustomItemClicListener, ApiResponse {
 
     Context context;
-    RecyclerView mRecyclerView,recycler_viewret;
+    RecyclerView mRecyclerView, recycler_viewret;
     ModelStudent itemList;
     AdapterLibraryList adapterLibraryList;
     AdapterLibraryIssuedList adapterLibraryIssuedList;
@@ -55,7 +55,7 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
     Toolbar toolbar;
     private Spinner spinner_leave;
     private BroadcastReceiver broadcastReceiver;
-    SwipeRefreshLayout swipe_refresh;
+    SwipeRefreshLayout swipe_refresh, swipe_refresh1;
     private int deletePosition;
     private TextView mTvFromDate, mTvToDate, mTvtype_of_leave;
     ArrayAdapter<String> adapterLeaveTypes;
@@ -101,12 +101,15 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
         rl_network = (RelativeLayout) findViewById(R.id.rl_network);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recycler_viewret = (RecyclerView) findViewById(R.id.recycler_viewret);
-        btn_teamb = (Button)findViewById(R.id.btn_teamb);
-        btn_teama = (Button)findViewById(R.id.btn_teama);
+        recycler_viewret.setLayoutManager(new LinearLayoutManager(context));
+        btn_teamb = (Button) findViewById(R.id.btn_teamb);
+        btn_teama = (Button) findViewById(R.id.btn_teama);
         layoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(layoutManager);
         swipe_refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipe_refresh1 = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh1);
         swipe_refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimaryDark));
+        swipe_refresh1.setColorSchemeColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimaryDark));
     }
 
     @Override
@@ -120,9 +123,16 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
         swipe_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                libarayListRefresh  ();
+                libarayListRefresh();
             }
         });
+        swipe_refresh1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                libarayListRefresh();
+            }
+        });
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,8 +148,8 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
                 btn_teamb.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_unselected));
                 btn_teama.setTextColor(ContextCompat.getColor(context, R.color.white));
                 btn_teamb.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
-                recycler_viewret.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);
+                swipe_refresh1.setVisibility(View.GONE);
+                swipe_refresh.setVisibility(View.VISIBLE);
 
               /*  if (arrayteama.size() > 0) {
                     text_nodata.setVisibility(View.GONE);
@@ -150,7 +160,8 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
 
                 recycler_view.setVisibility(View.VISIBLE);
             }*/
-            } });
+            }
+        });
         btn_teamb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,8 +170,8 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
                 btn_teama.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_unselected));
                 btn_teamb.setTextColor(ContextCompat.getColor(context, R.color.white));
                 btn_teama.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
-                recycler_viewret.setVisibility(View.VISIBLE);
-                mRecyclerView.setVisibility(View.GONE);
+                swipe_refresh1.setVisibility(View.VISIBLE);
+                swipe_refresh.setVisibility(View.GONE);
                  /*  if (arrayListBowling.size() > 0) {
                     text_nodata.setVisibility(View.GONE);
                 } else {
@@ -186,11 +197,6 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
             libarayListRefresh();
         }
     }
-
-
-
-
-
 
 
     public void libraryList() {
@@ -233,10 +239,6 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
 
 
     }
-
-
-
-
 
 
     @Override

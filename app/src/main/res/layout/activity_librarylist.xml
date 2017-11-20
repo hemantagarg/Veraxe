@@ -22,6 +22,7 @@
             android:textSize="@dimen/text_size_title" />
 
     </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:id="@+id/ll_stats"
         android:layout_width="match_parent"
@@ -54,6 +55,7 @@
 
 
     </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/rl_main_layout"
         android:layout_width="match_parent"
@@ -73,6 +75,14 @@
                 android:visibility="visible">
 
             </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh1"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="match_parent">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_viewret"
                 android:layout_width="match_parent"
@@ -85,6 +95,6 @@
 
 
     </RelativeLayout>
-    </RelativeLayout>
+</RelativeLayout>
 
 
