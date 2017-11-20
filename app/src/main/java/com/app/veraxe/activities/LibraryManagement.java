@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.veraxe.R;
+import com.app.veraxe.adapter.AdapterLibraryIssuedList;
 import com.app.veraxe.adapter.AdapterLibraryList;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
@@ -42,10 +43,12 @@ import java.util.HashMap;
 public class LibraryManagement extends AppCompatActivity implements OnCustomItemClicListener, ApiResponse {
 
     Context context;
-    RecyclerView mRecyclerView;
+    RecyclerView mRecyclerView,recycler_viewret;
     ModelStudent itemList;
     AdapterLibraryList adapterLibraryList;
+    AdapterLibraryIssuedList adapterLibraryIssuedList;
     ArrayList<ModelStudent> arrayList;
+    ArrayList<ModelStudent> arrayListret;
     ConnectionDetector cd;
     RelativeLayout rl_main_layout, rl_network;
     LinearLayoutManager layoutManager;
@@ -92,10 +95,12 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         cd = new ConnectionDetector(context);
         arrayList = new ArrayList<>();
+        arrayListret = new ArrayList<>();
 
         rl_main_layout = (RelativeLayout) findViewById(R.id.rl_main_layout);
         rl_network = (RelativeLayout) findViewById(R.id.rl_network);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recycler_viewret = (RecyclerView) findViewById(R.id.recycler_viewret);
         btn_teamb = (Button)findViewById(R.id.btn_teamb);
         btn_teama = (Button)findViewById(R.id.btn_teama);
         layoutManager = new LinearLayoutManager(context);
@@ -133,7 +138,9 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
                 btn_teamb.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_unselected));
                 btn_teama.setTextColor(ContextCompat.getColor(context, R.color.white));
                 btn_teamb.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
-                // list_teama.setVisibility(View.GONE);
+                recycler_viewret.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+
               /*  if (arrayteama.size() > 0) {
                     text_nodata.setVisibility(View.GONE);
                 } else {
@@ -141,7 +148,7 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
                     text_nodata.setText("No Data found");
                 }
 
-                list_teama.setVisibility(View.VISIBLE);
+                recycler_view.setVisibility(View.VISIBLE);
             }*/
             } });
         btn_teamb.setOnClickListener(new View.OnClickListener() {
@@ -152,9 +159,9 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
                 btn_teama.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_unselected));
                 btn_teamb.setTextColor(ContextCompat.getColor(context, R.color.white));
                 btn_teama.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
-               /* list_teamb.setVisibility(View.VISIBLE);
-                list_teama.setVisibility(View.GONE);
-                if (arrayListBowling.size() > 0) {
+                recycler_viewret.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
+                 /*  if (arrayListBowling.size() > 0) {
                     text_nodata.setVisibility(View.GONE);
                 } else {
                     text_nodata.setVisibility(View.VISIBLE);
@@ -239,7 +246,9 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
                 if (response.getString("response").equalsIgnoreCase("1")) {
 
                     JSONArray array = response.getJSONArray("issued");
+                    JSONArray arrayret = response.getJSONArray("returned");
                     arrayList.clear();
+                    arrayListret.clear();
                     for (int i = 0; i < array.length(); i++) {
 
                         JSONObject jo = array.getJSONObject(i);
@@ -260,6 +269,26 @@ public class LibraryManagement extends AppCompatActivity implements OnCustomItem
                     }
                     adapterLibraryList = new AdapterLibraryList(context, this, arrayList);
                     mRecyclerView.setAdapter(adapterLibraryList);
+                    for (int i = 0; i < arrayret.length(); i++) {
+
+                        JSONObject jo = arrayret.getJSONObject(i);
+                        itemList = new ModelStudent();
+
+                        itemList.setId(jo.getString("id"));
+                        itemList.setBook_media_title(jo.getString("book_media_title"));
+                        itemList.setRef_no(jo.getString("ref_no"));
+                        itemList.setRowType(1);
+                        itemList.setSubject(jo.getString("subject"));
+                        itemList.setCategory(jo.getString("category"));
+                        itemList.setAuthor(jo.getString("author"));
+                        itemList.setPublisher(jo.getString("publisher"));
+                        itemList.setIssue_date(jo.getString("issue_date"));
+
+
+                        arrayListret.add(itemList);
+                    }
+                    adapterLibraryIssuedList = new AdapterLibraryIssuedList(context, this, arrayListret);
+                    recycler_viewret.setAdapter(adapterLibraryIssuedList);
                     if (swipe_refresh != null) {
                         swipe_refresh.setRefreshing(false);
                     }

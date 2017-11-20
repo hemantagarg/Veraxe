@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.app.veraxe.R;
 import com.app.veraxe.activities.ChangePassword;
+import com.app.veraxe.activities.HolidayList;
 import com.app.veraxe.activities.LeaveList;
 import com.app.veraxe.activities.LibraryManagement;
 import com.app.veraxe.activities.Login;
@@ -64,7 +65,7 @@ public class StudentDashboardActivity extends AppCompatActivity
     ArrayList<ModelStudent> arrayList;
     ImageView icon_attendance, icon_attendance_report, icon_self_attendance, icon_homework, icon_timetable, icon_profile;
     ImageView image_bg_attendance, image_bg_attendance_report, image_bg_attendance_profile, image_bg_self_attendance, image_bg_homework, image_bg_timetable;
-    TextView text_attendance, text_attendance_report, text_self_attendance, text_homework, text_timetable, text_profile, text_username_top;
+    TextView text_attendance,nav_holiday, text_attendance_report, text_self_attendance, text_homework, text_timetable, text_profile, text_username_top;
     ImageView user_image, image_user_top;
     String[] PERMISSIONS = {android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS};
@@ -201,6 +202,7 @@ public class StudentDashboardActivity extends AppCompatActivity
         text_homework = (TextView) findViewById(R.id.text_homework);
         text_timetable = (TextView) findViewById(R.id.text_timetable);
         text_username_top = (TextView) findViewById(R.id.text_username_top);
+        nav_holiday = (TextView) findViewById(R.id.nav_holiday);
 
         image_bg_attendance = (ImageView) findViewById(R.id.image_bg_attendance);
         image_bg_attendance_report = (ImageView) findViewById(R.id.image_bg_attendance_report);
@@ -319,6 +321,9 @@ public class StudentDashboardActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_Leaves) {
             Intent intent = new Intent(context, LeaveList.class);
+            startActivity(intent);
+        }else if (id == R.id.nav_holiday) {
+            Intent intent = new Intent(context, HolidayList.class);
             startActivity(intent);
         } else if (id == R.id.nav_Library) {
             Intent intent = new Intent(context, LibraryManagement.class);

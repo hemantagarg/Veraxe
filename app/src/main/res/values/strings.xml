@@ -33,6 +33,7 @@
     <string name="events">events</string>
     <string name="send_apply_leave">send-apply-leave</string>
     <string name="leave_list">student-apply-leave</string>
+    <string name="holiday_list">holidaylist</string>
     <string name="teacherleave_list">student-pending-leaves</string>
     <string name="library_list">student-book-media</string>
     <string name="transport_list">student-transport</string>
@@ -143,6 +144,7 @@
     <string name="leaves">Leaves</string>
     <string name="library">Library</string>
     <string name="transport">Transport</string>
+    <string name="holidaylist">HolidayList</string>
     <string name="need_a_leave">Need a Leave?</string>
     <string name="cancel">Cancel</string>
     <string name="type_of_leave">Type of Leave</string>
