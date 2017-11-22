@@ -76,15 +76,10 @@ public class AdapterHolidayList extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             ModelStudent m1 = (ModelStudent) detail.get(position);
 
-          //  ((CustomViewHolder) holder).text_date.setText(m1.getDate());
+            ((CustomViewHolder) holder).text_date.setText(m1.getStart_date());
             ((CustomViewHolder) holder).text_message.setText(m1.getName());
 
-            ((CustomViewHolder) holder).card_view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onItemClickListener(position, 2);
-                }
-            });
+
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);

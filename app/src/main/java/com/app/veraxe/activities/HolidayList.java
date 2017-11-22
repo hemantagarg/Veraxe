@@ -155,6 +155,7 @@ import java.util.HashMap;
             HashMap<String, Object> hm = new HashMap<>();
 
             hm.put("authkey", AppConstants.AUTHKEY);
+            hm.put("schoolid", AppUtils.getSchoolId(context));
 
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.holiday_list);
@@ -183,26 +184,17 @@ import java.util.HashMap;
         if (method == 1) {
             if (response.getString("response").equalsIgnoreCase("1")) {
 
-                JSONArray array = response.getJSONArray("data");
+                JSONArray array = response.getJSONArray("result");
                 arrayList.clear();
                 for (int i = 0; i < array.length(); i++) {
 
                     JSONObject jo = array.getJSONObject(i);
                     itemList = new ModelStudent();
 
-                    itemList.setId(jo.getString("id"));
-                    itemList.setIs_approved(jo.getString("is_approved"));
-                    itemList.setLeave_type_id(jo.getString("leave_type_id"));
-                    itemList.setStudent_id(jo.getString("student_id"));
+                    itemList.setName(jo.getString("name"));
+                    itemList.setStart_date(jo.getString("start_date"));
+                    itemList.setEnd_date(jo.getString("end_date"));
                     itemList.setRowType(1);
-                    itemList.setLeave_type_name(jo.getString("leave_type_name"));
-                    itemList.setDate_start(jo.getString("start_date"));
-                    itemList.setDate_end(jo.getString("end_date"));
-                    itemList.setStudent_remark(jo.getString("student_remark"));
-                    itemList.setTeacher_remark(jo.getString("teacher_remark"));
-                    itemList.setStatus_name(jo.getString("status"));
-                    itemList.setSchool_id(jo.getString("school_id"));
-                    itemList.setDatetime(jo.getString("craeted_on"));
 
                     arrayList.add(itemList);
                 }

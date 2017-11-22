@@ -63,7 +63,7 @@ public class StudentDashboardActivity extends AppCompatActivity
     ModelStudent itemList;
     AdapterStudentDashBoard adapterStudentDashBoard;
     ArrayList<ModelStudent> arrayList;
-    ImageView icon_attendance, icon_attendance_report, icon_self_attendance, icon_homework, icon_timetable, icon_profile;
+    ImageView icon_attendance,imge_banner, icon_attendance_report, icon_self_attendance, icon_homework, icon_timetable, icon_profile;
     ImageView image_bg_attendance, image_bg_attendance_report, image_bg_attendance_profile, image_bg_self_attendance, image_bg_homework, image_bg_timetable;
     TextView text_attendance,nav_holiday, text_attendance_report, text_self_attendance, text_homework, text_timetable, text_profile, text_username_top;
     ImageView user_image, image_user_top;
@@ -210,6 +210,7 @@ public class StudentDashboardActivity extends AppCompatActivity
         image_bg_homework = (ImageView) findViewById(R.id.image_bg_homework);
         image_bg_self_attendance = (ImageView) findViewById(R.id.image_bg_self_attendance);
         image_bg_timetable = (ImageView) findViewById(R.id.image_bg_timetable);
+        imge_banner = (ImageView) findViewById(R.id.imge_banner);
 
     }
 
@@ -448,6 +449,9 @@ public class StudentDashboardActivity extends AppCompatActivity
         try {
             if (method == 1) {
                 if (response.getString("response").equalsIgnoreCase("1")) {
+                    Picasso.with(context)
+                            .load(response.getString("school_image"))
+                            .into(imge_banner);
 
                     JSONArray array = response.getJSONArray("result");
                     arrayList.clear();
