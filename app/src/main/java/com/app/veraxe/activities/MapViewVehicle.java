@@ -5,19 +5,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.app.veraxe.R;
+import com.app.veraxe.asyncTask.CommonAsyncTaskVolley;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.model.ModelStudent;
+import com.app.veraxe.utils.AppUtils;
 import com.app.veraxe.utils.GPSTracker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,6 +35,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +49,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -55,6 +67,10 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
     private int clickedPos;
     private double mLat, mLong;
     private GPSTracker gTraker;
+    private RelativeLayout rl_userdetail;
+    private String token = "";
+    private TextView text_address, text_distance, text_time;
+    private boolean isFirstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +79,64 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
         context = this;
         init();
         setListener();
-        setData();
+        gTraker = new GPSTracker(context);
+
+        if (gTraker.canGetLocation()) {
+
+            mLat = gTraker.getLatitude();
+            mLong = gTraker.getLongitude();
+
+            Log.e("mLat", "" + mLat);
+            Log.e("mLong", "" + mLong);
+
+        } else {
+            showSettingsAlert();
+            // getTrainingList();
+        }
+
+        String locationarray = getIntent().getStringExtra("location");
+        token = getIntent().getStringExtra("token");
+        setData(locationarray);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        refreshMap();
+    }
 
+    private void refreshMap() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 10s
+                deviceLocation();
+            }
+        }, 10000);
 
     }
+
+    public void deviceLocation() {
+        try {
+            if (AppUtils.isNetworkAvailable(context)) {
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("token", token);
+                jsonObject.put("imei", AppUtils.getimei(context));
+
+                String url = "http://globetrack.co.in/apis/device-location/";
+                new CommonAsyncTaskVolley(1, context, this).getqueryJsonbject(url, jsonObject, Request.Method.POST);
+
+            } else {
+                Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void showSettingsAlert() {
         try {
@@ -123,32 +187,19 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        rl_userdetail = (RelativeLayout) findViewById(R.id.rl_userdetail);
+        text_address = (TextView) findViewById(R.id.text_address);
+        text_distance = (TextView) findViewById(R.id.text_distance);
+        text_time = (TextView) findViewById(R.id.text_time);
     }
 
 
-    private void setData() {
-
-        gTraker = new GPSTracker(context);
-
-        if (gTraker.canGetLocation()) {
-
-            mLat = gTraker.getLatitude();
-            mLong = gTraker.getLongitude();
-
-            Log.e("mLat", "" + mLat);
-            Log.e("mLong", "" + mLong);
-
-        } else {
-            showSettingsAlert();
-            // getTrainingList();
-        }
+    private void setData(String location) {
 
         arrayListLocation = new ArrayList<>();
         markerLocation = new ArrayList<>();
-
-        String vendorarray = getIntent().getStringExtra("location");
         try {
-            JSONArray array = new JSONArray(vendorarray);
+            JSONArray array = new JSONArray(location);
 
             for (int i = 0; i < array.length(); i++) {
 
@@ -163,15 +214,16 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
                 LatLng lat = new LatLng(Double.parseDouble(packet.getString("lat")), Double.parseDouble(packet.getString("lng")));
                 markerLocation.add(lat);
             }
-
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
+            if (isFirstTime) {
+                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.map);
+                mapFragment.getMapAsync(this);
+                isFirstTime = false;
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     /*
@@ -193,7 +245,11 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
     public void onMapReady(GoogleMap googleMap) {
 
         map = googleMap;
+        setMapData();
 
+    }
+
+    private void setMapData() {
         map.addMarker(new MarkerOptions().position(new LatLng(mLat, mLong)).icon(BitmapDescriptorFactory.fromResource(R.drawable.redmap)).title("Current Location"));
         try {
             map.setMyLocationEnabled(true);
@@ -223,7 +279,7 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
             LatLng dest = new LatLng(0, 0);
             if (markerLocation.size() > 0) {
                 dest = markerLocation.get(0);
-                getDistance(mLat, markerLocation.get(0).latitude, mLong, markerLocation.get(0).longitude);
+                getAddress(markerLocation.get(0).latitude, markerLocation.get(0).longitude);
             }
 
             // Getting URL to the Google Directions API
@@ -239,19 +295,10 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
         }
     }
 
-    private void getDistance(double lat1, double lat2, double lon1, double lon2) {
+    private void getAddress(double lat1, double lon1) {
         try {
-            Location loc1 = new Location("");
-
-            loc1.setLatitude(lat1);
-            loc1.setLongitude(lon1);
-
-            Location loc2 = new Location("");
-            loc2.setLatitude(lat2);
-            loc2.setLongitude(lon2);
-
-            float distanceInMeters = loc1.distanceTo(loc2);
-            Log.e("diatance:", "*" + distanceInMeters);
+            GetAddressFromURLTask1 task1 = new GetAddressFromURLTask1();
+            task1.execute(new String[]{lat1 + "", lon1 + ""});
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -395,6 +442,15 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
                 // Fetching all the points in i-th route
                 for (int j = 0; j < path.size(); j++) {
                     HashMap<String, String> point = path.get(j);
+                    if (j == 0) {    // Get distance from the list
+                        String distance = (String) point.get("distance");
+                        text_distance.setText("Distance : " + distance);
+                        continue;
+                    } else if (j == 1) { // Get duration from the list
+                        String duration = (String) point.get("duration");
+                        text_time.setText("Time : " + duration);
+                        continue;
+                    }
 
                     double lat = Double.parseDouble(point.get("lat"));
                     double lng = Double.parseDouble(point.get("lng"));
@@ -424,12 +480,19 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
             if (method == 1) {
                 JSONObject commandResult = response
                         .getJSONObject("commandResult");
-                if (commandResult.getString("success").equalsIgnoreCase("1")) {
-                    JSONObject maindata = commandResult.getJSONObject("data");
-                    Toast.makeText(context, commandResult.getString("message"), Toast.LENGTH_SHORT).show();
-                    setResult(22);
-                    finish();
-
+                if (response.getString("status").equalsIgnoreCase("ok")) {
+                    JSONArray location = response.getJSONArray("location");
+                    arrayListLocation.clear();
+                    for (int i = 0; i < location.length(); i++) {
+                        JSONObject jsonObject = location.getJSONObject(i);
+                        ModelStudent itemList = new ModelStudent();
+                        JSONObject packet = jsonObject.getJSONObject("packet");
+                        itemList.setLat(packet.getString("lat"));
+                        itemList.setAddress(packet.getString("address"));
+                        itemList.setLng(packet.getString("lng"));
+                        arrayListLocation.add(itemList);
+                    }
+                    setData(location.toString());
                 } else {
                     Toast.makeText(context, commandResult.getString("message"), Toast.LENGTH_SHORT).show();
 
@@ -439,6 +502,88 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+    }
+
+    private class GetAddressFromURLTask1 extends AsyncTask<String, Void, String> {
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        protected String doInBackground(String... urls) {
+
+            String response = "";
+            HttpResponse response2 = null;
+            StringBuilder stringBuilder = new StringBuilder();
+            try {
+                HttpGet httpGet = new HttpGet("http://maps.google.com/maps/api/geocode/json?latlng=" + urls[0] + "," + urls[1] + "&ln=en");
+
+                HttpClient client = new DefaultHttpClient();
+                Log.e("Url ", "http://maps.google.com/maps/api/geocode/json?ln=en&latlng=" + urls[0] + "," + urls[1]);
+                try {
+                    response2 = client.execute(httpGet);
+
+                    HttpEntity entity = response2.getEntity();
+
+                    char[] buffer = new char[2048];
+                    Reader reader = new InputStreamReader(entity.getContent(), "UTF-8");
+
+                    while (true) {
+                        int n = reader.read(buffer);
+                        if (n < 0) {
+                            break;
+                        }
+                        stringBuilder.append(buffer, 0, n);
+                    }
+
+                    Log.e("Url response1", stringBuilder.toString());
+
+                } catch (ClientProtocolException e) {
+                } catch (IOException e) {
+                }
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject = new JSONObject(stringBuilder.toString());
+
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+                Log.e("Error 2 :>>", "error in doINBackground OUTER");
+                //infowindow.setText("Error in connecting to Google Server... try again later");
+            }
+            return stringBuilder.toString();
+            //return jsonObject;
+        }
+
+
+        protected void onPostExecute(String result) {
+
+            try {
+                if (result != null) {
+                    //result=	Html.fromHtml(result).toString();
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray resultsObject = jsonObject.getJSONArray("results");
+                    JSONObject formattedAddress = (JSONObject) resultsObject.get(0);
+                    String formatted_address = formattedAddress.getString("formatted_address");
+
+                    Log.e("formatted Adss from>>", formatted_address);
+                    text_address.setText(formatted_address);
+
+                }
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }
+
 
     }
 }

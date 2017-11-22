@@ -81,7 +81,7 @@ public class AdapterMessageDetail extends RecyclerView.Adapter<RecyclerView.View
             final ModelStudent m1 = (ModelStudent) detail.get(position);
 
             if (m1.getIsVideo() == 1) {
-                ((CustomViewHolder) holder).image_download.setVisibility(View.GONE);
+                ((CustomViewHolder) holder).image_download.setVisibility(View.VISIBLE);
                 ((CustomViewHolder) holder).image_play.setVisibility(View.VISIBLE);
 
             } else {

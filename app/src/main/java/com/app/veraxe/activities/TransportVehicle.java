@@ -284,6 +284,7 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
                     }
                     Intent intent = new Intent(context, MapViewVehicle.class);
                     intent.putExtra("location", location.toString());
+                    intent.putExtra("token", token);
                     startActivity(intent);
                 } else {
                     JSONObject data = response.getJSONObject("data");
