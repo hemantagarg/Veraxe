@@ -275,7 +275,7 @@ public class MessageDetail extends AppCompatActivity implements OnCustomItemClic
                         itemList.setId(jo.getString("id"));
                         itemList.setFilename(jo.getString("file"));
                         itemList.setUrl(jo.getString("url"));
-                        itemList.setFile_type(jo.getString("type"));
+                        itemList.setFile_type(jo.getString("file_type"));
                         itemList.setIsVideo(jo.getInt("video"));
                         itemList.setRowType(1);
                         arrayList.add(itemList);
