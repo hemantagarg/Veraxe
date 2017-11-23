@@ -71,6 +71,8 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
     private String token = "";
     private TextView text_address, text_distance, text_time;
     private boolean isFirstTime = true;
+    private Handler handler;
+    private Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,14 +109,30 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void refreshMap() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        handler = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
-                //Do something after 10s
                 deviceLocation();
+                refreshMap();
             }
-        }, 10000);
+        };
+        handler.postDelayed(runnable, 10000);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (handler != null) {
+            handler.removeCallbacks(runnable);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop(); if (handler != null) {
+            handler.removeCallbacks(runnable);
+        }
 
     }
 
@@ -127,7 +145,7 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
                 jsonObject.put("imei", AppUtils.getimei(context));
 
                 String url = "http://globetrack.co.in/apis/device-location/";
-                new CommonAsyncTaskVolley(1, context, this).getqueryJsonbject(url, jsonObject, Request.Method.POST);
+                new CommonAsyncTaskVolley(1, context, this).getqueryJsonbjectNoProgress(url, jsonObject, Request.Method.POST);
 
             } else {
                 Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
@@ -209,6 +227,7 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
                 itemList.setLat(packet.getString("lat"));
                 itemList.setAddress(packet.getString("address"));
                 itemList.setLng(packet.getString("lng"));
+                text_address.setText(itemList.getAddress());
                 arrayListLocation.add(itemList);
 
                 LatLng lat = new LatLng(Double.parseDouble(packet.getString("lat")), Double.parseDouble(packet.getString("lng")));
@@ -219,6 +238,8 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
                         .findFragmentById(R.id.map);
                 mapFragment.getMapAsync(this);
                 isFirstTime = false;
+            }else {
+                setMapData();
             }
 
         } catch (JSONException e) {
@@ -270,7 +291,7 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
 
             // mMap.moveCamera(CameraUpdateFactory.newLatLng(markerLocation.get(0)));
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(markerLocation.get(0)).zoom(10).build();
+                    .target(markerLocation.get(0)).zoom(9).build();
 
             map.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
@@ -279,7 +300,7 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
             LatLng dest = new LatLng(0, 0);
             if (markerLocation.size() > 0) {
                 dest = markerLocation.get(0);
-                getAddress(markerLocation.get(0).latitude, markerLocation.get(0).longitude);
+                //   getAddress(markerLocation.get(0).latitude, markerLocation.get(0).longitude);
             }
 
             // Getting URL to the Google Directions API
@@ -478,8 +499,6 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
     public void getResponse(int method, JSONObject response) {
         try {
             if (method == 1) {
-                JSONObject commandResult = response
-                        .getJSONObject("commandResult");
                 if (response.getString("status").equalsIgnoreCase("ok")) {
                     JSONArray location = response.getJSONArray("location");
                     arrayListLocation.clear();
@@ -493,9 +512,6 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
                         arrayListLocation.add(itemList);
                     }
                     setData(location.toString());
-                } else {
-                    Toast.makeText(context, commandResult.getString("message"), Toast.LENGTH_SHORT).show();
-
                 }
             }
         } catch (JSONException e) {

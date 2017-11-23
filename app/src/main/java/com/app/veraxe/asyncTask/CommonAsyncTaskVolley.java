@@ -160,5 +160,64 @@ public class CommonAsyncTaskVolley {
                 1000 * 40, 0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
+    public void getqueryJsonbjectNoProgress(String url, JSONObject jsonObject, int MethodType) {
+        // String url = context.getResources().getString(R.string.base_url) + addurl;
+        Log.e("request", ": " + url + "  " + jsonObject);
+        JsonObjectRequest mJsonRequest = new JsonObjectRequest(
+                MethodType,
+                url,
+                jsonObject, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.e("response", response.toString());
+                if (pd != null)
+                    pd.cancel();
+                try {
+                    if (response != null) {
+
+                        if (listener != null)
+                            listener.getResponse(method, response);
+                    } else {
+                        if (listener != null)
+                            // listener.onPostRequestFailed(method, "Null data from server.");
+                            Toast.makeText(context,
+                                    context.getResources().getString(R.string.problem_server),
+                                    Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // hide the progress dialog
+                if (pd != null)
+                    pd.cancel();
+                try {
+                    if (listener != null) {
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+        };
+        // Adding request to request queue
+        queue.add(mJsonRequest);
+
+        mJsonRequest.setRetryPolicy(new DefaultRetryPolicy(
+                1000 * 40, 0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
 
 }

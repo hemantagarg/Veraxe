@@ -37,7 +37,7 @@
                 android:id="@+id/text_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ramesh"
+                android:text=""
                 android:textColor="@color/textcolordark"
                 android:textSize="@dimen/text_size_15"
                 android:textStyle="bold" />
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp5"
-                android:text="1500/-"
+                android:text=""
                 android:textColor="@color/textcolordark"
                 android:textSize="@dimen/text_size_15"
                 android:textStyle="bold" />
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/dp5"
-                android:text="1500/-"
+                android:text=""
                 android:textColor="@color/textcolordark"
                 android:textSize="@dimen/text_size_15"
                 android:textStyle="bold" />
