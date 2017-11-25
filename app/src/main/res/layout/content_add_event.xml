@@ -209,6 +209,7 @@
                     android:layout_below="@+id/text_uploadvideo"
                     android:layout_marginTop="@dimen/dp5"
                     android:layout_toRightOf="@+id/text_imagecount"
+                    android:gravity="right"
                     android:hint=""
                     android:paddingRight="@dimen/dp10"
                     android:textColor="@color/text_color_darkgrey"
@@ -230,8 +231,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="Send: "
                     android:gravity="center_horizontal"
+                    android:text="Send: "
                     android:textColor="@color/text_color_black"
                     android:textSize="@dimen/text_size_15"
                     android:textStyle="bold" />

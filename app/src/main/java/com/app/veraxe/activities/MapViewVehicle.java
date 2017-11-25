@@ -282,7 +282,7 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void setMapData() {
-        map.addMarker(new MarkerOptions().position(new LatLng(mLat, mLong)).icon(BitmapDescriptorFactory.fromResource(R.drawable.redmap)).title("Current Location"));
+        map.addMarker(new MarkerOptions().position(new LatLng(mLat, mLong)).icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_map)).title("Current Location"));
         try {
             map.setMyLocationEnabled(true);
             try {

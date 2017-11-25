@@ -3,14 +3,12 @@ package com.app.veraxe.activities;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -68,6 +66,7 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
     ArrayAdapter<String> adapterLeaveTypes;
     ArrayList<String> leaveList = new ArrayList<>();
     ArrayList<String> leaveListId = new ArrayList<>();
+    private int lastClickedPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,12 +134,6 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
                 finish();
             }
         });
-        btn_need_leave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openSpamDialog();
-            }
-        });
         btn_addevent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,7 +143,6 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
         });
 
     }
-
 
 
     @Override
@@ -171,28 +163,6 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.list_leave_types);
             new CommonAsyncTaskHashmap(3, context, this).getqueryNoProgress(url, hm);
-
-        } else {
-            Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    public void applyLeave(String remark) {
-
-        if (AppUtils.isNetworkAvailable(context)) {
-
-            HashMap<String, Object> hm = new HashMap<>();
-
-            hm.put("student_id", AppUtils.getStudentId(context));
-            hm.put("leave_type_id", leaveListId.get(spinner_leave.getSelectedItemPosition()));
-            hm.put("start_date", mTvFromDate.getText().toString());
-            hm.put("end_date", mTvToDate.getText().toString());
-            hm.put("remark", remark);
-            hm.put("authkey", AppConstants.AUTHKEY);
-
-            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.send_apply_leave);
-            new CommonAsyncTaskHashmap(4, context, this).getquery(url, hm);
 
         } else {
             Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
@@ -242,10 +212,12 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
     public void onItemClickListener(int position, int flag) {
 
         if (flag == 1) {
+            lastClickedPosition = position;
             openSpamDialog();
 
         }
     }
+
     private void openSpamDialog() {
         try {
             final Dialog dialog = new Dialog(context);
@@ -269,13 +241,13 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
 
                     if (mEdtComment.getVisibility() == View.VISIBLE) {
                         if (!mEdtComment.getText().toString().equalsIgnoreCase("")) {
-                           // approveLeave(mEdtComment.getText().toString());
+                            approveLeave(mEdtComment.getText().toString(), "1");
                             dialog.dismiss();
                         } else {
-                            Toast.makeText(context, "Please fill all details", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Please give reason", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                     //   approveLeave(mEdtComment.getText().toString());
+                        //   approveLeave(mEdtComment.getText().toString());
                         dialog.dismiss();
                     }
 
@@ -284,7 +256,18 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dialog.dismiss();
+                    if (mEdtComment.getVisibility() == View.VISIBLE) {
+                        if (!mEdtComment.getText().toString().equalsIgnoreCase("")) {
+                            approveLeave(mEdtComment.getText().toString(), "2");
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(context, "Please give reason", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        //   approveLeave(mEdtComment.getText().toString());
+                        dialog.dismiss();
+                    }
+
                 }
             });
 
@@ -295,15 +278,17 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
             Log.e("Leave List", " Exception error : " + e);
         }
     }
-    public void approveLeave(int position) {
+
+    public void approveLeave(String remark, String status) {
 
         if (AppUtils.isNetworkAvailable(context)) {
 
             HashMap<String, Object> hm = new HashMap<>();
+
             hm.put("authkey", AppConstants.AUTHKEY);
-            hm.put("id", arrayList.get(position).getId());
-            hm.put("status", arrayList.get(position).getId());
-            hm.put("remark", arrayList.get(position).getId());
+            hm.put("id", arrayList.get(lastClickedPosition).getId());
+            hm.put("status", status);
+            hm.put("remark", remark);
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.approve_leave);
             new CommonAsyncTaskHashmap(2, context, this).getquery(url, hm);
@@ -311,39 +296,6 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
         } else {
             Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void showDeleteConfirmation(final int position) {
-
-
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-                context);
-
-        alertDialog.setTitle("DELETE !");
-
-        alertDialog.setMessage("Are you sure you want to Delete this Leave Request?");
-
-        alertDialog.setPositiveButton("YES",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        approveLeave(position);
-
-                    }
-
-                });
-
-        alertDialog.setNegativeButton("NO",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.cancel();
-                    }
-                });
-
-        alertDialog.show();
-
-
     }
 
 
@@ -391,9 +343,7 @@ public class TeacherLeaveListApproval extends AppCompatActivity implements OnCus
 
             } else if (method == 2) {
                 if (response.getString("response").equalsIgnoreCase("1")) {
-
-                    arrayList.remove(deletePosition);
-                    adapterTeacherLeaveList.notifyDataSetChanged();
+                    leaveListRefresh();
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
             } else if (method == 4) {

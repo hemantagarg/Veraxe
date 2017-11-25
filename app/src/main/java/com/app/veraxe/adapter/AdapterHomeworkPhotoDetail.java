@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.app.veraxe.R;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
@@ -43,7 +44,7 @@ public class AdapterHomeworkPhotoDetail extends RecyclerView.Adapter<RecyclerVie
         RecyclerView.ViewHolder vh;
         if (viewType == VIEW_ITEM) {
             View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.row_event_photos, parent, false);
+                    R.layout.row_homework_photos, parent, false);
 
             vh = new CustomViewHolder(v);
 
@@ -75,6 +76,7 @@ public class AdapterHomeworkPhotoDetail extends RecyclerView.Adapter<RecyclerVie
         if (holder instanceof CustomViewHolder) {
 
             ModelStudent m1 = (ModelStudent) detail.get(position);
+            ((CustomViewHolder) holder).text_filename.setText(m1.getFilename());
 
             if (!m1.getUrl().equalsIgnoreCase("")) {
                 Picasso.with(mContext).load(m1.getUrl()).placeholder(R.drawable.doc_placeholder).into(((CustomViewHolder) holder).image);
@@ -107,6 +109,7 @@ public class AdapterHomeworkPhotoDetail extends RecyclerView.Adapter<RecyclerVie
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image, image_download;
+        TextView text_filename;
         CardView card_view;
 
         public CustomViewHolder(View view) {
@@ -115,7 +118,7 @@ public class AdapterHomeworkPhotoDetail extends RecyclerView.Adapter<RecyclerVie
             this.image = (ImageView) view.findViewById(R.id.image);
             this.image_download = (ImageView) view.findViewById(R.id.image_download);
             this.card_view = (CardView) view.findViewById(R.id.card_view);
-
+            this.text_filename = (TextView) view.findViewById(R.id.text_filename);
         }
 
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.app.veraxe.R;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
@@ -80,6 +81,7 @@ public class AdapterMessageDetail extends RecyclerView.Adapter<RecyclerView.View
 
             final ModelStudent m1 = (ModelStudent) detail.get(position);
 
+            ((CustomViewHolder) holder).text_filename.setText(m1.getFilename());
             if (m1.getIsVideo() == 1) {
                 ((CustomViewHolder) holder).image_download.setVisibility(View.VISIBLE);
                 ((CustomViewHolder) holder).image_play.setVisibility(View.VISIBLE);
@@ -147,7 +149,7 @@ public class AdapterMessageDetail extends RecyclerView.Adapter<RecyclerView.View
 
         ImageView image, image_download,image_play;
         CardView card_view;
-
+        TextView text_filename;
         public CustomViewHolder(View view) {
             super(view);
 
@@ -155,7 +157,7 @@ public class AdapterMessageDetail extends RecyclerView.Adapter<RecyclerView.View
             this.image_download = (ImageView) view.findViewById(R.id.image_download);
             this.image_play = (ImageView) view.findViewById(R.id.image_play);
             this.card_view = (CardView) view.findViewById(R.id.card_view);
-
+            this.text_filename = (TextView) view.findViewById(R.id.text_filename);
         }
 
 

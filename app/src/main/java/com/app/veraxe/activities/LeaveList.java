@@ -472,20 +472,15 @@ public class LeaveList extends AppCompatActivity implements OnCustomItemClicList
                 adapterLeaveTypes = new ArrayAdapter<String>(context, R.layout.row_spinner, R.id.textview, leaveList);
 
             }
-        } catch (
-                Exception e)
-
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         int month = monthOfYear + 1;
-        String date = dayOfMonth + "-" + month + "-" + year;
+        String date = year + "-" + month + "-" + dayOfMonth;
         if (view.getTag().equalsIgnoreCase("todate")) {
             mTvToDate.setText(date);
         } else {

@@ -54,7 +54,7 @@
                 android:layout_marginRight="@dimen/dp20"
                 android:gravity="center"
                 android:padding="@dimen/dp5"
-                android:textColor="@color/text_color_darkgrey"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_13" />
         </RelativeLayout>
 

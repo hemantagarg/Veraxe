@@ -30,22 +30,22 @@
 
         <item
             android:id="@+id/nav_Leaves"
-            android:icon="@drawable/profie"
+            android:icon="@drawable/calender_icon"
             android:title="@string/leaves"
             android:visible="true" />
         <item
             android:id="@+id/nav_Library"
-            android:icon="@drawable/profie"
+            android:icon="@drawable/library_icon"
             android:title="@string/library"
             android:visible="true" />
         <item
             android:id="@+id/nav_Transport"
-            android:icon="@drawable/profie"
+            android:icon="@drawable/transport_icon"
             android:title="@string/transport"
             android:visible="true" />
         <item
             android:id="@+id/nav_holiday"
-            android:icon="@drawable/profie"
+            android:icon="@drawable/calender_icon"
             android:title="@string/holidaylist"
             android:visible="true" />
 
