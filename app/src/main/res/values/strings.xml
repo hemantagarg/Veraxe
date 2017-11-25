@@ -2,6 +2,7 @@
     <string name="app_name">Veraxe</string>
 
     <string name="banner_ad_unit_id">ca-app-pub-5990787515520459/3286120126</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-5990787515520459/8571485827</string>
 
     <string name="base_url">http://veraxe.com/api/</string>
     <string name="studentmobile">auth/studentmobile</string>

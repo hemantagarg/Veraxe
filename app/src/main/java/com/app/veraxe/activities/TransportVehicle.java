@@ -26,6 +26,8 @@ import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
 import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,6 +54,7 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
     SwipeRefreshLayout swipe_refresh;
     private String user = "", password = "";
     private String token = "";
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +67,15 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
         transportList();
     }
 
-    private void init() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_ad_unit_id));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+    }
 
+    private void init() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.package.ACTION_LOGOUT");
 
@@ -286,6 +296,11 @@ public class TransportVehicle extends AppCompatActivity implements OnCustomItemC
                     intent.putExtra("location", location.toString());
                     intent.putExtra("token", token);
                     startActivity(intent);
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
                 } else {
                     JSONObject data = response.getJSONObject("data");
                     Toast.makeText(context, data.getString("msg"), Toast.LENGTH_SHORT).show();

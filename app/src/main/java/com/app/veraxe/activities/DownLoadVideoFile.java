@@ -219,7 +219,9 @@ public class DownLoadVideoFile extends IntentService {
 
             // Displaying downloaded image into image view
             // Reading image path from sdcard
-            String imagePath = Environment.getExternalStorageDirectory().toString() + "/" + fileName;
+            File filepath = Environment.getExternalStorageDirectory();
+            String imagePath = filepath.getAbsolutePath()
+                    + AppConstants.VERAXE_PATH + fileName;
             Log.e("imagePath", "onPostExecute: " + imagePath);
             publishResults(imagePath, Activity.RESULT_OK);
             // setting downloaded into image view

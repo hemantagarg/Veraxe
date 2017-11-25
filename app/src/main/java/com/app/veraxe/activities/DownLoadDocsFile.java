@@ -35,8 +35,10 @@ public class DownLoadDocsFile extends IntentService {
     public static final String FILENAME = "filename";
     public static final String FILEPATH = "filepath";
     public static final String RESULT = "result";
+    public static final String FILETYPE = "filetype";
     Context context;
     public static final String NOTIFICATION = "service receiver";
+    private String fileType = "";
 
     public DownLoadDocsFile() {
         super("DownLoadFile");
@@ -50,7 +52,7 @@ public class DownLoadDocsFile extends IntentService {
         StrictMode.setVmPolicy(builder.build());
         String urlPath = intent.getStringExtra(URL);
         String fileName = intent.getStringExtra(FILENAME);
-
+        fileType = intent.getStringExtra(FILETYPE);
         Log.e("File path", urlPath);
         // new AsyncDownloadFile(context, urlPath, fileName);
         new DownloadFileFromURL(context, urlPath, fileName);
@@ -60,6 +62,7 @@ public class DownLoadDocsFile extends IntentService {
         showNotification(outputPath);
         Intent intent = new Intent(NOTIFICATION);
         intent.putExtra(FILEPATH, outputPath);
+       // intent.setDataAndType(Uri.fromFile(new File(outputPath)),fileType);
         intent.putExtra(RESULT, result);
         sendBroadcast(intent);
     }
@@ -214,8 +217,5 @@ public class DownLoadDocsFile extends IntentService {
             publishResults(file_url, Activity.RESULT_OK);
             // setting downloaded into image view
         }
-
     }
-
-
 }

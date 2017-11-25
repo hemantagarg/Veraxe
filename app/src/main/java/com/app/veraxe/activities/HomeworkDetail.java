@@ -192,6 +192,8 @@ public class HomeworkDetail extends AppCompatActivity implements OnCustomItemCli
                     intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
                     intent.putExtra(DownLoadFile.URL,
                             arrayList.get(position).getUrl());
+                    intent.putExtra(DownLoadFile.FILETYPE,
+                            arrayList.get(position).getFile_type());
                     context.startService(intent);
 
                     Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
@@ -235,6 +237,9 @@ public class HomeworkDetail extends AppCompatActivity implements OnCustomItemCli
                     intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getFilename());
                     intent.putExtra(DownLoadFile.URL,
                             arrayList.get(position).getUrl());
+                    intent.putExtra(DownLoadFile.FILETYPE,
+                            arrayList.get(position).getFile_type());
+
                     context.startService(intent);
 
                     Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();

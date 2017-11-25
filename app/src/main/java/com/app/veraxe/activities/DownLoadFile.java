@@ -36,6 +36,7 @@ public class DownLoadFile extends IntentService {
     private int result = Activity.RESULT_CANCELED;
     public static final String URL = "urlpath";
     public static final String FILENAME = "filename";
+    public static final String FILETYPE = "filetype";
     public static final String FILEPATH = "filepath";
     public static final String RESULT = "result";
     Context context;
@@ -219,7 +220,9 @@ public class DownLoadFile extends IntentService {
 
             // Displaying downloaded image into image view
             // Reading image path from sdcard
-            String imagePath = Environment.getExternalStorageDirectory().toString() + "/" + fileName;
+            File filepath = Environment.getExternalStorageDirectory();
+            String imagePath = filepath.getAbsolutePath()
+                    + AppConstants.VERAXE_PATH + fileName;
             Log.e("imagePath", "onPostExecute: " + imagePath);
             publishResults(imagePath, Activity.RESULT_OK);
             // setting downloaded into image view

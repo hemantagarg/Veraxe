@@ -24,6 +24,8 @@ import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.model.ModelStudent;
 import com.app.veraxe.utils.AppUtils;
 import com.app.veraxe.utils.GPSTracker;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -73,12 +75,16 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
     private boolean isFirstTime = true;
     private Handler handler;
     private Runnable runnable;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_view_vehicle);
         context = this;
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_ad_unit_id));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
         init();
         setListener();
         gTraker = new GPSTracker(context);
@@ -95,7 +101,11 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
             showSettingsAlert();
             // getTrainingList();
         }
-
+      /*  if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Log.d("TAG", "The interstitial wasn't loaded yet.");
+        }*/
         String locationarray = getIntent().getStringExtra("location");
         token = getIntent().getStringExtra("token");
         setData(locationarray);
@@ -130,7 +140,8 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
 
     @Override
     protected void onStop() {
-        super.onStop(); if (handler != null) {
+        super.onStop();
+        if (handler != null) {
             handler.removeCallbacks(runnable);
         }
 
@@ -238,7 +249,7 @@ public class MapViewVehicle extends AppCompatActivity implements OnMapReadyCallb
                         .findFragmentById(R.id.map);
                 mapFragment.getMapAsync(this);
                 isFirstTime = false;
-            }else {
+            } else {
                 setMapData();
             }
 
