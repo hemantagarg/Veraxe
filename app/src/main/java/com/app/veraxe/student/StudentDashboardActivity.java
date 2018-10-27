@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.app.veraxe.R;
 import com.app.veraxe.activities.ChangePassword;
+import com.app.veraxe.activities.FeesManagement;
 import com.app.veraxe.activities.HolidayList;
 import com.app.veraxe.activities.LeaveList;
 import com.app.veraxe.activities.LibraryManagement;
@@ -330,6 +331,9 @@ public class StudentDashboardActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_Library) {
             Intent intent = new Intent(context, LibraryManagement.class);
+            startActivity(intent);
+        }else if (id == R.id.nav_fees) {
+            Intent intent = new Intent(context, FeesManagement.class);
             startActivity(intent);
         } else if (id == R.id.nav_Transport) {
             Intent intent = new Intent(context, TransportVehicle.class);

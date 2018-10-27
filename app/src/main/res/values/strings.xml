@@ -38,6 +38,8 @@
     <string name="holiday_list">holidaylist</string>
     <string name="teacherleave_list">student-pending-leaves</string>
     <string name="library_list">student-book-media</string>
+    <string name="feeHistory">studentFeeHistory</string>
+    <string name="studentPayableFees">studentPayableFees</string>
     <string name="transport_list">student-transport</string>
     <string name="tracking_availability">tracking-availability</string>
     <string name="list_leave_types">list-leave-types</string>
@@ -152,5 +154,7 @@
     <string name="type_of_leave">Type of Leave</string>
     <string name="from_date">From Date</string>
     <string name="to_date">To Date</string>
+    <string name="fees">Fees</string>
+    <string name="invoice_no">Invoice No:</string>
 
 </resources>
