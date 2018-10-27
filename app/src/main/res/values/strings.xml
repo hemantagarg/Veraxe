@@ -21,6 +21,7 @@
     <string name="student_messages">student-messages</string>
     <string name="student_timetable">student-timetable</string>
     <string name="attendance_self">attendance-self</string>
+    <string name="teacherGeoAttendance">teacherGeoAttendance</string>
     <string name="selectlist_class">selectlist/class</string>
     <string name="selectlist_section">selectlist/section</string>
     <string name="selectlist_subject">selectlist/subject</string>

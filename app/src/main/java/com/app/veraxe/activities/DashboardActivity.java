@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,7 +57,7 @@ public class DashboardActivity extends AppCompatActivity
     AdapterStudentDashBoard adapterStudentDashBoard;
     ArrayList<ModelStudent> arrayList;
     ImageView icon_attendance, icon_attendance_report, icon_self_attendance, icon_homework, icon_timetable, icon_profile;
-    ImageView image_bg_attendance, image_bg_attendance_report, image_bg_attendance_profile, image_bg_self_attendance, image_bg_homework, image_bg_timetable;
+    ImageView image_bg_attendance, imge_banner, image_bg_attendance_report, image_bg_attendance_profile, image_bg_self_attendance, image_bg_homework, image_bg_timetable;
     TextView text_attendance, text_attendance_report, text_self_attendance, text_homework, text_timetable, text_profile, text_username_top;
     ImageView user_image, image_user_top;
     String[] PERMISSIONS = {android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE,
@@ -168,6 +169,7 @@ public class DashboardActivity extends AppCompatActivity
         text_username_top = (TextView) findViewById(R.id.text_username_top);
 
         image_bg_attendance = (ImageView) findViewById(R.id.image_bg_attendance);
+        imge_banner = (ImageView) findViewById(R.id.imge_banner);
         image_bg_attendance_report = (ImageView) findViewById(R.id.image_bg_attendance_report);
         image_bg_attendance_profile = (ImageView) findViewById(R.id.image_bg_attendance_profile);
         image_bg_homework = (ImageView) findViewById(R.id.image_bg_homework);
@@ -395,6 +397,14 @@ public class DashboardActivity extends AppCompatActivity
                 if (response.getString("response").equalsIgnoreCase("1")) {
 
                     JSONArray array = response.getJSONArray("result");
+                    if (response.has("school_image")) {
+                        String school_image = response.optString("school_image");
+                        if (!TextUtils.isEmpty(school_image)) {
+                            Picasso.with(context)
+                                    .load(school_image)
+                                    .into(imge_banner);
+                        }
+                    }
                     arrayList.clear();
                     for (int i = 0; i < array.length(); i++) {
 

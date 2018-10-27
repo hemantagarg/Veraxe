@@ -9,7 +9,7 @@ android {
         applicationId "com.app.veraxe"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 15
+        versionCode 20
         versionName "2.1"
         multiDexEnabled true
     }

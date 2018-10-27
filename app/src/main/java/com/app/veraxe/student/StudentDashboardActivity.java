@@ -41,6 +41,7 @@ import com.app.veraxe.activities.Login;
 import com.app.veraxe.activities.TransportVehicle;
 import com.app.veraxe.adapter.AdapterStudentDashBoard;
 import com.app.veraxe.asyncTask.CommonAsyncTask;
+import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
 import com.app.veraxe.model.ModelStudent;
@@ -52,6 +53,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class StudentDashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ApiResponse, OnCustomItemClicListener {
@@ -128,14 +130,14 @@ public class StudentDashboardActivity extends AppCompatActivity
     public void studentList() {
 
         if (AppUtils.isNetworkAvailable(context)) {
+            HashMap<String, Object> hm = new HashMap<>();
+            hm.put("student_id", AppUtils.getStudentId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.dashboard_student);
-            new CommonAsyncTask(1, context, this).getquery(url);
-
+            new CommonAsyncTaskHashmap(1, context, this).getquery(url,hm);
         } else {
             Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
         }
-
     }
 
 
