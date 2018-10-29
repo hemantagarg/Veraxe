@@ -84,7 +84,7 @@
         </activity>
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_lzeqH3VnqKylLQ" />
+            android:value="rzp_live_QtRzayj0kHtSFK" />
         <activity
             android:name=".activities.Login"
             android:label="@string/title_activity_login"
