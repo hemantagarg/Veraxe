@@ -25,6 +25,7 @@ import com.app.veraxe.adapter.AdapterFeesHeaderList;
 import com.app.veraxe.adapter.AdapterFeesList;
 import com.app.veraxe.adapter.AdapterLibraryList;
 import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
+import com.app.veraxe.asyncTask.CommonAsyncTaskVolley;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
 import com.app.veraxe.interfaces.OnCustomItemClicListener;
@@ -34,10 +35,12 @@ import com.app.veraxe.model.ModelStudentFees;
 import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -84,6 +87,10 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     SwipeRefreshLayout swipe_refresh1;
     private Button btn_teama, btn_teamb;
     private String TAG = FeesManagement.class.getSimpleName();
+    private JSONObject response;
+    private String orderId = "";
+    private String orderNo = "";
+    private String paybleAmount = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,15 +210,16 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     public void studentPayableFees() {
 
         if (AppUtils.isNetworkAvailable(context)) {
-
-            HashMap<String, Object> hm = new HashMap<>();
-
-            hm.put("studentId", AppUtils.getStudentId(context));
-            hm.put("schoolId", AppUtils.getSchoolId(context));
-            hm.put("authkey", AppConstants.AUTHKEY);
-
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("studentId", AppUtils.getStudentId(context));
+                jsonObject.put("schoolId", AppUtils.getSchoolId(context));
+                jsonObject.put("authkey", AppConstants.AUTHKEY);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.studentPayableFees);
-            new CommonAsyncTaskHashmap(2, context, this).getquery(url, hm);
+            new CommonAsyncTaskVolley(2, context, this).getqueryJsonbject(url, jsonObject, Request.Method.POST);
 
         } else {
             Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
@@ -223,13 +231,16 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     public void feesList() {
         if (AppUtils.isNetworkAvailable(context)) {
 
-            HashMap<String, Object> hm = new HashMap<>();
-            hm.put("studentId", AppUtils.getStudentId(context));
-            hm.put("schoolId", AppUtils.getSchoolId(context));
-            hm.put("authkey", AppConstants.AUTHKEY);
-
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("studentId", AppUtils.getStudentId(context));
+                jsonObject.put("schoolId", AppUtils.getSchoolId(context));
+                jsonObject.put("authkey", AppConstants.AUTHKEY);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.feeHistory);
-            new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
+            new CommonAsyncTaskVolley(1, context, this).getqueryJsonbject(url, jsonObject, Request.Method.POST);
         } else {
             Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
         }
@@ -238,12 +249,16 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     public void feesListRefresh() {
         if (AppUtils.isNetworkAvailable(context)) {
 
-            HashMap<String, Object> hm = new HashMap<>();
-            hm.put("student_id", AppUtils.getStudentId(context));
-            hm.put("authkey", AppConstants.AUTHKEY);
-
-            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.library_list);
-            new CommonAsyncTaskHashmap(1, context, this).getqueryNoProgress(url, hm);
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("studentId", AppUtils.getStudentId(context));
+                jsonObject.put("schoolId", AppUtils.getSchoolId(context));
+                jsonObject.put("authkey", AppConstants.AUTHKEY);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.feeHistory);
+            new CommonAsyncTaskVolley(1, context, this).getqueryJsonbject(url, jsonObject, Request.Method.POST);
         } else {
             Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
         }
@@ -254,6 +269,24 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     public void onItemClickListener(int position, int flag) {
 
 
+    }
+
+
+    public void savePayableFees() {
+        if (AppUtils.isNetworkAvailable(context)) {
+
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("receiptData", response.getJSONObject("data").getJSONObject("receiptData"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.savePayableFees);
+            new CommonAsyncTaskVolley(3, context, this).getqueryJsonbject(url, jsonObject, Request.Method.POST);
+        } else {
+            Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -291,15 +324,15 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
 
             } else if (method == 2) {
                 if (response.getString("response").equalsIgnoreCase("1")) {
-                    JSONObject data = response.getJSONObject("data");
+                    this.response = response;
                     ModelStudentFees dataModel = new ModelStudentFees();
                     Gson gson = new Gson();
                     try {
-                        dataModel = gson.fromJson(data.toString(), ModelStudentFees.class);
+                        dataModel = gson.fromJson(response.toString(), ModelStudentFees.class);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    if (dataModel != null) {
+                    if (dataModel != null && dataModel.getData() != null) {
 
                         AdapterFeesHeaderList adapterFeesHeaderList = new AdapterFeesHeaderList(context, this, dataModel.getData().getFees());
                         mRecyclerView.setAdapter(adapterFeesHeaderList);
@@ -312,6 +345,26 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
                         mTvPayableAmount.setText(summery.getPayableAmount());
                         mTvDiscount.setText(summery.getDiscount());
                     }
+
+                } else {
+                    Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
+                }
+            } else if (method == 3) {
+                if (response.getString("response").equalsIgnoreCase("1")) {
+
+                    JSONObject data = response.optJSONObject("data");
+                    orderId = data.optString("orderId");
+                    orderNo = data.optString("orderNo");
+                    paybleAmount = data.optString("paybleAmount");
+                    startPayment();
+                } else {
+                    Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
+                }
+            } else if (method == 4) {
+                if (response.getString("response").equalsIgnoreCase("1")) {
+                    Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -322,6 +375,7 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
 
     @OnClick(R.id.mBtnPayNow)
     public void onViewClicked() {
+        savePayableFees();
     }
 
     public void startPayment() {
@@ -332,6 +386,8 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
 
         final Checkout co = new Checkout();
         String price = mTvPayableAmount.getText().toString();
+        int intPrice = (int) Math.round(Double.parseDouble(price));
+        intPrice = intPrice * 100;
         try {
             JSONObject options = new JSONObject();
             options.put("name", "Veraxe");
@@ -339,7 +395,7 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
             //You can omit the image option to fetch the image from dashboard
             options.put("image", "https://rzp-mobile.s3.amazonaws.com/images/rzp.png");
             options.put("currency", "INR");
-            options.put("amount", price);
+            options.put("amount", intPrice);
 
             JSONObject preFill = new JSONObject();
             preFill.put("email", AppUtils.getUseremail(context));
@@ -365,7 +421,8 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     public void onPaymentSuccess(String razorpayPaymentID) {
         try {
             Toast.makeText(this, "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
-        //    makePayment();
+            //    makePayment();
+            updatePaymentTransaction(razorpayPaymentID, "1");
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentSuccess", e);
         }
@@ -380,10 +437,32 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     @Override
     public void onPaymentError(int code, String response) {
         try {
+            Log.e("failed response", "**" + response);
             Toast.makeText(this, "Payment failed: " + code + " " + response, Toast.LENGTH_SHORT).show();
+            //   updatePaymentTransaction(razorpayPaymentID, "2");
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentError", e);
         }
+    }
+
+    public void updatePaymentTransaction(String razorpayPaymentID, String status) {
+
+        if (AppUtils.isNetworkAvailable(context)) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("orderNo", orderNo);
+                jsonObject.put("paymentStatus", status);
+                jsonObject.put("paymentId", razorpayPaymentID);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.updatePaymentTransaction);
+            new CommonAsyncTaskVolley(4, context, this).getqueryJsonbject(url, jsonObject, Request.Method.POST);
+
+        } else {
+            Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 /*

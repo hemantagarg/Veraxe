@@ -40,6 +40,8 @@
     <string name="library_list">student-book-media</string>
     <string name="feeHistory">studentFeeHistory</string>
     <string name="studentPayableFees">studentPayableFees</string>
+    <string name="updatePaymentTransaction">updatePaymentTransaction</string>
+    <string name="savePayableFees">savePayableFees</string>
     <string name="transport_list">student-transport</string>
     <string name="tracking_availability">tracking-availability</string>
     <string name="list_leave_types">list-leave-types</string>

@@ -10,7 +10,16 @@ public class ModelStudentFees {
      * data : {"feeSchedule":"Monthy (Apr)","fees":[{"headerName":"Tution","cycle":"Monthy","amount":"1100.00"},{"headerName":"ABC Fee","cycle":"Monthy","amount":"1200.00"},{"headerName":"Development Fee","cycle":"Monthy","amount":"1300.00"},{"headerName":"Transport Fee","cycle":"Monthy","amount":"100.00"}],"extra":[],"discount":[],"summery":{"subtotal":"3700.00","balance":"0.00","extra":"0.00","discount":"0.00","grandTotal":"3700.00","servicePercentage":"4.00","serviceAmount":"148.00","payableAmount":"3848.00"},"receiptData":{"fee":{"studentId":"3123","classId":"145","sectionId":"318","streamId":"293","schoolId":"6","sessionYearId":"3","total":"3700.00"},"feesMeta":[[{"cycle_id":1,"cycle_no":1,"fee":"3600.00","transport_fee":"100.00","discount":"0.00","extra":"0.00","total":"3700.00","paid":"3700.00","balance":"0.00"}]],"feeCycleMeta":[{"cycle_id":1,"discount":"0.00","extra":"0.00","total":"3700.00","paid":"3700.00","balance":"0.00"}]}}
      */
 
+    private int response;
     private DataBean data;
+
+    public int getResponse() {
+        return response;
+    }
+
+    public void setResponse(int response) {
+        this.response = response;
+    }
 
     public DataBean getData() {
         return data;

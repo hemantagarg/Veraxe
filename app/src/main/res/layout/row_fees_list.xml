@@ -58,6 +58,7 @@
                 android:id="@+id/mIvDownload"
                 android:layout_width="@dimen/dp25"
                 android:layout_height="@dimen/dp25"
+                android:layout_below="@+id/text_date"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/dp5"
                 android:layout_marginTop="@dimen/dp5"
