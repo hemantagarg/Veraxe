@@ -438,8 +438,8 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     public void onPaymentError(int code, String response) {
         try {
             Log.e("failed response", "**" + response);
-            Toast.makeText(this, "Payment failed: " + code + " " + response, Toast.LENGTH_SHORT).show();
-            //   updatePaymentTransaction(razorpayPaymentID, "2");
+            //Toast.makeText(this, "Payment failed: " + code + " " + response, Toast.LENGTH_SHORT).show();
+            updatePaymentTransaction("", "2");
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentError", e);
         }
