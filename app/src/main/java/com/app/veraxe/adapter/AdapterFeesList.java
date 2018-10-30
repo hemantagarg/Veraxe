@@ -54,6 +54,12 @@ public class AdapterFeesList extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((CustomViewHolder) holder).text_total_amount.setText("Total amount: "+m1.getTotal());
             ((CustomViewHolder) holder).mTvPaidAmount.setText("Paid amount: "+m1.getPaid());
             ((CustomViewHolder) holder).text_date.setText(m1.getCreatedDate() +" "+m1.getCreatedTime());
+            ((CustomViewHolder) holder).mIvDownload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClickListener(position,1);
+                }
+            });
         }
     }
 

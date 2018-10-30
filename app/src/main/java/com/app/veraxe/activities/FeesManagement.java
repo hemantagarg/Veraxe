@@ -267,8 +267,15 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
 
     @Override
     public void onItemClickListener(int position, int flag) {
+        if (flag == 1) {
+            Intent intent = new Intent(context, DownLoadFile.class);
+            intent.putExtra(DownLoadFile.FILENAME, arrayList.get(position).getInviceNo());
+            intent.putExtra(DownLoadFile.URL,
+                    arrayList.get(position).getDownloadLink());
+            context.startService(intent);
 
-
+            Toast.makeText(context, "Your file download is in progress", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
