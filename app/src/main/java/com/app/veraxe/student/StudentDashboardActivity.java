@@ -23,6 +23,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -66,13 +68,15 @@ public class StudentDashboardActivity extends AppCompatActivity
     ModelStudent itemList;
     AdapterStudentDashBoard adapterStudentDashBoard;
     ArrayList<ModelStudent> arrayList;
-    ImageView icon_attendance,imge_banner, icon_attendance_report, icon_self_attendance, icon_homework, icon_timetable, icon_profile;
+    ImageView icon_attendance, imge_banner, icon_attendance_report, icon_self_attendance, icon_homework, icon_timetable, icon_profile;
     ImageView image_bg_attendance, image_bg_attendance_report, image_bg_attendance_profile, image_bg_self_attendance, image_bg_homework, image_bg_timetable;
-    TextView text_attendance,nav_holiday, text_attendance_report, text_self_attendance, text_homework, text_timetable, text_profile, text_username_top;
+    TextView text_attendance, nav_holiday, text_attendance_report, text_self_attendance, text_homework, text_timetable, text_profile, text_username_top;
     ImageView user_image, image_user_top;
     String[] PERMISSIONS = {android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS};
     int PERMISSION_ALL = 1;
+    private String isOnlineFee = "";
+    private MenuItem nav_fees;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +114,9 @@ public class StudentDashboardActivity extends AppCompatActivity
             Picasso.with(context).load(AppUtils.getUserImage(context)).placeholder(R.drawable.user).transform(new CircleTransform()).into(image_user_top);
         }
         navigationView.setNavigationItemSelectedListener(this);
+        Menu menu = navigationView.getMenu();
+        nav_fees = menu.findItem(R.id.nav_fees);
         setListener();
-
         studentList();
 
     }
@@ -124,7 +129,6 @@ public class StudentDashboardActivity extends AppCompatActivity
             Picasso.with(context).load(AppUtils.getUserImage(context)).placeholder(R.drawable.user).transform(new CircleTransform()).into(user_image);
             Picasso.with(context).load(AppUtils.getUserImage(context)).placeholder(R.drawable.user).transform(new CircleTransform()).into(image_user_top);
         }
-
     }
 
 
@@ -135,7 +139,7 @@ public class StudentDashboardActivity extends AppCompatActivity
             hm.put("student_id", AppUtils.getStudentId(context));
 
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.dashboard_student);
-            new CommonAsyncTaskHashmap(1, context, this).getquery(url,hm);
+            new CommonAsyncTaskHashmap(1, context, this).getquery(url, hm);
         } else {
             Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
         }
@@ -286,7 +290,6 @@ public class StudentDashboardActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_profile) {
 
             Intent intent = new Intent(context, StudentProfile.class);
@@ -326,13 +329,13 @@ public class StudentDashboardActivity extends AppCompatActivity
         } else if (id == R.id.nav_Leaves) {
             Intent intent = new Intent(context, LeaveList.class);
             startActivity(intent);
-        }else if (id == R.id.nav_holiday) {
+        } else if (id == R.id.nav_holiday) {
             Intent intent = new Intent(context, HolidayList.class);
             startActivity(intent);
         } else if (id == R.id.nav_Library) {
             Intent intent = new Intent(context, LibraryManagement.class);
             startActivity(intent);
-        }else if (id == R.id.nav_fees) {
+        } else if (id == R.id.nav_fees) {
             Intent intent = new Intent(context, FeesManagement.class);
             startActivity(intent);
         } else if (id == R.id.nav_Transport) {
@@ -459,6 +462,11 @@ public class StudentDashboardActivity extends AppCompatActivity
                             .load(response.getString("school_image"))
                             .into(imge_banner);
 
+                    isOnlineFee = response.getString("is_online_fee");
+                    if (isOnlineFee.equalsIgnoreCase("1"))
+                        nav_fees.setVisible(true);
+                    else
+                        nav_fees.setVisible(false);
                     JSONArray array = response.getJSONArray("result");
                     arrayList.clear();
                     for (int i = 0; i < array.length(); i++) {
