@@ -24,7 +24,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/day_layout_height"
-                android:layout_weight="8"
+                android:layout_weight="9"
                 android:orientation="horizontal">
 
 
@@ -126,6 +126,21 @@
                     android:background="@color/days_background_color"
                     android:gravity="center"
                     android:text="Saturday"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dp15"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/period_background_color" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/days_background_color"
+                    android:gravity="center"
+                    android:text="Sunday"
                     android:textColor="@color/white"
                     android:textSize="@dimen/dp15"
                     android:textStyle="bold" />

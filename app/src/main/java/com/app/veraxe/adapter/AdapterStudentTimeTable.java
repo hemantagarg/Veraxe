@@ -20,12 +20,13 @@ import java.util.ArrayList;
  * Created by admin on 26-11-2015.
  */
 public class AdapterStudentTimeTable extends RecyclerView.Adapter<AdapterStudentTimeTable.CustomViewHolder> {
+
     private ModelTimeTable model;
-    ArrayList<String> periodName;
-    ArrayList<String> daysList;
-    ArrayList<ModelTimeTable> detail;
-    Context mContext;
-    OnCustomItemClicListener listener;
+    private ArrayList<String> periodName;
+    private ArrayList<String> daysList;
+    private ArrayList<ModelTimeTable> detail;
+    private Context mContext;
+    private OnCustomItemClicListener listener;
 
     public AdapterStudentTimeTable(Context context, OnCustomItemClicListener lis, ArrayList<ModelTimeTable> list, ArrayList<String> periodName, ArrayList<String> daysList) {
 
@@ -78,11 +79,7 @@ public class AdapterStudentTimeTable extends RecyclerView.Adapter<AdapterStudent
 
             }
             for (int i = 0; i < detail.size(); i++) {
-
-
                 if (detail.get(i).getDay().equalsIgnoreCase("mon")) {
-
-
                     holder.text_class_mon.setText(detail.get(i).getClassname());
                     holder.text_subject_mon.setText(detail.get(i).getSubject());
                     holder.text_time_mon.setText(detail.get(i).getTime());
@@ -136,6 +133,15 @@ public class AdapterStudentTimeTable extends RecyclerView.Adapter<AdapterStudent
                     if (detail.get(i).getSubject().equalsIgnoreCase("")) {
                         holder.text_time_sat.setText("-");
                     }
+                } else if (detail.get(i).getDay().equalsIgnoreCase("sun")) {
+
+                    holder.text_class_sun.setText(detail.get(i).getClassname());
+                    holder.text_subject_sun.setText(detail.get(i).getSubject());
+                    holder.text_time_sun.setText(detail.get(i).getTime());
+                    holder.text_teacher_sun.setText(detail.get(i).getTeacher_name());
+                    if (detail.get(i).getSubject().equalsIgnoreCase("")) {
+                        holder.text_time_sun.setText("-");
+                    }
                 }
             }
 
@@ -155,8 +161,8 @@ public class AdapterStudentTimeTable extends RecyclerView.Adapter<AdapterStudent
         TextView text_periodname, text_subject_mon, text_class_mon, text_time_mon, text_subject_tue, text_class_tue, text_time_tue,
                 text_subject_wed, text_class_wed, text_time_wed, text_subject_thur, text_class_thur, text_time_thur, text_subject_fri,
                 text_class_fri, text_time_fri, text_subject_sat, text_class_sat, text_time_sat,
-                text_teacher_sat, text_teacher_fri, text_teacher_thur,
-                text_teacher_wed, text_teacher_tue, text_teacher_mon;
+                text_teacher_sat, text_teacher_fri, text_teacher_thur, text_subject_sun,
+                text_teacher_wed, text_teacher_tue, text_teacher_mon, text_teacher_sun, text_time_sun, text_class_sun;
 
         public CustomViewHolder(View view) {
             super(view);
@@ -190,12 +196,12 @@ public class AdapterStudentTimeTable extends RecyclerView.Adapter<AdapterStudent
             this.text_subject_sat = (TextView) view.findViewById(R.id.text_subject_sat);
             this.text_class_sat = (TextView) view.findViewById(R.id.text_class_sat);
             this.text_time_sat = (TextView) view.findViewById(R.id.text_time_sat);
+            this.text_teacher_sun = (TextView) view.findViewById(R.id.text_teacher_sun);
+            this.text_time_sun = (TextView) view.findViewById(R.id.text_time_sun);
+            this.text_class_sun = (TextView) view.findViewById(R.id.text_class_sun);
+            this.text_subject_sun = (TextView) view.findViewById(R.id.text_subject_sun);
 
         }
-
-
     }
-
-
 }
 
