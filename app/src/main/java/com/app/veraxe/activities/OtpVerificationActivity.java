@@ -30,8 +30,7 @@ public class OtpVerificationActivity extends AppCompatActivity implements ApiRes
     Context context;
     private BroadcastReceiver broadcastReceiver;
     TextView text_resendsms, text_msg, text_verify_otp;
-    String mobileno = "", isregisterPage = "";
-    BroadcastReceiver broadcastReceiver1;
+    String mobileno = "";
     private String otp = "";
     TextView text_terms;
 
@@ -59,35 +58,8 @@ public class OtpVerificationActivity extends AppCompatActivity implements ApiRes
 
     }
 
-    private void registerSmsReciever() {
 
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.veraxe.otprecieved");
-
-        broadcastReceiver1 = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Log.e("onReceive", "Sms recieved in progress");
-
-                edit_otp.setText(intent.getStringExtra("otp"));
-                edit_otp.setSelection(edit_otp.getText().length());
-
-            }
-        };
-
-        registerReceiver(broadcastReceiver1, intentFilter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        registerSmsReciever();
-    }
-
-    private void requestOtp()
-
-    {
+    private void requestOtp() {
         if (AppUtils.isNetworkAvailable(context)) {
             HashMap<String, Object> hm = new HashMap<>();
             hm.put("mobilenumber", mobileno);
@@ -111,21 +83,13 @@ public class OtpVerificationActivity extends AppCompatActivity implements ApiRes
 
 
             Intent in = new Intent(context, SetStudentPassword.class);
-            in.putExtra("mobileno",mobileno);
+            in.putExtra("mobileno", mobileno);
             startActivity(in);
             finish();
 
         }
     }
 
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (broadcastReceiver1 != null) {
-            unregisterReceiver(broadcastReceiver1);
-        }
-    }
 
     @Override
     protected void onDestroy() {
