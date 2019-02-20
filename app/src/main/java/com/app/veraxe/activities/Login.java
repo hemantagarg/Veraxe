@@ -42,7 +42,7 @@ public class Login extends AppCompatActivity implements ApiResponse {
     boolean isStudent = true;
     RelativeLayout rl_mobile, rl_username, rl_password, rl_schoolid;
     String[] PERMISSIONS = {android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS};
+            Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
     int PERMISSION_ALL = 1;
     TextView text_terms;
     private BroadcastReceiver broadcastReceiver;

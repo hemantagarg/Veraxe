@@ -73,7 +73,7 @@ public class StudentDashboardActivity extends AppCompatActivity
     TextView text_attendance, nav_holiday, text_attendance_report, text_self_attendance, text_homework, text_timetable, text_profile, text_username_top;
     ImageView user_image, image_user_top;
     String[] PERMISSIONS = {android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS};
+            Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
     int PERMISSION_ALL = 1;
     private String isOnlineFee = "";
     private MenuItem nav_fees;
