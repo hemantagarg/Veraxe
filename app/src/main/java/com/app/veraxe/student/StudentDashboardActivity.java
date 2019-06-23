@@ -326,6 +326,10 @@ public class StudentDashboardActivity extends AppCompatActivity
             Intent intent = new Intent(context, StudentList.class);
             startActivity(intent);
 
+        } else if (id == R.id.nav_Exam) {
+            Intent intent = new Intent(context, ActivityExam.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_Leaves) {
             Intent intent = new Intent(context, LeaveList.class);
             startActivity(intent);

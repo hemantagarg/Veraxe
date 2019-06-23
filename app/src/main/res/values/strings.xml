@@ -38,6 +38,10 @@
     <string name="holiday_list">holidaylist</string>
     <string name="teacherleave_list">student-pending-leaves</string>
     <string name="library_list">student-book-media</string>
+    <string name="student_exam_list">studentExamList</string>
+    <string name="student_exam_report">studentExamReportExamWise</string>
+    <string name="student_subject_report">studentExamReportSubjectWise</string>
+    <string name="student_subject_list">studentSubjectList</string>
     <string name="feeHistory">studentFeeHistory</string>
     <string name="studentPayableFees">studentPayableFees</string>
     <string name="updatePaymentTransaction">updatePaymentTransaction</string>
@@ -158,5 +162,8 @@
     <string name="to_date">To Date</string>
     <string name="fees">Fees</string>
     <string name="invoice_no">Invoice No:</string>
+    <string name="exam">Exam</string>
+    <string name="subject">Subject</string>
+    <string name="get_report">Get Report</string>
 
 </resources>
