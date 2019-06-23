@@ -158,11 +158,11 @@ public class ActivityExam extends AppCompatActivity implements OnCustomItemClicL
 
         data.setBarWidth(0.3f); // set custom bar width
 
-        float groupSpace = 0.1f;
+        float groupSpace = 0.2f;
         float barSpace = 0.03f;
         chart.setData(data);
 
-        chart.groupBars(0f, groupSpace, barSpace);
+        chart.groupBars(-0.2f, groupSpace, barSpace);
         chart.invalidate();
 
     }
@@ -186,7 +186,7 @@ public class ActivityExam extends AppCompatActivity implements OnCustomItemClicL
                 "    \"result\": [\n" +
                 "        {\n" +
                 "            \"subjectId\": \"11\",\n" +
-                "            \"subjectName\": \"SS\",\n" +
+                "            \"subjectName\": \"Social\",\n" +
                 "            \"examMarks\": \"100\",\n" +
                 "            \"studentMarks\": \"72.00\"\n" +
                 "        },\n" +
