@@ -93,32 +93,19 @@ public class ActivityExam extends AppCompatActivity implements OnCustomItemClicL
         mSpinnerExam = findViewById(R.id.mSpinnerExam);
         mSpinnerSubject = findViewById(R.id.mSpinnerSubject);
         mBtnFetch = findViewById(R.id.mBtnFetch);
-
+        chart.setVisibility(View.GONE);
         chart.setDrawBarShadow(false);
         chart.setDrawValueAboveBar(true);
 
         chart.getDescription().setEnabled(false);
         chart.setDrawGridBackground(false);
 
-        setChartData();
     }
 
     private void setChartData() {
-
-        try {
-            JSONObject jsonObject1 = new JSONObject(dummyData());
-            Gson gson = new Gson();
-            JSONArray array = jsonObject1.getJSONArray("result");
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject(i);
-                ModelExam modelExam;
-                modelExam = gson.fromJson(jsonObject.toString(), ModelExam.class);
-                studentReportList.add(modelExam);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        chart.setVisibility(View.VISIBLE);
+        chart.invalidate();
+        chart.clear();
 
         final ArrayList<String> xAxisLabel = new ArrayList<>();
         for (int i = 0; i < studentReportList.size(); i++) {
@@ -245,6 +232,8 @@ public class ActivityExam extends AppCompatActivity implements OnCustomItemClicL
                 mBtnSubject.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_unselected));
                 mBtnExam.setTextColor(ContextCompat.getColor(context, R.color.white));
                 mBtnSubject.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                if (mRlStudent.getVisibility() == View.VISIBLE)
+                    chart.setVisibility(View.GONE);
                 mRlExam.setVisibility(View.VISIBLE);
                 mRlStudent.setVisibility(View.GONE);
                 isSubectClicked = false;
@@ -259,9 +248,12 @@ public class ActivityExam extends AppCompatActivity implements OnCustomItemClicL
                 mBtnExam.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_unselected));
                 mBtnSubject.setTextColor(ContextCompat.getColor(context, R.color.white));
                 mBtnExam.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                if (mRlExam.getVisibility() == View.VISIBLE)
+                    chart.setVisibility(View.GONE);
                 mRlExam.setVisibility(View.GONE);
                 mRlStudent.setVisibility(View.VISIBLE);
                 isSubectClicked = true;
+
             }
         });
 
@@ -397,6 +389,7 @@ public class ActivityExam extends AppCompatActivity implements OnCustomItemClicL
                 if (response.getString("response").equalsIgnoreCase("1")) {
                     JSONArray array = response.getJSONArray("result");
                     Gson gson = new Gson();
+                    studentReportList.clear();
                     try {
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject jsonObject = array.getJSONObject(i);

@@ -85,7 +85,7 @@ public class CommonAsyncTaskVolley {
 
             @Override
             public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=UTF-8";
+                return "application/json";
             }
 
         };
@@ -150,7 +150,7 @@ public class CommonAsyncTaskVolley {
 
             @Override
             public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=UTF-8";
+                return "application/json";
             }
         };
         // Adding request to request queue
@@ -209,7 +209,7 @@ public class CommonAsyncTaskVolley {
 
             @Override
             public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=UTF-8";
+                return "application/json";
             }
         };
         // Adding request to request queue
