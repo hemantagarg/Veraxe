@@ -97,7 +97,7 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     private String orderNo = "";
     private String paybleAmount = "";
     private ResponseMessage resp;
-    private ArrayList<Transaction> transactionList;
+    private ArrayList<Transaction> transactionList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -523,7 +523,8 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
 
     @Override
     public void callback(ArrayList<Transaction> arrayList, boolean b) {
-
+        transactionList = arrayList;
+        updateTransaction();
     }
 
     @Override
@@ -537,39 +538,43 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
                     Bundle bundle = data.getExtras();
                     transactionList = new ArrayList<Transaction>();
                     transactionList = (ArrayList<Transaction>) bundle.getSerializable("DATA");
-                    if (transactionList != null) {
-                        Toast.makeText(this, transactionList.get(0).getSTATUS() + "\n" + transactionList.get(0).getSTATUSMSG(), Toast.LENGTH_LONG).show();
-
-                        if (transactionList.get(0).getSTATUS() != null) {
-                            Log.e("STATUS -> ", "=" + transactionList.get(0).getSTATUS());
-                        }
-                        if (transactionList.get(0).getMERCHANTPOSTTYPE() != null) {
-                            Log.e("MERCHANT POST TYPE ", "=" + transactionList.get(0).getMERCHANTPOSTTYPE());
-                        }
-                        if (transactionList.get(0).getMERCHANTTRANSACTIONID() != null) {
-                            Log.e("MERCHANT_TXN_ID -> ", "=" + transactionList.get(0).getMERCHANTTRANSACTIONID()); // order id
-
-                        }
-
-                        if (transactionList.get(0).getTRANSACTIONID() != null) {
-                            Log.e("TXN ID -> ", "=" + transactionList.get(0).getTRANSACTIONID());
-                        }
-
-
-                        String transid = transactionList.get(0).getMERCHANTTRANSACTIONID();
-                        String apTransactionID = transactionList.get(0).getTRANSACTIONID();
-                        String amount = transactionList.get(0).getTRANSACTIONAMT();
-                        String transtatus = transactionList.get(0).getTRANSACTIONSTATUS();
-                        String message = transactionList.get(0).getSTATUSMSG();
-                        Log.e("transtatus", "* "+transtatus);
-                        updatePaymentTransaction(apTransactionID, "1");
-                    } else updatePaymentTransaction("", "2");
+                    updateTransaction();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("Error Message --- >>>", "Error Message --- >>> " + e.getMessage());
             }
         }
+    }
+
+    private void updateTransaction() {
+        if (transactionList != null) {
+            Toast.makeText(this, transactionList.get(0).getSTATUS() + "\n" + transactionList.get(0).getSTATUSMSG(), Toast.LENGTH_LONG).show();
+
+            if (transactionList.get(0).getSTATUS() != null) {
+                Log.e("STATUS -> ", "=" + transactionList.get(0).getSTATUS());
+            }
+            if (transactionList.get(0).getMERCHANTPOSTTYPE() != null) {
+                Log.e("MERCHANT POST TYPE ", "=" + transactionList.get(0).getMERCHANTPOSTTYPE());
+            }
+            if (transactionList.get(0).getMERCHANTTRANSACTIONID() != null) {
+                Log.e("MERCHANT_TXN_ID -> ", "=" + transactionList.get(0).getMERCHANTTRANSACTIONID()); // order id
+
+            }
+
+            if (transactionList.get(0).getTRANSACTIONID() != null) {
+                Log.e("TXN ID -> ", "=" + transactionList.get(0).getTRANSACTIONID());
+            }
+
+
+            String transid = transactionList.get(0).getMERCHANTTRANSACTIONID();
+            String apTransactionID = transactionList.get(0).getTRANSACTIONID();
+            String amount = transactionList.get(0).getTRANSACTIONAMT();
+            String transtatus = transactionList.get(0).getTRANSACTIONSTATUS();
+            String message = transactionList.get(0).getSTATUSMSG();
+            Log.e("transtatus", "* " + transtatus);
+            updatePaymentTransaction(apTransactionID, "1");
+        } else updatePaymentTransaction("", "2");
     }
 
 /*
