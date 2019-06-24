@@ -57,6 +57,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation files('libs/airpay_simplifiedotpunified.jar')
 
 }
 apply plugin: 'com.google.gms.google-services'

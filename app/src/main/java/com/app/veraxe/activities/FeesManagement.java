@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airpay.airpaysdk_simplifiedotp.AirpayActivity;
+import com.airpay.airpaysdk_simplifiedotp.ResponseMessage;
+import com.airpay.airpaysdk_simplifiedotp.Transaction;
 import com.android.volley.Request;
 import com.app.veraxe.R;
 import com.app.veraxe.adapter.AdapterFeesHeaderList;
@@ -45,6 +49,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.zip.CRC32;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +58,7 @@ import butterknife.OnClick;
 /**
  * Created by admin on 06-01-2016.
  */
-public class FeesManagement extends AppCompatActivity implements OnCustomItemClicListener, ApiResponse, PaymentResultListener {
+public class FeesManagement extends AppCompatActivity implements OnCustomItemClicListener, ApiResponse, PaymentResultListener, ResponseMessage {
 
     Context context;
     RecyclerView mRecyclerView, recycler_viewret;
@@ -91,6 +96,8 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     private String orderId = "";
     private String orderNo = "";
     private String paybleAmount = "";
+    private ResponseMessage resp;
+    private ArrayList<Transaction> transactionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,15 +204,6 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
      * Open dialog for the apply leave
      */
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 21 && resultCode == RESULT_OK) {
-
-            feesListRefresh();
-        }
-    }
 
     public void studentPayableFees() {
 
@@ -363,7 +361,17 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
                     orderId = data.optString("orderId");
                     orderNo = data.optString("orderNo");
                     paybleAmount = data.optString("paybleAmount");
-                    startPayment();
+                    String apiToken = data.optString("apiToken");
+                    String decryptedData = Java_AES_Cipher.decrypt(AppConstants.DECRYPTION_KEY, apiToken);
+                    if (decryptedData.contains("|")) {
+                        String[] idArray = decryptedData.split("\\|");
+                        if (idArray.length > 3) {
+                            startPaymentAirPay(idArray[0], idArray[1], idArray[2], idArray[3]);
+                        } else
+                            Toast.makeText(context, "Error while doing payment, Please try again.", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(context, "Error while doing payment, Please try again.", Toast.LENGTH_SHORT).show();
+
                 } else {
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
@@ -383,6 +391,47 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     @OnClick(R.id.mBtnPayNow)
     public void onViewClicked() {
         savePayableFees();
+    }
+
+    public void startPaymentAirPay(String merchantId, String username, String password, String secret) {
+        Intent myIntent = new Intent(this, AirpayActivity.class);
+        String price = mTvPayableAmount.getText().toString();
+
+        Bundle b = new Bundle();
+
+        // Please enter Merchant configuration value
+
+        // Live Merchant Details - Merchant Id -
+        b.putString("USERNAME", username);
+        b.putString("PASSWORD", password);
+        b.putString("SECRET", secret);
+        b.putString("MERCHANT_ID", merchantId);
+        b.putString("EMAIL", AppUtils.getUseremail(context));
+        b.putString("PHONE", "" + AppUtils.getStudentMobile(context));
+        b.putString("FIRSTNAME", "Veraxe");
+        b.putString("LASTNAME", "Veraxe");
+        b.putString("ADDRESS", "");
+        b.putString("CITY", "");
+        b.putString("STATE", "");
+        b.putString("COUNTRY", "");
+        b.putString("PIN_CODE", "");
+        b.putString("ORDER_ID", orderId);
+        b.putString("AMOUNT", price);
+        b.putString("CURRENCY", "356");
+        b.putString("ISOCURRENCY", "INR");
+        b.putString("CHMOD", "");
+        b.putString("CUSTOMVAR", "");
+        b.putString("TXNSUBTYPE", "");
+        b.putString("WALLET", "0");
+
+        // Live Success URL Merchant Id -
+        b.putString("SUCCESS_URL", "");
+
+
+        b.putParcelable("RESPONSEMESSAGE", (Parcelable) resp);
+
+        myIntent.putExtras(b);
+        startActivityForResult(myIntent, 120);
     }
 
     public void startPayment() {
@@ -470,6 +519,57 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
             Toast.makeText(context, context.getResources().getString(R.string.message_network_problem), Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    @Override
+    public void callback(ArrayList<Transaction> arrayList, boolean b) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 21 && resultCode == RESULT_OK) {
+            feesListRefresh();
+        } else {
+            try {
+                if (data != null) {
+                    Bundle bundle = data.getExtras();
+                    transactionList = new ArrayList<Transaction>();
+                    transactionList = (ArrayList<Transaction>) bundle.getSerializable("DATA");
+                    if (transactionList != null) {
+                        Toast.makeText(this, transactionList.get(0).getSTATUS() + "\n" + transactionList.get(0).getSTATUSMSG(), Toast.LENGTH_LONG).show();
+
+                        if (transactionList.get(0).getSTATUS() != null) {
+                            Log.e("STATUS -> ", "=" + transactionList.get(0).getSTATUS());
+                        }
+                        if (transactionList.get(0).getMERCHANTPOSTTYPE() != null) {
+                            Log.e("MERCHANT POST TYPE ", "=" + transactionList.get(0).getMERCHANTPOSTTYPE());
+                        }
+                        if (transactionList.get(0).getMERCHANTTRANSACTIONID() != null) {
+                            Log.e("MERCHANT_TXN_ID -> ", "=" + transactionList.get(0).getMERCHANTTRANSACTIONID()); // order id
+
+                        }
+
+                        if (transactionList.get(0).getTRANSACTIONID() != null) {
+                            Log.e("TXN ID -> ", "=" + transactionList.get(0).getTRANSACTIONID());
+                        }
+
+
+                        String transid = transactionList.get(0).getMERCHANTTRANSACTIONID();
+                        String apTransactionID = transactionList.get(0).getTRANSACTIONID();
+                        String amount = transactionList.get(0).getTRANSACTIONAMT();
+                        String transtatus = transactionList.get(0).getTRANSACTIONSTATUS();
+                        String message = transactionList.get(0).getSTATUSMSG();
+                        Log.e("transtatus", "* "+transtatus);
+                        updatePaymentTransaction(apTransactionID, "1");
+                    } else updatePaymentTransaction("", "2");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("Error Message --- >>>", "Error Message --- >>> " + e.getMessage());
+            }
+        }
     }
 
 /*

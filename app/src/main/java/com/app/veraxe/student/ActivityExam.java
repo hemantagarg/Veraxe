@@ -148,7 +148,8 @@ public class ActivityExam extends AppCompatActivity implements OnCustomItemClicL
         float groupSpace = 0.2f;
         float barSpace = 0.03f;
         chart.setData(data);
-
+        if (studentReportList.size() > 4)
+            chart.setVisibleXRangeMaximum(4);
         chart.groupBars(-0.2f, groupSpace, barSpace);
         chart.invalidate();
 

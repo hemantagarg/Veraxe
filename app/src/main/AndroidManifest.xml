@@ -142,7 +142,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-
+        <activity android:name="com.airpay.airpaysdk_simplifiedotp.AirpayActivity"/>
         <activity
             android:name=".activities.SetStudentPassword"
             android:label="@string/title_activity_dashboard"

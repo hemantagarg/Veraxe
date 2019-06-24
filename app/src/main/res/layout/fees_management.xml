@@ -154,7 +154,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="3700"
+                            android:text="0"
                             android:textColor="@color/textcolordark"
                             android:textSize="@dimen/text_size_15" />
 
@@ -179,7 +179,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="3700"
+                            android:text="0"
                             android:textColor="@color/textcolordark"
                             android:textSize="@dimen/text_size_15" />
 
@@ -204,7 +204,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="3700"
+                            android:text="0"
                             android:textColor="@color/textcolordark"
                             android:textSize="@dimen/text_size_15" />
 
@@ -229,7 +229,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="3700"
+                            android:text="0"
                             android:textColor="@color/textcolordark"
                             android:textSize="@dimen/text_size_15" />
 
@@ -238,6 +238,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginLeft="@dimen/dp10"
                         android:layout_marginRight="@dimen/dp10"
                         android:layout_marginTop="@dimen/dp5">
@@ -254,7 +255,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="167"
+                            android:text="0"
                             android:textColor="@color/textcolordark"
                             android:textSize="@dimen/text_size_15" />
 
@@ -281,7 +282,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="4321"
+                            android:text="0"
                             android:textColor="@color/textcolordark"
                             android:textSize="@dimen/text_size_17" />
 
