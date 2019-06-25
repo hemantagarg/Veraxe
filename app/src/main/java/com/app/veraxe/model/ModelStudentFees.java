@@ -1,5 +1,7 @@
 package com.app.veraxe.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class ModelStudentFees {
@@ -43,8 +45,8 @@ public class ModelStudentFees {
         private SummeryBean summery;
         private ReceiptDataBean receiptData;
         private List<FeesBean> fees;
-        private List<?> extra;
-        private List<?> discount;
+        private List<FeesBean> extra;
+        private List<FeesBean> discount;
 
         public String getFeeSchedule() {
             return feeSchedule;
@@ -78,19 +80,19 @@ public class ModelStudentFees {
             this.fees = fees;
         }
 
-        public List<?> getExtra() {
+        public List<FeesBean> getExtra() {
             return extra;
         }
 
-        public void setExtra(List<?> extra) {
+        public void setExtra(List<FeesBean> extra) {
             this.extra = extra;
         }
 
-        public List<?> getDiscount() {
+        public List<FeesBean> getDiscount() {
             return discount;
         }
 
-        public void setDiscount(List<?> discount) {
+        public void setDiscount(List<FeesBean> discount) {
             this.discount = discount;
         }
 
@@ -179,6 +181,7 @@ public class ModelStudentFees {
                 this.payableAmount = payableAmount;
             }
         }
+
 
         public static class ReceiptDataBean {
             /**
@@ -461,6 +464,7 @@ public class ModelStudentFees {
              * amount : 1100.00
              */
 
+            private int rowType = 1;
             private String headerName;
             private String cycle;
             private String amount;
@@ -487,6 +491,14 @@ public class ModelStudentFees {
 
             public void setAmount(String amount) {
                 this.amount = amount;
+            }
+
+            public int getRowType() {
+                return rowType;
+            }
+
+            public void setRowType(int rowType) {
+                this.rowType = rowType;
             }
         }
     }

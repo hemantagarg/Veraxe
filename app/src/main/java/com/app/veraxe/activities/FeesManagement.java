@@ -27,8 +27,6 @@ import com.android.volley.Request;
 import com.app.veraxe.R;
 import com.app.veraxe.adapter.AdapterFeesHeaderList;
 import com.app.veraxe.adapter.AdapterFeesList;
-import com.app.veraxe.adapter.AdapterLibraryList;
-import com.app.veraxe.asyncTask.CommonAsyncTaskHashmap;
 import com.app.veraxe.asyncTask.CommonAsyncTaskVolley;
 import com.app.veraxe.interfaces.ApiResponse;
 import com.app.veraxe.interfaces.ConnectionDetector;
@@ -39,7 +37,6 @@ import com.app.veraxe.model.ModelStudentFees;
 import com.app.veraxe.utils.AppConstants;
 import com.app.veraxe.utils.AppUtils;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -48,8 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.zip.CRC32;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,6 +60,8 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     RecyclerView mRecyclerView, recycler_viewret;
     ModelFeesHistory itemList;
     AdapterFeesList adapterFeesList;
+    AdapterFeesList adapterFeesExtraList;
+    AdapterFeesList adapterFeesDiscountList;
     ArrayList<ModelFeesHistory> arrayList = new ArrayList<>();
     ArrayList<ModelStudent> arrayListret;
     ConnectionDetector cd;
@@ -137,6 +135,7 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
         rl_main_layout = findViewById(R.id.rl_main_layout);
         rl_network = findViewById(R.id.rl_network);
         mRecyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView.setNestedScrollingEnabled(false);
         recycler_viewret = findViewById(R.id.recycler_viewret);
         recycler_viewret.setLayoutManager(new LinearLayoutManager(context));
         btn_teamb = findViewById(R.id.btn_teamb);
@@ -338,8 +337,26 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
                         e.printStackTrace();
                     }
                     if (dataModel != null && dataModel.getData() != null) {
+                        List<ModelStudentFees.DataBean.FeesBean> feesList = new ArrayList<>();
+                        ModelStudentFees.DataBean.FeesBean fee = new ModelStudentFees.DataBean.FeesBean();
+                        fee.setRowType(2);
+                        fee.setHeaderName("Fees");
+                        feesList.add(fee);
+                        feesList.addAll(dataModel.getData().getFees());
 
-                        AdapterFeesHeaderList adapterFeesHeaderList = new AdapterFeesHeaderList(context, this, dataModel.getData().getFees());
+                        ModelStudentFees.DataBean.FeesBean feeExtra = new ModelStudentFees.DataBean.FeesBean();
+                        feeExtra.setRowType(2);
+                        feeExtra.setHeaderName(getString(R.string.fee_extra));
+                        feesList.add(feeExtra);
+                        feesList.addAll(dataModel.getData().getExtra());
+
+                        ModelStudentFees.DataBean.FeesBean feeDiscount = new ModelStudentFees.DataBean.FeesBean();
+                        feeDiscount.setRowType(2);
+                        feeDiscount.setHeaderName(getString(R.string.fee_discount));
+                        feesList.add(feeDiscount);
+                        feesList.addAll(dataModel.getData().getDiscount());
+
+                        AdapterFeesHeaderList adapterFeesHeaderList = new AdapterFeesHeaderList(context, this, feesList);
                         mRecyclerView.setAdapter(adapterFeesHeaderList);
                         mTvFeeSchedule.setText(dataModel.getData().getFeeSchedule());
                         ModelStudentFees.DataBean.SummeryBean summery = dataModel.getData().getSummery();

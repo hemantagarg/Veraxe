@@ -165,5 +165,7 @@
     <string name="exam">Exam</string>
     <string name="subject">Subject</string>
     <string name="get_report">Get Report</string>
+    <string name="fee_extra">Fee Extra</string>
+    <string name="fee_discount">Fee Discount</string>
 
 </resources>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.veraxe.R;
@@ -52,9 +53,17 @@ public class AdapterFeesHeaderList extends RecyclerView.Adapter<RecyclerView.Vie
 
             ModelStudentFees.DataBean.FeesBean m1 = detail.get(position);
 
-            ((CustomViewHolder) holder).mTvCycle.setText(m1.getCycle());
-            ((CustomViewHolder) holder).text_total_amount.setText(m1.getAmount());
-            ((CustomViewHolder) holder).mTvName.setText(m1.getHeaderName());
+            if (m1.getRowType()==1) {
+                ((CustomViewHolder) holder).mTvTitle.setVisibility(View.GONE);
+                ((CustomViewHolder) holder).mRlContent.setVisibility(View.VISIBLE);
+                ((CustomViewHolder) holder).mTvCycle.setText(m1.getCycle());
+                ((CustomViewHolder) holder).text_total_amount.setText(m1.getAmount());
+                ((CustomViewHolder) holder).mTvName.setText(m1.getHeaderName());
+            }else {
+                ((CustomViewHolder) holder).mTvTitle.setVisibility(View.VISIBLE);
+                ((CustomViewHolder) holder).mRlContent.setVisibility(View.GONE);
+                ((CustomViewHolder) holder).mTvTitle.setText(m1.getHeaderName());
+            }
         }
     }
 
@@ -66,13 +75,16 @@ public class AdapterFeesHeaderList extends RecyclerView.Adapter<RecyclerView.Vie
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mTvCycle, text_total_amount, mTvName;
+        RelativeLayout mRlContent;
+        TextView mTvCycle, text_total_amount, mTvName,mTvTitle;
 
         public CustomViewHolder(View view) {
             super(view);
 
             this.mTvCycle = view.findViewById(R.id.mTvCycle);
             this.mTvName = view.findViewById(R.id.mTvName);
+            this.mTvTitle = view.findViewById(R.id.mTvTitle);
+            this.mRlContent = view.findViewById(R.id.mRlContent);
             this.text_total_amount = view.findViewById(R.id.text_total_amount);
         }
     }

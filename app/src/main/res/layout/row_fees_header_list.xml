@@ -8,14 +8,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp5">
+        android:padding="@dimen/dp10">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/mTvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fee"
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:textColor="@color/textcolordark"
+            android:textSize="@dimen/text_size_15" />
+
+        <RelativeLayout android:id="@+id/mRlContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/mTvTitle"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp10"
-            android:layout_toRightOf="@+id/text_name_title"
             android:orientation="vertical">
 
 
@@ -26,21 +36,21 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/dp5"
                 android:layout_marginRight="@dimen/dp5"
-                android:paddingBottom="@dimen/dp4"
                 android:paddingLeft="@dimen/dp5"
-                android:paddingRight="@dimen/dp5"
                 android:paddingTop="@dimen/dp4"
+                android:paddingRight="@dimen/dp5"
+                android:paddingBottom="@dimen/dp4"
                 android:text="hh"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_14"
-                android:textStyle="bold" />
+                />
 
             <TextView
                 android:id="@+id/text_total_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_below="@+id/mTvName"
+                android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/dp5"
                 android:layout_toLeftOf="@+id/text_date"
                 android:paddingLeft="@dimen/dp5"
@@ -54,8 +64,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/dp10"
                 android:layout_marginTop="@dimen/dp5"
+                android:layout_marginRight="@dimen/dp10"
                 android:paddingLeft="@dimen/dp5"
                 android:text=""
                 android:textColor="@color/text_color_darkgrey"

@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ScrollView
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -104,14 +104,6 @@
                         android:layout_marginTop="@dimen/dp10"
                         android:background="@color/view_color" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/dp10"
-                        android:text="Fees"
-                        android:textColor="@color/textcolordark"
-                        android:textSize="@dimen/text_size_14" />
-
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view"
                         android:layout_width="match_parent"
@@ -119,14 +111,6 @@
                         android:layout_margin="@dimen/dp3"
                         android:visibility="visible" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp10"
-                        android:paddingLeft="@dimen/dp10"
-                        android:text="Discount"
-                        android:textColor="@color/textcolordark"
-                        android:textSize="@dimen/text_size_15" />
 
                     <View
                         android:layout_width="match_parent"
@@ -290,7 +274,7 @@
 
 
                 </LinearLayout>
-            </ScrollView>
+            </android.support.v4.widget.NestedScrollView>
 
             <Button
                 android:id="@+id/mBtnPayNow"
