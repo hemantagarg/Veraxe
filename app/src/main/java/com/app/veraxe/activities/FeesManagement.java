@@ -442,9 +442,7 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
         b.putString("WALLET", "0");
 
         // Live Success URL Merchant Id -
-        b.putString("SUCCESS_URL", "");
-
-
+        b.putString("SUCCESS_URL", "https://veraxe.com/schools/paymentResponse");
         b.putParcelable("RESPONSEMESSAGE", (Parcelable) resp);
 
         myIntent.putExtras(b);
