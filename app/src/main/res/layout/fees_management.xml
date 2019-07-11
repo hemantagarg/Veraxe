@@ -28,10 +28,10 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_below="@+id/toolbar"
-        android:layout_marginBottom="@dimen/dp10"
         android:layout_marginLeft="@dimen/dp20"
-        android:layout_marginRight="@dimen/dp20"
         android:layout_marginTop="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp20"
+        android:layout_marginBottom="@dimen/dp10"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -67,11 +67,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView android:id="@+id/mTvNoFee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/no_fee_available"
+                android:textColor="@color/textcolordark"
+                android:textSize="@dimen/text_size_16" />
+
             <android.support.v4.widget.NestedScrollView
+                android:id="@+id/mNestedScroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_above="@+id/mBtnPayNow">
+                android:layout_above="@+id/mBtnPayNow"
+                android:layout_alignParentTop="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -100,8 +109,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp1"
-                        android:layout_marginBottom="@dimen/dp10"
                         android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginBottom="@dimen/dp10"
                         android:background="@color/view_color" />
 
                     <android.support.v7.widget.RecyclerView
@@ -115,16 +124,16 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp1"
-                        android:layout_marginBottom="@dimen/dp10"
                         android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginBottom="@dimen/dp10"
                         android:background="@color/view_color" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp10"
-                        android:layout_marginRight="@dimen/dp10"
-                        android:layout_marginTop="@dimen/dp10">
+                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp10">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -148,8 +157,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp10"
-                        android:layout_marginRight="@dimen/dp10"
-                        android:layout_marginTop="@dimen/dp5">
+                        android:layout_marginTop="@dimen/dp5"
+                        android:layout_marginRight="@dimen/dp10">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -173,8 +182,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp10"
-                        android:layout_marginRight="@dimen/dp10"
-                        android:layout_marginTop="@dimen/dp5">
+                        android:layout_marginTop="@dimen/dp5"
+                        android:layout_marginRight="@dimen/dp10">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -198,8 +207,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp10"
-                        android:layout_marginRight="@dimen/dp10"
-                        android:layout_marginTop="@dimen/dp5">
+                        android:layout_marginTop="@dimen/dp5"
+                        android:layout_marginRight="@dimen/dp10">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -222,10 +231,10 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
                         android:layout_marginLeft="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp5"
                         android:layout_marginRight="@dimen/dp10"
-                        android:layout_marginTop="@dimen/dp5">
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -250,8 +259,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp10"
-                        android:layout_marginRight="@dimen/dp10"
-                        android:layout_marginTop="@dimen/dp20">
+                        android:layout_marginTop="@dimen/dp20"
+                        android:layout_marginRight="@dimen/dp10">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -288,6 +297,7 @@
                 android:textColor="@color/white" />
 
         </RelativeLayout>
+
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh1"

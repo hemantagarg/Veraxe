@@ -167,5 +167,6 @@
     <string name="get_report">Get Report</string>
     <string name="fee_extra">Fee Extra</string>
     <string name="fee_discount">Fee Discount</string>
+    <string name="no_fee_available">No Fee Available</string>
 
 </resources>

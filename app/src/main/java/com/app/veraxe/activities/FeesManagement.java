@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -84,6 +85,10 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
     TextView mTvPayableAmount;
     @BindView(R.id.mBtnPayNow)
     Button mBtnPayNow;
+    @BindView(R.id.mTvNoFee)
+    TextView mTvNoFee;
+    @BindView(R.id.mNestedScroll)
+    NestedScrollView mNestedScroll;
     @BindView(R.id.mRlPaybaleFees)
     RelativeLayout mRlPaybaleFees;
     private BroadcastReceiver broadcastReceiver;
@@ -367,9 +372,15 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
                         mTvPayableAmount.setText(summery.getPayableAmount());
                         mTvDiscount.setText(summery.getDiscount());
                     }
-
+                    mNestedScroll.setVisibility(View.VISIBLE);
+                    mTvNoFee.setVisibility(View.GONE);
+                    mBtnPayNow.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
+                    mNestedScroll.setVisibility(View.GONE);
+                    mTvNoFee.setVisibility(View.VISIBLE);
+                    mBtnPayNow.setVisibility(View.GONE);
+
+                    //   Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
             } else if (method == 3) {
                 if (response.getString("response").equalsIgnoreCase("1")) {
