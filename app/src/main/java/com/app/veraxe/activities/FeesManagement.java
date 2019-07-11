@@ -330,6 +330,8 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
 
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
+                if (swipe_refresh1!=null)
+                    swipe_refresh1.setRefreshing(false);
 
             } else if (method == 2) {
                 if (response.getString("response").equalsIgnoreCase("1")) {
@@ -406,7 +408,13 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
             } else if (method == 4) {
                 if (response.getString("response").equalsIgnoreCase("1")) {
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
-                    finish();
+                    btn_teamb.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_selected));
+                    btn_teama.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.button_bg_unselected));
+                    btn_teamb.setTextColor(ContextCompat.getColor(context, R.color.white));
+                    btn_teama.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                    swipe_refresh1.setVisibility(View.VISIBLE);
+                    mRlPaybaleFees.setVisibility(View.GONE);
+                    feesList();
                 } else {
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
