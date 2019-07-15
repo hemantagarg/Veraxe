@@ -370,7 +370,7 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
                         mTvGrandTotal.setText(summery.getGrandTotal());
                         mTvSubTotal.setText(summery.getSubtotal());
                         mTvLastFeeBalance.setText(summery.getBalance());
-                        mTvPaymentCharges.setText(summery.getServiceAmount());
+                        mTvPaymentCharges.setText(summery.getExtra());
                         mTvPayableAmount.setText(summery.getPayableAmount());
                         mTvDiscount.setText(summery.getDiscount());
                     }

@@ -202,6 +202,31 @@
                             android:textSize="@dimen/text_size_15" />
 
                     </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Extra"
+                            android:textColor="@color/textcolordark"
+                            android:textSize="@dimen/text_size_15" />
+
+                        <TextView
+                            android:id="@+id/mTvPaymentCharges"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="0"
+                            android:textColor="@color/textcolordark"
+                            android:textSize="@dimen/text_size_15" />
+
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -228,31 +253,6 @@
 
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp10"
-                        android:layout_marginTop="@dimen/dp5"
-                        android:layout_marginRight="@dimen/dp10"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Payment Gateway Charge (4.00%)"
-                            android:textColor="@color/textcolordark"
-                            android:textSize="@dimen/text_size_15" />
-
-                        <TextView
-                            android:id="@+id/mTvPaymentCharges"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="0"
-                            android:textColor="@color/textcolordark"
-                            android:textSize="@dimen/text_size_15" />
-
-                    </RelativeLayout>
 
 
                     <RelativeLayout
