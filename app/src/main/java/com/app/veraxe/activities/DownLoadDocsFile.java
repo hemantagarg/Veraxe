@@ -55,8 +55,7 @@ public class DownLoadDocsFile extends IntentService {
     // Will be called asynchronously by OS.
     @Override
     protected void onHandleIntent(Intent intent) {
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
+
         String urlPath = intent.getStringExtra(URL);
         String fileName = intent.getStringExtra(FILENAME);
         fileType = intent.getStringExtra(FILETYPE);
@@ -80,25 +79,29 @@ public class DownLoadDocsFile extends IntentService {
             File file = new File(FILEPATH);
             MimeTypeMap map = MimeTypeMap.getSingleton();
             String ext = MimeTypeMap.getFileExtensionFromUrl(file.getName());
-            String type = map.getMimeTypeFromExtension(ext);
-
-            if (type == null)
-                type = "*/*";
-
+            String type = "";
+            if (fileType != null)
+                type = fileType;
+            else {
+                type = map.getMimeTypeFromExtension(ext);
+                if (type == null)
+                    type = "*/*";
+            }
+            Log.e("file type", type);
             Intent notificationIntent = new Intent(Intent.ACTION_VIEW);
             Uri data = FileProvider.getUriForFile(DownLoadDocsFile.this, BuildConfig.APPLICATION_ID + ".provider", file);
 
             notificationIntent.setDataAndType(data, type);
             notificationIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-            stackBuilder.addNextIntent(notificationIntent);
+            /*TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+            stackBuilder.addNextIntent(notificationIntent);*/
 
-          //  PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            PendingIntent pIntent = stackBuilder.getPendingIntent(
+            PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), notificationIntent, 0);
+         /*   PendingIntent pIntent = stackBuilder.getPendingIntent(
                     0,
                     PendingIntent.FLAG_UPDATE_CURRENT
-            );
+            );*/
             String title = context.getString(R.string.app_name);
 
             String CHANNEL_ID = "channel_veraxe";
@@ -138,7 +141,6 @@ public class DownLoadDocsFile extends IntentService {
         String fileName = "";
 
         public DownloadFileFromURL(Context context, String url, String fileName) {
-            // TODO Auto-generated constructor stub
             this.urlPath = url;
             this.fileName = fileName;
             this.execute(new String[]{});
