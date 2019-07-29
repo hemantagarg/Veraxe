@@ -3,19 +3,24 @@ package com.app.veraxe.activities;
 import android.app.Activity;
 import android.app.IntentService;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
+import com.app.veraxe.BuildConfig;
 import com.app.veraxe.R;
 import com.app.veraxe.utils.AppConstants;
 
@@ -86,10 +91,10 @@ public class DownLoadFile extends IntentService {
             type = "*/*";
 
         Intent notificationIntent = new Intent(Intent.ACTION_VIEW);
-        Uri data = Uri.fromFile(file);
+        Uri data = FileProvider.getUriForFile(DownLoadFile.this, BuildConfig.APPLICATION_ID + ".provider", file);
 
         notificationIntent.setDataAndType(data, type);
-
+        notificationIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         //  startActivity(notificationIntent);
         // Intent notificationIntent = new Intent(Intent.ACTION_PACKAGE_INSTALL, Uri.parse(downloadFilepath));
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
@@ -99,29 +104,31 @@ public class DownLoadFile extends IntentService {
 
         // Intent intent = new Intent(this, NotificationReceiver.class);
 // use System.currentTimeMillis() to have a unique ID for the pending intent
-        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), notificationIntent, 0);
+        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Random r = new Random();
         int when = r.nextInt(1000);
-// build notification
-// the addAction re-use the same intent to keep the example short
-        Notification notification = new Notification.Builder(context)
+        String CHANNEL_ID = "channel_veraxe";
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        CharSequence name = "Veraxe";// The user-visible name of the channel.
+        int importance = 0;
+
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_launcher)
                 .setContentTitle("Veraxe Notification")
                 .setContentText("Download completed")
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setContentIntent(pIntent)
-                .setAutoCancel(true).build();
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        // Play default notification sound
-        notification.defaults |= Notification.DEFAULT_SOUND;
+                .setAutoCancel(true)
+                .setChannelId(CHANNEL_ID)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pIntent);
 
-        //notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "your_sound_file_name.mp3");
-
-        // Vibrate if vibrate is enabled
-        notification.defaults |= Notification.DEFAULT_VIBRATE;
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+        notificationManager.notify(when, notification.build());
 
-        notificationManager.notify(when, notification);
     }
 
 

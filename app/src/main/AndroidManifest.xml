@@ -14,7 +14,7 @@
     <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
 
     <uses-permission
-        android:name="com.app.justclap.permission.MAPS_RECEIVE"
+        android:name="com.app.veraxe.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <application
@@ -355,6 +355,17 @@
             android:name=".activities.ZoomImageAcivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
     </application>
 
 </manifest>
