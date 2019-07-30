@@ -86,8 +86,8 @@ public class DownLoadDocsFile extends IntentService {
                 type = map.getMimeTypeFromExtension(ext);
                 if (type == null)
                     type = "*/*";
-          //  }
-            Log.e("file type", type);
+           // }
+            Log.e("file type","** "+ type +" fileType: "+fileType);
             Intent notificationIntent = new Intent(Intent.ACTION_VIEW);
             Uri data = FileProvider.getUriForFile(DownLoadDocsFile.this, BuildConfig.APPLICATION_ID + ".provider", file);
 
