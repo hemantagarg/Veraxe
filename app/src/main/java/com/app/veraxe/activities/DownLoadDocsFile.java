@@ -80,13 +80,13 @@ public class DownLoadDocsFile extends IntentService {
             MimeTypeMap map = MimeTypeMap.getSingleton();
             String ext = MimeTypeMap.getFileExtensionFromUrl(file.getName());
             String type = "";
-            if (fileType != null)
+           /* if (fileType != null)
                 type = fileType;
-            else {
+            else {*/
                 type = map.getMimeTypeFromExtension(ext);
                 if (type == null)
                     type = "*/*";
-            }
+          //  }
             Log.e("file type", type);
             Intent notificationIntent = new Intent(Intent.ACTION_VIEW);
             Uri data = FileProvider.getUriForFile(DownLoadDocsFile.this, BuildConfig.APPLICATION_ID + ".provider", file);
