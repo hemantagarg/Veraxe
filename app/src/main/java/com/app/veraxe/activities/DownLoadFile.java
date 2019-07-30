@@ -95,22 +95,13 @@ public class DownLoadFile extends IntentService {
 
         notificationIntent.setDataAndType(data, type);
         notificationIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        //  startActivity(notificationIntent);
-        // Intent notificationIntent = new Intent(Intent.ACTION_PACKAGE_INSTALL, Uri.parse(downloadFilepath));
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        //   notification.setLatestEventInfo(context, title, message, intent);
-
-        // Intent intent = new Intent(this, NotificationReceiver.class);
-// use System.currentTimeMillis() to have a unique ID for the pending intent
         PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Random r = new Random();
         int when = r.nextInt(1000);
         String CHANNEL_ID = "channel_veraxe";
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         CharSequence name = "Veraxe";// The user-visible name of the channel.
-        int importance = 0;
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_launcher)
@@ -124,6 +115,7 @@ public class DownLoadFile extends IntentService {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
             notificationManager.createNotificationChannel(mChannel);
         }
