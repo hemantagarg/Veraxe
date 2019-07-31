@@ -9,7 +9,7 @@ android {
         applicationId "com.app.veraxe"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 26
+        versionCode 27
         versionName "2.1"
         multiDexEnabled true
     }
@@ -22,6 +22,7 @@ android {
     dexOptions {
         javaMaxHeapSize = "4g"
     }
+
 }
 
 
