@@ -4,6 +4,7 @@ package com.app.veraxe;
  * Created by seocor1 on 9/14/2016.
  */
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -28,7 +29,7 @@ import java.util.Random;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
-    public static int BadgeCount=0;
+    public static int BadgeCount = 0;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -46,7 +47,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 
-    private void sendNotification(String messageBody, String title,String body) {
+    private void sendNotification(String messageBody, String title, String body) {
         PendingIntent pendingIntent;
         Log.e("title", "**" + title);
         Random r = new Random();
@@ -56,7 +57,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         pendingIntent = PendingIntent.getActivity(this, 0, intent2,
                 PendingIntent.FLAG_ONE_SHOT);
 
-       // String title = "Veraxe";
+        // String title = "Veraxe";
         int currentAPIVersion = Build.VERSION.SDK_INT;
         int icon = 0;
         if (currentAPIVersion == Build.VERSION_CODES.KITKAT) {
@@ -66,19 +67,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             icon = R.drawable.ic_launcher;
         }
 
-
+        String CHANNEL_ID = "channel_veraxe";
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(icon)
                 .setContentTitle(title)
                 .setContentText(messageBody)
+                .setChannelId(CHANNEL_ID)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_NONE;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "Veraxe", importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
         notificationManager.notify(when, notificationBuilder.build());
     }
 }
