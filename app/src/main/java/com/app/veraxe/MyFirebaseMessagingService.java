@@ -1,12 +1,9 @@
 package com.app.veraxe;
 
-/**
- * Created by seocor1 on 9/14/2016.
- */
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -22,9 +19,6 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Random;
 
-/**
- * Created by Hemanta on 5/27/2016.
- */
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -54,8 +48,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         int when = r.nextInt(1000);
         Intent intent2 = new Intent(this, Splash.class);
         intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        pendingIntent = PendingIntent.getActivity(this, 0, intent2,
-                PendingIntent.FLAG_ONE_SHOT);
+        pendingIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent2,
+                0);
 
         // String title = "Veraxe";
         int currentAPIVersion = Build.VERSION.SDK_INT;
@@ -67,24 +61,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             icon = R.drawable.ic_launcher;
         }
 
-        String CHANNEL_ID = "channel_veraxe";
+        String channelId = "channel_veraxe";
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, "Veraxe channel", importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+        PendingIntent resultPendingIntent =  PendingIntent.getActivity(this,
+                0,intent2,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,channelId)
                 .setSmallIcon(icon)
                 .setContentTitle(title)
                 .setContentText(messageBody)
-                .setChannelId(CHANNEL_ID)
                 .setAutoCancel(true)
+                .setChannelId(channelId)
                 .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(resultPendingIntent);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            int importance = NotificationManager.IMPORTANCE_NONE;
-            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "Veraxe", importance);
-            notificationManager.createNotificationChannel(mChannel);
-        }
         notificationManager.notify(when, notificationBuilder.build());
     }
 }
