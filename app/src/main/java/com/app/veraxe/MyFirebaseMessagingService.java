@@ -42,14 +42,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
     private void sendNotification(String messageBody, String title, String body) {
-        PendingIntent pendingIntent;
         Log.e("title", "**" + title);
         Random r = new Random();
         int when = r.nextInt(1000);
         Intent intent2 = new Intent(this, Splash.class);
         intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        pendingIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent2,
-                0);
 
         // String title = "Veraxe";
         int currentAPIVersion = Build.VERSION.SDK_INT;
