@@ -291,6 +291,7 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            //http://veraxe.com/api/savePayableFees
             String url = getResources().getString(R.string.base_url) + getResources().getString(R.string.savePayableFees);
             new CommonAsyncTaskVolley(3, context, this).getqueryJsonbject(url, jsonObject, Request.Method.POST);
         } else {
@@ -330,7 +331,7 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
 
                     Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
                 }
-                if (swipe_refresh1!=null)
+                if (swipe_refresh1 != null)
                     swipe_refresh1.setRefreshing(false);
 
             } else if (method == 2) {
@@ -607,7 +608,10 @@ public class FeesManagement extends AppCompatActivity implements OnCustomItemCli
             String transtatus = transactionList.get(0).getTRANSACTIONSTATUS();
             String message = transactionList.get(0).getSTATUSMSG();
             Log.e("transtatus", "* " + transtatus);
-            updatePaymentTransaction(apTransactionID, "1");
+            if (transtatus.equals("502"))
+                updatePaymentTransaction("", "2");
+            else
+                updatePaymentTransaction(apTransactionID, "1");
         } else updatePaymentTransaction("", "2");
     }
 

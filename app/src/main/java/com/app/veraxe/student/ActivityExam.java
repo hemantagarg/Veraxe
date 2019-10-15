@@ -168,38 +168,6 @@ public class ActivityExam extends AppCompatActivity implements OnCustomItemClicL
         }
     }
 
-    private String dummyData() {
-        return "{\n" +
-                "    \"response\": 1,\n" +
-                "    \"result\": [\n" +
-                "        {\n" +
-                "            \"subjectId\": \"11\",\n" +
-                "            \"subjectName\": \"Social\",\n" +
-                "            \"examMarks\": \"100\",\n" +
-                "            \"studentMarks\": \"72.00\"\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"subjectId\": \"10\",\n" +
-                "            \"subjectName\": \"Science\",\n" +
-                "            \"examMarks\": \"20\",\n" +
-                "            \"studentMarks\": \"13.00\"\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"subjectId\": \"8\",\n" +
-                "            \"subjectName\": \"Hindi\",\n" +
-                "            \"examMarks\": \"100\",\n" +
-                "            \"studentMarks\": \"68.00\"\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"subjectId\": \"9\",\n" +
-                "            \"subjectName\": \"English\",\n" +
-                "            \"examMarks\": \"100\",\n" +
-                "            \"studentMarks\": \"76.00\"\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}\n";
-    }
-
     public void setListener() {
 
         mBtnFetch.setOnClickListener(new View.OnClickListener() {
